@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dibyajit Das Gupta | Personal Portfolio</title>
+  <meta name="description" content="Aspiring Computer Science Engineer with hands-on expertise in software development, AI, cybersecurity, data analytics, and business analysis.">
+  <meta name="publisher" content="Dibyajit Das Gupta">
+  
+  <!-- Favicon Mock -->
+  <link rel="icon" type="image/png" href="avatar.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <!-- Style link -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Decorative Blurs -->
+  <div class="bg-blur bg-blur-1"></div>
+  <div class="bg-blur bg-blur-2"></div>
+  <div class="bg-blur bg-blur-3"></div>
+
+  <!-- Header & Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-container">
+      <a href="#hero" class="logo">
+        <span class="logo-accent">&lt;</span>Dibyajit<span class="logo-accent"> /&gt;</span>
+      </a>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#experiences" class="nav-link">Experience</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#achievements" class="nav-link">Achievements</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="btn-icon" aria-label="Toggle dark/light theme">
+          <i data-lucide="sun" class="sun-icon"></i>
+          <i data-lucide="moon" class="moon-icon"></i>
+        </button>
+        <button id="mobile-toggle" class="btn-icon mobile-only" aria-label="Open mobile menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    
+    <!-- Hero Section -->
+    <section class="hero-section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-text animate-fade-in-left">
+          <span class="badge">Welcome to my Digital Space</span>
+          <h1>Hi, I'm <span class="gradient-text font-outfit">Dibyajit Das Gupta</span></h1>
+          <h2 class="role-container">
+            I am a <span class="typed-text gradient-secondary" id="typed-text"></span><span class="cursor">&nbsp;</span>
+          </h2>
+          <p class="hero-desc">
+            Aspiring Computer Science Engineer with hands-on expertise in software development, AI, cybersecurity, data analytics, and business analysis. Passionate about innovation, entrepreneurship, and building impactful technology solutions through continuous learning and adaptability.
+          </p>
+          
+          <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary"><i data-lucide="mail"></i> Hire Me</a>
+            <a href="resume.pdf" class="btn btn-outline" download><i data-lucide="download"></i> Download Resume</a>
+          </div>
+
+          <div class="social-links">
+            <a href="https://github.com/dibyajitgupta06" target="_blank" rel="noopener" aria-label="GitHub"><i data-lucide="github"></i></a>
+            <a href="https://www.linkedin.com/in/dibyajit-das-gupta-894713250/" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+            <a href="mailto:dibyajit2002das@gmail.com" aria-label="Email"><i data-lucide="mail"></i></a>
+            <a href="tel:+8801815346963" aria-label="Phone"><i data-lucide="phone"></i></a>
+          </div>
+        </div>
+
+        <div class="hero-image-container animate-fade-in-right">
+          <div class="avatar-wrapper">
+            <img src="avatar.jpg" alt="Dibyajit Das Gupta" class="avatar-img">
+            <div class="avatar-ring"></div>
+            <div class="tech-badge badge-1"><i data-lucide="code"></i></div>
+            <div class="tech-badge badge-2"><i data-lucide="brain"></i></div>
+            <div class="tech-badge badge-3"><i data-lucide="shield"></i></div>
+          </div>
+        </div>
+      </div>
+      <a href="#about" class="scroll-down" aria-label="Scroll Down">
+        <div class="mouse-icon">
+          <div class="wheel"></div>
+        </div>
+      </a>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section section-padding" id="about">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="font-outfit gradient-text">About Me</h2>
+          <p class="section-subtitle">My journey, education background, and core values</p>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-card glass-card">
+            <div class="card-icon gradient-glow-cyan"><i data-lucide="user"></i></div>
+            <h3>Who I Am</h3>
+            <p>
+              I am an aspiring Computer Science Engineer specializing in software development, AI, cybersecurity, data analytics, and business analysis. My tech stack includes programming languages like C++, Python, Java, and SQL, alongside expertise in web development, machine learning, and cybersecurity. 
+            </p>
+            <p style="margin-top: 1rem;">
+              Passionate about innovation and entrepreneurship, I enjoy building impactful technology solutions. Beyond coding, I am actively involved in leadership roles and creative pursuits such as music (drumming) and esports, which bring a fun and collaborative edge to my professional life.
+            </p>
+          </div>
+
+          <div class="about-card glass-card">
+            <div class="card-icon gradient-glow-purple"><i data-lucide="graduation-cap"></i></div>
+            <h3>Education</h3>
+            <div class="education-list">
+              <div class="education-item">
+                <span class="year-badge">2022 - 2026</span>
+                <h4>B.Tech in Computer Science & Engineering</h4>
+                <p class="school">National Institute Of Technology Sikkim</p>
+                <span class="honors-tag"><i data-lucide="award"></i> ICCR Scholar</span>
+              </div>
+              <div class="education-item">
+                <span class="year-badge">2019 - 2021</span>
+                <h4>Class XII General Science</h4>
+                <p class="school">Chattogram College, Bangladesh</p>
+              </div>
+              <div class="education-item">
+                <span class="year-badge">2012 - 2018</span>
+                <h4>Class X General Science</h4>
+                <p class="school">Chittagong Collegiate School, Bangladesh</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section section-padding" id="skills">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="font-outfit gradient-text">Technical Skills</h2>
+          <p class="section-subtitle">A showcase of technologies and tools I excel in</p>
+        </div>
+
+        <div class="skills-grid">
+          
+          <div class="skill-category glass-card">
+            <div class="category-header">
+              <i data-lucide="terminal" class="cyan"></i>
+              <h3>Programming Languages</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">C++</span>
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">Java</span>
+              <span class="skill-tag">JavaScript</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">C</span>
+            </div>
+          </div>
+
+          <div class="skill-category glass-card">
+            <div class="category-header">
+              <i data-lucide="globe" class="purple"></i>
+              <h3>Web Development</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">React.js</span>
+              <span class="skill-tag">Node.js</span>
+              <span class="skill-tag">Express.js</span>
+              <span class="skill-tag">MongoDB</span>
+              <span class="skill-tag">HTML5 & CSS3</span>
+              <span class="skill-tag">Tailwind CSS</span>
+              <span class="skill-tag">UI/UX (Figma)</span>
+              <span class="skill-tag">JWT Auth</span>
+            </div>
+          </div>
+
+          <div class="skill-category glass-card">
+            <div class="category-header">
+              <i data-lucide="bar-chart" class="cyan"></i>
+              <h3>Data Analytics & BI</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Power BI</span>
+              <span class="skill-tag">Tableau</span>
+              <span class="skill-tag">Data Visualization</span>
+              <span class="skill-tag">Google Colab</span>
+              <span class="skill-tag">Recharts</span>
+              <span class="skill-tag">Excel Analytics</span>
+            </div>
+          </div>
+
+          <div class="skill-category glass-card">
+            <div class="category-header">
+              <i data-lucide="cpu" class="purple"></i>
+              <h3>Machine Learning & AI</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Machine Learning</span>
+              <span class="skill-tag">Deep Learning</span>
+              <span class="skill-tag">Generative AI</span>
+              <span class="skill-tag">LLMs & RAG</span>
+              <span class="skill-tag">Prompt Engineering</span>
+              <span class="skill-tag">Image Processing</span>
+            </div>
+          </div>
+
+          <div class="skill-category glass-card">
+            <div class="category-header">
+              <i data-lucide="shield" class="cyan"></i>
+              <h3>Cybersecurity & Networking</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Cybersecurity</span>
+              <span class="skill-tag">Wireless Security</span>
+              <span class="skill-tag">Cisco Packet Tracer</span>
+              <span class="skill-tag">NetSim</span>
+              <span class="skill-tag">Threat Analysis</span>
+              <span class="skill-tag">Access Control</span>
+            </div>
+          </div>
+
+          <div class="skill-category glass-card">
+            <div class="category-header">
+              <i data-lucide="wrench" class="purple"></i>
+              <h3>DevOps & Tools</h3>
+            </div>
+            <div class="skill-tags">
+              <span class="skill-tag">Git & GitHub</span>
+              <span class="skill-tag">Vercel & Render</span>
+              <span class="skill-tag">Postman API</span>
+              <span class="skill-tag">Shell Scripting</span>
+              <span class="skill-tag">LaTeX Document</span>
+              <span class="skill-tag">Unity Engine</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Professional Experience Section -->
+    <section class="experience-section section-padding" id="experiences">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="font-outfit gradient-text">Professional Experience</h2>
+          <p class="section-subtitle">My internship history, virtual simulations, and leadership roles</p>
+        </div>
+
+        <div class="timeline-container">
+          
+          <!-- Experience Card 1 -->
+          <div class="timeline-item glass-card" data-category="internship">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>Business Analyst Intern</h3>
+                <h4 class="company">SELISE Bangladesh Ltd <span class="location"><i data-lucide="map-pin"></i> Dhaka, Bangladesh</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">April 2025</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Analyzed business processes and developed Power BI dashboards to enhance data visualization and support decision-making processes.</li>
+                <li>Assisted in gathering and documenting business requirements that supported the implementation of digital platform solutions.</li>
+                <li>Collaborated closely with Finance and HR teams to streamline workflows, leading to improved operational efficiency and software performance.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Business Analysis</span>
+                <span class="tag">Power BI</span>
+                <span class="tag">Process Improvement</span>
+                <span class="tag">Stakeholder Collaboration</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Card 2 -->
+          <div class="timeline-item glass-card" data-category="simulation">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>Business Analyst Virtual Intern</h3>
+                <h4 class="company">PwC Switzerland <span class="location"><i data-lucide="laptop"></i> Virtual</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">Feb 2025</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Completed a comprehensive job simulation focused on strengthening Power BI and data visualization capabilities.</li>
+                <li>Created dynamic Power BI dashboards to effectively communicate KPIs and client insights.</li>
+                <li>Interpreted analytical findings and presented actionable recommendations to engagement partners.</li>
+                <li>Assessed HR data to identify gender balance issues through data-driven analysis.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Power BI</span>
+                <span class="tag">HR Analytics</span>
+                <span class="tag">Consulting</span>
+                <span class="tag">Data Visualization</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Card 3 -->
+          <div class="timeline-item glass-card" data-category="simulation">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>Data Analytics Job Simulation</h3>
+                <h4 class="company">Deloitte Australia <span class="location"><i data-lucide="laptop"></i> Virtual</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">Feb 2025</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Engaged in a data analytics and forensic technology job simulation involving interactive dashboard creation using Tableau.</li>
+                <li>Performed data classification and business insight generation using Excel.</li>
+                <li>Developed analytical skills applicable to business intelligence and forensic data examination.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Data Analytics</span>
+                <span class="tag">Tableau</span>
+                <span class="tag">Forensic Tech</span>
+                <span class="tag">Excel</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Card 4 -->
+          <div class="timeline-item glass-card" data-category="simulation">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>Product Design Virtual Experience</h3>
+                <h4 class="company">Accenture North America <span class="location"><i data-lucide="laptop"></i> Virtual</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">Dec 2024</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Completed a product design simulation focused on improving user experience by adding new features and iterating existing product screens.</li>
+                <li>Communicated design decisions and UX improvements effectively to stakeholders.</li>
+                <li>Gained experience with product design processes and user-centric feature development.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Product Design</span>
+                <span class="tag">UX / UI</span>
+                <span class="tag">Stakeholder Presentation</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Card 5 -->
+          <div class="timeline-item glass-card" data-category="internship">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>Hospital Software Developer Intern</h3>
+                <h4 class="company">Shajinaz Hospital Ltd <span class="location"><i data-lucide="map-pin"></i> Chattogram, Bangladesh</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">June 2024</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Developed software solutions addressing hospital management needs including patient records, billing, and scheduling.</li>
+                <li>Managed healthcare databases using SQL to ensure secure data storage and retrieval.</li>
+                <li>Designed user-friendly interfaces and collaborated with developers and stakeholders to improve functionality and efficiency of healthcare software.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Software Development</span>
+                <span class="tag">SQL Databases</span>
+                <span class="tag">UI/UX</span>
+                <span class="tag">Healthcare IT</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Card 6 -->
+          <div class="timeline-item glass-card" data-category="internship">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>Artificial Intelligence Intern</h3>
+                <h4 class="company">CodeClause <span class="location"><i data-lucide="laptop"></i> Virtual</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">June 2024</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Developed various AI systems including a Tic-Tac-Toe game and object detection/classification for images and video streams.</li>
+                <li>Built an AI-driven personality prediction system based on computer vision analysis.</li>
+                <li>Enhanced skills in machine learning, computer vision, and AI application development through practical projects.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">AI System Development</span>
+                <span class="tag">Computer Vision</span>
+                <span class="tag">Python</span>
+                <span class="tag">Machine Learning</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Card 7 -->
+          <div class="timeline-item glass-card" data-category="simulation">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>Software Engineering Virtual Program</h3>
+                <h4 class="company">J.P. Morgan <span class="location"><i data-lucide="laptop"></i> Virtual</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">May 2024</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Configured local development environments and fixed repository issues to restore web application functionality.</li>
+                <li>Utilized J.P. Morgan’s Perspective library to generate and visualize live financial data effectively.</li>
+                <li>Gained experience in software development lifecycle practices and financial data application development.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Software Engineering</span>
+                <span class="tag">Perspective.js</span>
+                <span class="tag">Data Visualization</span>
+                <span class="tag">Debugging</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Card 8 -->
+          <div class="timeline-item glass-card" data-category="simulation">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>Cyber Security Virtual Program</h3>
+                <h4 class="company">J.P. Morgan <span class="location"><i data-lucide="laptop"></i> Virtual</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">May 2024</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Analyzed fraud datasets related to financial payment services to detect anomalies and fraud patterns.</li>
+                <li>Applied application security fundamentals to build an email spam classifier system.</li>
+                <li>Designed systems to enhance access control measures protecting sensitive financial information.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Cybersecurity</span>
+                <span class="tag">Fraud Detection</span>
+                <span class="tag">Spam Classification</span>
+                <span class="tag">Access Control</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Card 9 -->
+          <div class="timeline-item glass-card" data-category="simulation">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>AI Job Simulation</h3>
+                <h4 class="company">Cognizant <span class="location"><i data-lucide="laptop"></i> Virtual</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">March 2024</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Completed an AI-focused job simulation as part of Cognizant's Data Science team training program.</li>
+                <li>Performed exploratory data analysis using Python and Google Colab to prepare datasets for model building.</li>
+                <li>Developed Python modules for machine learning model training and evaluation and presented findings through business reports.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Data Science</span>
+                <span class="tag">Python</span>
+                <span class="tag">Machine Learning</span>
+                <span class="tag">Model Evaluation</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Card 10 -->
+          <div class="timeline-item glass-card" data-category="simulation">
+            <div class="timeline-dot"></div>
+            <div class="timeline-header">
+              <div class="timeline-title-area">
+                <h3>Cybersecurity Virtual Program</h3>
+                <h4 class="company">Mastercard <span class="location"><i data-lucide="laptop"></i> Virtual</span></h4>
+              </div>
+              <div class="timeline-meta">
+                <span class="timeline-date">March 2024</span>
+                <i data-lucide="chevron-down" class="expand-icon"></i>
+              </div>
+            </div>
+            <div class="timeline-content">
+              <ul>
+                <li>Served as an analyst on Mastercard's Security Awareness Team, focusing on identifying and reporting cybersecurity threats such as phishing attacks.</li>
+                <li>Conducted organizational security gap analyses and implemented effective awareness training procedures to enhance security posture.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">Threat Identification</span>
+                <span class="tag">Security Awareness</span>
+                <span class="tag">Risk Management</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section section-padding" id="projects">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="font-outfit gradient-text">Featured Projects</h2>
+          <p class="section-subtitle">Academic research, applications, and DBMS implementations</p>
+        </div>
+
+        <div class="project-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="academic">Academic & Thesis</button>
+          <button class="filter-btn" data-filter="ai">AI / ML</button>
+          <button class="filter-btn" data-filter="db">Database & Full-Stack</button>
+        </div>
+
+        <div class="projects-grid">
+          
+          <!-- Project 1 -->
+          <div class="project-card glass-card" data-categories="academic">
+            <div class="project-info">
+              <span class="project-category">B.Tech Thesis Project (2025 - 2026)</span>
+              <h3>Certificateless Short Signature Scheme for VANETs</h3>
+              <p>
+                Designed a lightweight cryptographic short signature authentication scheme to secure communication in Vehicular Ad Hoc Networks (VANETs) using Named Data Networking (NDN). Reduces communication overhead and enables efficient broadcast authentication in high-mobility vehicular environments.
+              </p>
+              <div class="project-tags">
+                <span>Cryptography</span>
+                <span>Vehicular Networks</span>
+                <span>NDN</span>
+                <span>Network Security</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="project-card glass-card" data-categories="db">
+            <div class="project-info">
+              <span class="project-category">Personal Project (2026)</span>
+              <h3>MedFlow – AI-Powered Healthcare Platform</h3>
+              <p>
+                Developed a full-stack healthcare management platform using React, Node.js, Express, and MongoDB. Implemented JWT authentication, role-based access control, and RESTful APIs for patient, appointment, and prescription management. Set up data analytics dashboards.
+              </p>
+              <div class="project-tags">
+                <span>MERN Stack</span>
+                <span>JWT Auth</span>
+                <span>MongoDB Atlas</span>
+                <span>API Development</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="project-card glass-card" data-categories="ai">
+            <div class="project-info">
+              <span class="project-category">Self-Initiated Project</span>
+              <h3>AI-Powered Dermatological Platform (ADDEP)</h3>
+              <p>
+                Created a conversational image recognition chatbot (ADDEP) designed for dermatological diagnosis and education. Leveraged computer vision algorithms to analyze skin condition images and natural language processing for educational interaction.
+              </p>
+              <div class="project-tags">
+                <span>AI</span>
+                <span>Computer Vision</span>
+                <span>NLP Chatbot</span>
+                <span>Image Processing</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="project-card glass-card" data-categories="ai">
+            <div class="project-info">
+              <span class="project-category">IIT Bombay E-Summit (2023)</span>
+              <h3>AI-Powered Renewable Energy Integration</h3>
+              <p>
+                Created a smart grid business model leveraging artificial intelligence to help power utility providers integrate renewable energy sources. Optimized energy distribution grids using predictive algorithms for power scheduling.
+              </p>
+              <div class="project-tags">
+                <span>AI Prediction</span>
+                <span>Smart Grids</span>
+                <span>Energy Management</span>
+                <span>Business Model</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 5 -->
+          <div class="project-card glass-card" data-categories="db">
+            <div class="project-info">
+              <span class="project-category">NIT Sikkim DBMS Project</span>
+              <h3>Classroom Allotment System</h3>
+              <p>
+                A relational database management system designed to optimize room allocations for university schedules. Tracks Students, Faculty, Schedules, Classrooms, and Departments, preventing double bookings and optimizing room capacities.
+              </p>
+              <div class="project-tags">
+                <span>MySQL</span>
+                <span>PHP</span>
+                <span>Data Normalization</span>
+                <span>Scheduling</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 6 -->
+          <div class="project-card glass-card" data-categories="db">
+            <div class="project-info">
+              <span class="project-category">NIT Sikkim DBMS Project</span>
+              <h3>Water Supply Management System</h3>
+              <p>
+                A database application for water resource utility tracking, distribution network metrics, and billing. Models data relationships between Customers, Sources, Treatment Plants, Distribution Pipes, and Meters.
+              </p>
+              <div class="project-tags">
+                <span>MySQL</span>
+                <span>PHP</span>
+                <span>Relational Schema</span>
+                <span>Billing Logic</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Achievements & Certifications -->
+    <section class="achievements-section section-padding" id="achievements">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="font-outfit gradient-text">Honors, Achievements & Credentials</h2>
+          <p class="section-subtitle">Recognition, hackathons, and certified qualifications</p>
+        </div>
+
+        <div class="ach-grid">
+          
+          <div class="ach-column">
+            <h3 class="column-title"><i data-lucide="trophy"></i> Key Achievements</h3>
+            
+            <div class="ach-item glass-card">
+              <div class="ach-icon"><i data-lucide="star"></i></div>
+              <div class="ach-details">
+                <h4>Winner of Inter NIT Hackathon 2026</h4>
+                <p>Won first place at Abhiyantran'2026, the Annual Technical Fest of NIT Sikkim, proving advanced engineering and software problem solving.</p>
+              </div>
+            </div>
+
+            <div class="ach-item glass-card">
+              <div class="ach-icon"><i data-lucide="award"></i></div>
+              <div class="ach-details">
+                <h4>Elite Rank - NPTEL IIT Madras</h4>
+                <p>Scored an Elite Rank (consolidated 76%) in Business Intelligence & Analytics, certifying advanced data capabilities.</p>
+              </div>
+            </div>
+
+            <div class="ach-item glass-card">
+              <div class="ach-icon"><i data-lucide="flame"></i></div>
+              <div class="ach-details">
+                <h4>Winner - E-Summit IIT Bombay 2023</h4>
+                <p>Won the Entrepreneurship Summit ideation challenge inspired by Eureka for AI-powered Renewable Energy Integration business model.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="ach-column">
+            <h3 class="column-title"><i data-lucide="medal"></i> Certifications</h3>
+            
+            <div class="ach-item glass-card">
+              <div class="ach-icon"><i data-lucide="check-circle"></i></div>
+              <div class="ach-details">
+                <h4>British Council APTIS CEFR B2</h4>
+                <p>Certified in English proficiency (CEFR Grade B2) validating professional and international communication capacity.</p>
+              </div>
+            </div>
+
+            <div class="ach-item glass-card">
+              <div class="ach-icon"><i data-lucide="check-circle"></i></div>
+              <div class="ach-details">
+                <h4>Business Analyst Assessment (Leantube 2024)</h4>
+                <p>Validated skillset in business process analytics, documentation, and stakeholder requirement mappings.</p>
+              </div>
+            </div>
+
+            <div class="ach-item glass-card">
+              <div class="ach-icon"><i data-lucide="check-circle"></i></div>
+              <div class="ach-details">
+                <h4>Virtual Internships Certifications</h4>
+                <p>PwC Switzerland (Business Analysis), Deloitte Australia (Data Analytics), J.P. Morgan (Software Engineering & Cyber), Mastercard (Cybersecurity).</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Clubs & Associations sub-section -->
+        <div class="clubs-area glass-card">
+          <div class="clubs-header">
+            <i data-lucide="users"></i>
+            <h3>Clubs, Leadership & Extracurriculars</h3>
+          </div>
+          <div class="clubs-grid">
+            <div class="club-tag"><i data-lucide="users"></i> General Secretary - Cultural & Creative Society (CCS), NIT Sikkim</div>
+            <div class="club-tag"><i data-lucide="globe"></i> Foreign Affairs Officer - Entrepreneurship & Innovation Cell, NIT Sikkim</div>
+            <div class="club-tag"><i data-lucide="code"></i> Executive Member - DevCans Coding Club, NIT Sikkim</div>
+            <div class="club-tag"><i data-lucide="pen-tool"></i> Executive Member - TRI (The Regnant Ink), NIT Sikkim</div>
+            <div class="club-tag"><i data-lucide="music"></i> Drummer - Music & Cultural Wing, NIT Sikkim</div>
+            <div class="club-tag"><i data-lucide="gamepad"></i> Valorant Esports Player - Esports Wing, NIT Sikkim</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section section-padding" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="font-outfit gradient-text">Get In Touch</h2>
+          <p class="section-subtitle">Interested in collaboration or hiring? Send a message.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-info glass-card">
+            <h3>Contact Details</h3>
+            <p>Feel free to reach out to me directly. I will respond as soon as possible.</p>
+            
+            <div class="contact-methods">
+              <a href="mailto:dibyajit2002das@gmail.com" class="contact-method">
+                <i data-lucide="mail"></i>
+                <div>
+                  <h4>Email</h4>
+                  <p>dibyajit2002das@gmail.com</p>
+                </div>
+              </a>
+              <a href="tel:+8801815346963" class="contact-method">
+                <i data-lucide="phone"></i>
+                <div>
+                  <h4>Phone</h4>
+                  <p>+880 1815346963 / +91 9635069155</p>
+                </div>
+              </a>
+              <div class="contact-method">
+                <i data-lucide="map-pin"></i>
+                <div>
+                  <h4>Location</h4>
+                  <p>Chattogram, Bangladesh</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-circles">
+              <a href="https://github.com/dibyajitgupta06" target="_blank" rel="noopener" aria-label="GitHub"><i data-lucide="github"></i></a>
+              <a href="https://www.linkedin.com/in/dibyajit-das-gupta-894713250/" target="_blank" rel="noopener" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="contact-form glass-card">
+            <h3>Send Message</h3>
+            <form id="portfolio-contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" id="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" placeholder="john@example.com" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" placeholder="Collaboration / Hiring" required>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5" placeholder="Hi Dibyajit, I would love to connect..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary" id="form-submit"><i data-lucide="send"></i> Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>&copy; 2026 Dibyajit Das Gupta. All rights reserved.</p>
+      <p>Designed with <span class="heart">&hearts;</span> and built using modern HTML & CSS.</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
