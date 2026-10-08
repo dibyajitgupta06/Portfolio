@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const themeToggle = document.getElementById('theme-toggle');
   const themeCards = document.querySelectorAll('.theme-card');
   const htmlElement = document.documentElement;
-  const savedTheme = localStorage.getItem('theme') || 'dark';
+  const savedTheme = localStorage.getItem('theme') || 'light';
 
   function applyTheme(theme) {
     htmlElement.setAttribute('data-theme', theme);
