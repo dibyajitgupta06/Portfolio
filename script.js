@@ -424,12 +424,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ─────────────────────────────────────────────────────────────────────────
-  // 17. INTERACTIVE CANVAS PARTICLE FIELD
-  //     - Particles float + connect with lines
-  //     - Mouse repels nearby particles
-  //     - Click creates ripple burst
-  //     - Scroll shifts particle parallax
-  //     - Light/dark aware colors
+  // 17. INTERACTIVE CANVAS — INVISIBLE NODE NETWORK
+  //     No dots. No circles. Only ultra-thin connection lines + mouse glow.
+  //     Nodes are invisible — lines appear only between close nodes.
+  //     Mouse attracts nearby nodes. Click fires expanding ring.
   // ─────────────────────────────────────────────────────────────────────────
   const canvas = document.getElementById('particle-canvas');
   if (canvas) {
@@ -437,137 +435,141 @@ document.addEventListener('DOMContentLoaded', () => {
     let W = canvas.width  = window.innerWidth;
     let H = canvas.height = window.innerHeight;
 
-    const PARTICLE_COUNT = window.innerWidth < 768 ? 40 : 72;
-    const CONNECTION_DIST = 130;
-    const REPEL_DIST = 120;
-    const REPEL_STRENGTH = 5.5;
+    const NODE_COUNT     = window.innerWidth < 768 ? 30 : 55;
+    const CONNECT_DIST   = 160;
+    const MOUSE_ATTRACT  = 90;   // range in px
+    const ATTRACT_FORCE  = 1.8;
+    const SPEED          = 0.28;
 
     let mouse = { x: -9999, y: -9999 };
-    let scrollY = 0;
-    let isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+    let lastScroll = window.scrollY;
+    const isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
 
-    // Build particles
-    class Particle {
-      constructor() { this.reset(true); }
-      reset(initial = false) {
+    // Invisible nodes — no draw() call
+    class Node {
+      constructor() {
         this.x  = Math.random() * W;
-        this.y  = initial ? Math.random() * H : -10;
-        this.vx = (Math.random() - 0.5) * 0.38;
-        this.vy = (Math.random() - 0.5) * 0.38;
-        this.r  = Math.random() * 1.6 + 0.6;
-        this.alpha = Math.random() * 0.45 + 0.12;
-        this.ox = this.x; // original x for scroll parallax
-        this.oy = this.y;
-        this.scrollFactor = Math.random() * 0.06 + 0.01;
+        this.y  = Math.random() * H;
+        this.vx = (Math.random() - 0.5) * SPEED;
+        this.vy = (Math.random() - 0.5) * SPEED;
+        this.scrollSpeed = Math.random() * 0.04 + 0.01;
       }
       update(scrollDelta) {
-        this.x += this.vx;
-        this.y += this.vy + scrollDelta * this.scrollFactor;
-
-        // Soft-wall bounce
-        if (this.x < 0 || this.x > W) this.vx *= -1;
-        if (this.y < 0 || this.y > H) this.vy *= -1;
-        this.x = Math.max(0, Math.min(W, this.x));
-        this.y = Math.max(0, Math.min(H, this.y));
-
-        // Mouse repulsion
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < REPEL_DIST && dist > 0) {
-          const force = (1 - dist / REPEL_DIST) * REPEL_STRENGTH;
-          this.x += (dx / dist) * force;
-          this.y += (dy / dist) * force;
+        // Mouse soft-attract
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const d  = Math.sqrt(dx * dx + dy * dy);
+        if (d < MOUSE_ATTRACT && d > 0) {
+          const f = (1 - d / MOUSE_ATTRACT) * ATTRACT_FORCE * 0.012;
+          this.vx += dx / d * f;
+          this.vy += dy / d * f;
         }
-      }
-      draw() {
-        const dark = isDark();
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-        ctx.fillStyle = dark
-          ? `rgba(255, 43, 43, ${this.alpha * 0.9})`
-          : `rgba(255, 43, 43, ${this.alpha * 0.55})`;
-        ctx.fill();
+
+        // Velocity damping
+        this.vx *= 0.992;
+        this.vy *= 0.992;
+
+        // Clamp speed
+        const spd = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        if (spd > SPEED * 2.5) {
+          this.vx = (this.vx / spd) * SPEED * 2.5;
+          this.vy = (this.vy / spd) * SPEED * 2.5;
+        }
+
+        this.x += this.vx;
+        this.y += this.vy + scrollDelta * this.scrollSpeed;
+
+        // Wrap edges (nodes reappear on opposite side — no flicker bounce)
+        if (this.x < -20)  this.x = W + 20;
+        if (this.x > W+20) this.x = -20;
+        if (this.y < -20)  this.y = H + 20;
+        if (this.y > H+20) this.y = -20;
       }
     }
 
-    const particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
+    const nodes = Array.from({ length: NODE_COUNT }, () => new Node());
 
-    // Ripple clicks — listen on window since canvas has pointer-events: none
+    // Click ripples
     const ripples = [];
     window.addEventListener('click', (e) => {
-      ripples.push({ x: e.clientX, y: e.clientY, r: 0, alpha: 0.65, maxR: 100 });
+      ripples.push({ x: e.clientX, y: e.clientY, r: 4, maxR: 110, alpha: 0.55 });
     }, { passive: true });
 
-    // Track mouse
     window.addEventListener('mousemove', (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     }, { passive: true });
 
-    // Track scroll for parallax
-    let lastScrollForParticle = 0;
-    window.addEventListener('scroll', () => {
-      scrollY = window.scrollY;
-    }, { passive: true });
-
-    // Resize
+    window.addEventListener('scroll', () => {}, { passive: true });
     window.addEventListener('resize', () => {
       W = canvas.width  = window.innerWidth;
       H = canvas.height = window.innerHeight;
     });
 
-    // Draw loop
     function drawLoop() {
       ctx.clearRect(0, 0, W, H);
 
-      const scrollDelta = scrollY - lastScrollForParticle;
-      lastScrollForParticle = scrollY;
+      const currentScroll = window.scrollY;
+      const scrollDelta   = (currentScroll - lastScroll) * 0.35;
+      lastScroll = currentScroll;
       const dark = isDark();
 
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const p1 = particles[i], p2 = particles[j];
-          const dx = p1.x - p2.x, dy = p1.y - p2.y;
+      // Update nodes
+      nodes.forEach(n => n.update(scrollDelta));
+
+      // Draw connection lines ONLY — no node dots
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < CONNECTION_DIST) {
-            const lineAlpha = (1 - dist / CONNECTION_DIST) * (dark ? 0.18 : 0.1);
+          if (dist < CONNECT_DIST) {
+            // Fade out near edge of range
+            const t = 1 - dist / CONNECT_DIST;
+            const alpha = t * t * (dark ? 0.14 : 0.06);
             ctx.beginPath();
-            ctx.moveTo(p1.x, p1.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(255, 43, 43, ${lineAlpha})`;
-            ctx.lineWidth = 0.7;
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(180, 180, 200, ${alpha})`;
+            ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
       }
 
-      // Update & draw particles
-      particles.forEach(p => { p.update(scrollDelta); p.draw(); });
+      // Mouse zone — brighten lines within mouse radius
+      nodes.forEach(n => {
+        const dx = n.x - mouse.x, dy = n.y - mouse.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 160) {
+          const t = 1 - d / 160;
+          const alpha = t * t * (dark ? 0.28 : 0.14);
+          ctx.beginPath();
+          ctx.moveTo(n.x, n.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(255, 43, 43, ${alpha})`;
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      });
 
-      // Draw ripples
+      // Expand ripples
       for (let i = ripples.length - 1; i >= 0; i--) {
         const rp = ripples[i];
-        rp.r += 3.5;
-        rp.alpha -= 0.018;
+        rp.r     += 4;
+        rp.alpha -= 0.013;
         if (rp.alpha <= 0 || rp.r > rp.maxR) { ripples.splice(i, 1); continue; }
         ctx.beginPath();
         ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
         ctx.strokeStyle = `rgba(255, 43, 43, ${rp.alpha})`;
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1.2;
         ctx.stroke();
-      }
-
-      // Mouse hover glow cluster
-      if (mouse.x > 0) {
-        const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
-        g.addColorStop(0, `rgba(255, 43, 43, ${dark ? 0.07 : 0.04})`);
-        g.addColorStop(1, 'transparent');
-        ctx.fillStyle = g;
+        // Inner faint fill
         ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 80, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.arc(rp.x, rp.y, rp.r * 0.4, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 43, 43, ${rp.alpha * 0.3})`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
       }
 
       requestAnimationFrame(drawLoop);
