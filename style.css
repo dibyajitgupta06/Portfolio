@@ -271,6 +271,8 @@ body {
   min-height: calc(100vh - 10rem);
   overflow: hidden;
   padding: 1rem 0;
+  perspective: 1400px;
+  transform-style: preserve-3d;
 }
 
 /* Floating Interactive Live HUD Chip */
@@ -287,11 +289,12 @@ body {
   cursor: pointer;
   z-index: 12;
   margin-bottom: 0.5rem;
+  transform: translateZ(80px);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hero-status-hud:hover, .hero-status-hud.touch-active {
-  transform: translateY(-3px) scale(1.03);
+  transform: translateZ(110px) translateY(-3px) scale(1.03);
   border-color: var(--red-primary);
   box-shadow: 0 16px 36px rgba(var(--red-rgb), 0.22);
 }
@@ -323,7 +326,7 @@ body {
   top: 40%;
   left: 0;
   width: 100%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) translateZ(-60px);
   overflow: hidden;
   z-index: 1;
   pointer-events: none;
@@ -366,6 +369,8 @@ body {
   align-items: flex-end;
   height: clamp(650px, 85vh, 920px);
   margin: 0.5rem 0;
+  perspective: 1200px;
+  transform-style: preserve-3d;
   pointer-events: none;
 }
 
@@ -376,7 +381,9 @@ body {
   max-width: 95vw;
   object-fit: contain;
   filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3));
-  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  will-change: transform, filter;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), filter 0.25s ease;
 }
 
 .hero-bottom-grid {
@@ -574,12 +581,19 @@ body {
   width: clamp(320px, 36vw, 480px);
   z-index: 2;
   margin: 0 auto;
+  perspective: 1200px;
+  transform-style: preserve-3d;
 }
 
 .about-portrait-img {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 24px;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow, filter;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18), 0 0 45px rgba(var(--red-rgb), 0.16);
   filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.22));
 }
 
@@ -1662,8 +1676,6 @@ body {
     transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1) !important;
   }
 
-  /* --- Disable cursor ring on touch --- */
-  .cursor-ring, .cursor-dot { display: none !important; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1709,42 +1721,7 @@ body {
    PROFESSIONAL INTERACTIVE LAYER
    ═══════════════════════════════════════════════════════════════════════════ */
 
-/* --- Custom Cursor Ring --- */
-.cursor-ring {
-  position: fixed;
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(var(--red-rgb), 0.7);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  top: -20px;
-  left: -20px;
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, border-width 0.3s ease;
-  mix-blend-mode: difference;
-}
 
-.cursor-ring.expanded {
-  width: 68px;
-  height: 68px;
-  border-color: var(--red-primary);
-  border-width: 1.5px;
-  top: -34px;
-  left: -34px;
-}
-
-.cursor-dot {
-  position: fixed;
-  width: 7px;
-  height: 7px;
-  background: var(--red-primary);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  top: -3.5px;
-  left: -3.5px;
-  transition: transform 0.05s linear;
-}
 
 /* --- Active Nav Link Indicator --- */
 .nav-link {

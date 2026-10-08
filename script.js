@@ -54,50 +54,90 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ─────────────────────────────────────────────────────────────────────────
-  // 2. CUSTOM CURSOR RING
+  // 2. DEVICE CAPABILITY
   // ─────────────────────────────────────────────────────────────────────────
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-  if (!isTouchDevice) {
-    const cursorRing = document.createElement('div');
-    cursorRing.className = 'cursor-ring';
-    const cursorDot = document.createElement('div');
-    cursorDot.className = 'cursor-dot';
-    document.body.appendChild(cursorRing);
-    document.body.appendChild(cursorDot);
-
-    let mouseX = 0, mouseY = 0;
-    let ringX = 0, ringY = 0;
-
-    window.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-    });
-
-    // Smooth lag ring
-    function animateRing() {
-      ringX += (mouseX - ringX) * 0.12;
-      ringY += (mouseY - ringY) * 0.12;
-      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
-      requestAnimationFrame(animateRing);
-    }
-    animateRing();
-
-    // Hover expand on interactive elements
-    document.querySelectorAll('a, button, .glass-card, .exp-role-card, .project-card-editorial, .contact-red-pill, .nav-link, .domain-tag-pill').forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('expanded'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('expanded'));
-    });
-  }
-
-
   // ─────────────────────────────────────────────────────────────────────────
-  // 4. CINEMATIC SCROLL PROGRESS + FRAME SCRUBBING + PARALLAX
+  // 3. CINEMATIC 3D SCROLL & PARALLAX ENGINE FOR IMAGES & CARDS
   // ─────────────────────────────────────────────────────────────────────────
   const progressBar = document.getElementById('cinematic-progress');
   const cinematicSlides = document.querySelectorAll('.canva-slide');
-  const sections = document.querySelectorAll('[data-section]');
+  const heroCutout = document.querySelector('.hero-full-cutout-img');
+  const heroStage = document.querySelector('.hero-stage');
+  const aboutImg = document.querySelector('.about-portrait-img');
+  const aboutWrap = document.querySelector('.about-portrait-wrap');
+
+  // Mouse & touch tracking variables for 3D image rotation
+  let heroPointerRotX = 0, heroPointerRotY = 0;
+  let aboutPointerRotX = 0, aboutPointerRotY = 0;
+
+  if (heroStage && heroCutout) {
+    heroStage.addEventListener('mousemove', (e) => {
+      const rect = heroStage.getBoundingClientRect();
+      const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+      const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+      heroPointerRotY = dx * 10;
+      heroPointerRotX = dy * -8;
+      updateCinematicScroll();
+    });
+
+    heroStage.addEventListener('mouseleave', () => {
+      heroPointerRotX = 0;
+      heroPointerRotY = 0;
+      updateCinematicScroll();
+    });
+
+    // Touch interaction for phone
+    heroStage.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      const rect = heroStage.getBoundingClientRect();
+      const dx = (touch.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+      const dy = (touch.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+      heroPointerRotY = Math.max(-8, Math.min(8, dx * 8));
+      heroPointerRotX = Math.max(-6, Math.min(6, dy * -6));
+      updateCinematicScroll();
+    }, { passive: true });
+
+    heroStage.addEventListener('touchend', () => {
+      heroPointerRotX = 0;
+      heroPointerRotY = 0;
+      updateCinematicScroll();
+    });
+  }
+
+  if (aboutWrap && aboutImg) {
+    aboutWrap.addEventListener('mousemove', (e) => {
+      const rect = aboutWrap.getBoundingClientRect();
+      const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+      const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+      aboutPointerRotY = dx * 14;
+      aboutPointerRotX = dy * -12;
+      updateCinematicScroll();
+    });
+
+    aboutWrap.addEventListener('mouseleave', () => {
+      aboutPointerRotX = 0;
+      aboutPointerRotY = 0;
+      updateCinematicScroll();
+    });
+
+    aboutWrap.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      const rect = aboutWrap.getBoundingClientRect();
+      const dx = (touch.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+      const dy = (touch.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+      aboutPointerRotY = Math.max(-10, Math.min(10, dx * 10));
+      aboutPointerRotX = Math.max(-8, Math.min(8, dy * -8));
+      updateCinematicScroll();
+    }, { passive: true });
+
+    aboutWrap.addEventListener('touchend', () => {
+      aboutPointerRotX = 0;
+      aboutPointerRotY = 0;
+      updateCinematicScroll();
+    });
+  }
 
   function updateCinematicScroll() {
     const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -108,8 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
       progressBar.style.width = `${(currentScroll / totalScroll) * 100}%`;
     }
 
-    // Frame scrubbing (video-like)
     const viewCenter = window.innerHeight / 2;
+
+    // Frame scrubbing (video-like) on slides
     cinematicSlides.forEach(slide => {
       const rect = slide.getBoundingClientRect();
       const slideCenter = rect.top + rect.height / 2;
@@ -118,22 +159,82 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (rect.top < window.innerHeight && rect.bottom > 0) {
         const content = slide.querySelector('.canva-slide-content, .hero-stage');
-        if (content) {
-          const scale = 1 - Math.abs(norm) * 0.04;
-          const opacity = 1 - Math.abs(norm) * 0.18;
-          content.style.transform = `scale(${scale}) translate3d(0, ${norm * -14}px, 0)`;
-          content.style.opacity = Math.max(0.72, opacity);
+        if (content && slide.id !== 'hero') {
+          const scale = 1 - Math.abs(norm) * 0.035;
+          const opacity = 1 - Math.abs(norm) * 0.16;
+          content.style.transform = `scale(${scale}) translate3d(0, ${norm * -12}px, 0)`;
+          content.style.opacity = Math.max(0.75, opacity);
         }
       }
     });
 
-    // Parallax on real photos
-    document.querySelectorAll('.scroll-parallax, .scroll-parallax-large').forEach(img => {
-      const rect = img.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        const speed = img.classList.contains('scroll-parallax-large') ? 0.10 : 0.055;
-        const offsetY = (viewCenter - (rect.top + rect.height / 2)) * speed;
-        img.style.transform = `translate3d(0, ${offsetY}px, 0)`;
+    // ─────────────────────────────────────────────────────────────────
+    // 3D HERO CUTOUT TRANSFORMATION ON SCROLL
+    // ─────────────────────────────────────────────────────────────────
+    if (heroCutout && heroStage) {
+      const heroRect = heroStage.getBoundingClientRect();
+      if (heroRect.bottom > 0 && heroRect.top < window.innerHeight) {
+        const scrollFraction = Math.max(0, Math.min(1, currentScroll / (window.innerHeight * 0.85)));
+        const rotX = scrollFraction * 16 + heroPointerRotX;
+        const rotY = Math.sin(scrollFraction * Math.PI) * -5 + heroPointerRotY;
+        const transZ = scrollFraction * 60;
+        const transY = currentScroll * -0.20;
+        const scale = 1 + scrollFraction * 0.05;
+
+        heroCutout.style.transform = `
+          perspective(1200px)
+          translate3d(0, ${transY}px, ${transZ}px)
+          rotateX(${rotX}deg)
+          rotateY(${rotY}deg)
+          scale3d(${scale}, ${scale}, ${scale})
+        `;
+        heroCutout.style.filter = `
+          drop-shadow(0px ${25 + scrollFraction * 35}px ${45 + scrollFraction * 25}px rgba(0, 0, 0, ${0.32 + scrollFraction * 0.15}))
+          drop-shadow(0px 0px ${20 + scrollFraction * 25}px rgba(var(--red-rgb), ${0.2 + scrollFraction * 0.2}))
+        `;
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // 3D ABOUT PORTRAIT TRANSFORMATION ON SCROLL
+    // ─────────────────────────────────────────────────────────────────
+    if (aboutImg) {
+      const aboutRect = aboutImg.getBoundingClientRect();
+      if (aboutRect.top < window.innerHeight && aboutRect.bottom > 0) {
+        const norm = (aboutRect.top + aboutRect.height / 2 - viewCenter) / (window.innerHeight * 0.6);
+        const clampedNorm = Math.max(-1.2, Math.min(1.2, norm));
+        const rotX = clampedNorm * 18 + aboutPointerRotX;
+        const rotY = clampedNorm * -12 + aboutPointerRotY;
+        const rotZ = clampedNorm * -2.5;
+        const transY = clampedNorm * -25;
+        const scale = 1 - Math.abs(clampedNorm) * 0.04;
+
+        aboutImg.style.transform = `
+          perspective(1000px)
+          translate3d(0, ${transY}px, 0)
+          rotateX(${rotX}deg)
+          rotateY(${rotY}deg)
+          rotateZ(${rotZ}deg)
+          scale3d(${scale}, ${scale}, ${scale})
+        `;
+        aboutImg.style.boxShadow = `
+          ${-rotY * 2.5}px ${Math.abs(rotX) * 2.5 + 20}px 50px rgba(0, 0, 0, 0.22),
+          0 0 35px rgba(var(--red-rgb), 0.16)
+        `;
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────────
+    // 3D CARDS PITCH TILT ON SCROLL
+    // ─────────────────────────────────────────────────────────────────
+    document.querySelectorAll('.glass-card, .exp-role-card, .project-card-editorial, .timeline-item').forEach(card => {
+      if (!card.matches(':hover') && !card.classList.contains('touch-active') && !card.classList.contains('hero-status-hud')) {
+        const rect = card.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const norm = (rect.top + rect.height / 2 - viewCenter) / (window.innerHeight * 0.7);
+          const pitchX = Math.max(-5, Math.min(5, norm * 6));
+          card.style.transform = `perspective(900px) rotateX(${pitchX}deg)`;
+        }
       }
     });
   }
