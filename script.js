@@ -65,12 +65,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const cinematicSlides = document.querySelectorAll('.canva-slide');
   const heroCutout = document.querySelector('.hero-full-cutout-img');
   const heroStage = document.querySelector('.hero-stage');
-  const aboutImg = document.querySelector('.about-portrait-img');
-  const aboutWrap = document.querySelector('.about-portrait-wrap');
 
-  // Mouse & touch tracking variables for 3D image rotation
+  // Mouse & touch tracking variables for 3D hero cutout rotation only
   let heroPointerRotX = 0, heroPointerRotY = 0;
-  let aboutPointerRotX = 0, aboutPointerRotY = 0;
 
   if (heroStage && heroCutout) {
     heroStage.addEventListener('mousemove', (e) => {
@@ -102,39 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
     heroStage.addEventListener('touchend', () => {
       heroPointerRotX = 0;
       heroPointerRotY = 0;
-      updateCinematicScroll();
-    });
-  }
-
-  if (aboutWrap && aboutImg) {
-    aboutWrap.addEventListener('mousemove', (e) => {
-      const rect = aboutWrap.getBoundingClientRect();
-      const dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-      const dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-      aboutPointerRotY = dx * 14;
-      aboutPointerRotX = dy * -12;
-      updateCinematicScroll();
-    });
-
-    aboutWrap.addEventListener('mouseleave', () => {
-      aboutPointerRotX = 0;
-      aboutPointerRotY = 0;
-      updateCinematicScroll();
-    });
-
-    aboutWrap.addEventListener('touchmove', (e) => {
-      const touch = e.touches[0];
-      const rect = aboutWrap.getBoundingClientRect();
-      const dx = (touch.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-      const dy = (touch.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-      aboutPointerRotY = Math.max(-10, Math.min(10, dx * 10));
-      aboutPointerRotX = Math.max(-8, Math.min(8, dy * -8));
-      updateCinematicScroll();
-    }, { passive: true });
-
-    aboutWrap.addEventListener('touchend', () => {
-      aboutPointerRotX = 0;
-      aboutPointerRotY = 0;
       updateCinematicScroll();
     });
   }
@@ -195,34 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // ─────────────────────────────────────────────────────────────────
-    // 3D ABOUT PORTRAIT TRANSFORMATION ON SCROLL
-    // ─────────────────────────────────────────────────────────────────
-    if (aboutImg) {
-      const aboutRect = aboutImg.getBoundingClientRect();
-      if (aboutRect.top < window.innerHeight && aboutRect.bottom > 0) {
-        const norm = (aboutRect.top + aboutRect.height / 2 - viewCenter) / (window.innerHeight * 0.6);
-        const clampedNorm = Math.max(-1.2, Math.min(1.2, norm));
-        const rotX = clampedNorm * 18 + aboutPointerRotX;
-        const rotY = clampedNorm * -12 + aboutPointerRotY;
-        const rotZ = clampedNorm * -2.5;
-        const transY = clampedNorm * -25;
-        const scale = 1 - Math.abs(clampedNorm) * 0.04;
-
-        aboutImg.style.transform = `
-          perspective(1000px)
-          translate3d(0, ${transY}px, 0)
-          rotateX(${rotX}deg)
-          rotateY(${rotY}deg)
-          rotateZ(${rotZ}deg)
-          scale3d(${scale}, ${scale}, ${scale})
-        `;
-        aboutImg.style.boxShadow = `
-          ${-rotY * 2.5}px ${Math.abs(rotX) * 2.5 + 20}px 50px rgba(0, 0, 0, 0.22),
-          0 0 35px rgba(var(--red-rgb), 0.16)
-        `;
-      }
-    }
 
     // ─────────────────────────────────────────────────────────────────
     // 3D CARDS PITCH TILT ON SCROLL

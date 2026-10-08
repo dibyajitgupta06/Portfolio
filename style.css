@@ -581,20 +581,15 @@ body {
   width: clamp(320px, 36vw, 480px);
   z-index: 2;
   margin: 0 auto;
-  perspective: 1200px;
-  transform-style: preserve-3d;
 }
 
 .about-portrait-img {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 24px;
-  transform-style: preserve-3d;
-  will-change: transform, box-shadow, filter;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18), 0 0 45px rgba(var(--red-rgb), 0.16);
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.22));
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  filter: none;
 }
 
 .about-highlights-grid {
