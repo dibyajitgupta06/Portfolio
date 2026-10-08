@@ -70,24 +70,61 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 3. Cinematic Video-Like Scroll Progress & Section Reveals ---
+  // --- 3. Cinematic Video-Like Frame Scrubbing & Scroll Progress ---
   const progressBar = document.getElementById('cinematic-progress');
   const ambientSpotlight = document.getElementById('ambient-spotlight');
+  const cinematicSlides = document.querySelectorAll('.canva-slide');
 
-  window.addEventListener('scroll', () => {
+  function updateCinematicScroll() {
     const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
     const currentScroll = window.scrollY;
+    
+    // Top progress bar update
     if (totalScroll > 0 && progressBar) {
       const scrollPercentage = (currentScroll / totalScroll) * 100;
       progressBar.style.width = `${scrollPercentage}%`;
     }
-  });
 
-  // IntersectionObserver for Cinematic Video Slide Reveal Animations
+    // Video Scrubbing Frame Effect for Slides & Parallax
+    const viewCenter = window.innerHeight / 2;
+    cinematicSlides.forEach(slide => {
+      const rect = slide.getBoundingClientRect();
+      const slideCenter = rect.top + rect.height / 2;
+      const distanceFromCenter = slideCenter - viewCenter;
+      const normalizedDist = distanceFromCenter / (window.innerHeight * 0.85);
+      
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const content = slide.querySelector('.canva-slide-content, .hero-stage');
+        if (content) {
+          const clampedDist = Math.max(-1, Math.min(1, normalizedDist));
+          const scale = 1 - Math.abs(clampedDist) * 0.05;
+          const opacity = 1 - Math.abs(clampedDist) * 0.22;
+          content.style.transform = `scale(${scale}) translate3d(0, ${clampedDist * -18}px, 0)`;
+          content.style.opacity = Math.max(0.7, opacity);
+        }
+      }
+    });
+
+    // Parallax on Dibyajit's real photos
+    document.querySelectorAll('.scroll-parallax, .scroll-parallax-large').forEach(img => {
+      const rect = img.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const isLarge = img.classList.contains('scroll-parallax-large');
+        const speed = isLarge ? 0.12 : 0.06;
+        const offsetY = (viewCenter - (rect.top + rect.height / 2)) * speed;
+        img.style.transform = `translate3d(0, ${offsetY}px, 0)`;
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateCinematicScroll, { passive: true });
+  updateCinematicScroll();
+
+  // IntersectionObserver for Reveal Animations
   const observerOptions = {
     root: null,
-    rootMargin: '0px 0px -100px 0px',
-    threshold: 0.15
+    rootMargin: '0px 0px -80px 0px',
+    threshold: 0.1
   };
 
   const cinematicObserver = new IntersectionObserver((entries) => {
@@ -102,25 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cinematicObserver.observe(el);
   });
 
-  // --- 4. Parallax Scroll Physics for Dibyajit's Photos ---
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  const parallaxImages = document.querySelectorAll('.scroll-parallax, .scroll-parallax-large');
-
-  if (parallaxImages.length && !isTouchDevice) {
-    window.addEventListener('scroll', () => {
-      parallaxImages.forEach(img => {
-        const rect = img.getBoundingClientRect();
-        if (rect.top < window.innerHeight && rect.bottom > 0) {
-          const isLarge = img.classList.contains('scroll-parallax-large');
-          const speed = isLarge ? 0.08 : 0.04;
-          const offsetY = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * speed;
-          img.style.transform = `translate3d(0, ${offsetY}px, 0)`;
-        }
-      });
-    });
-  }
-
   // Spotlight Follower Mouse Listener
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   if (!isTouchDevice) {
     window.addEventListener('mousemove', (e) => {
       if (ambientSpotlight) {

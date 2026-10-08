@@ -295,12 +295,13 @@ body {
   100% { transform: translateX(-50%); }
 }
 
-.hero-name-track .red-dot {
+.hero-name-track .marquee-sep {
   color: var(--text-dark);
-  font-size: 0.55em;
+  font-size: 0.7em;
+  opacity: 0.6;
 }
 
-/* LARGER Cutout Figure Container */
+/* MASSIVE Uncropped Cutout Figure Container */
 .hero-full-cutout-stage {
   position: relative;
   z-index: 5;
@@ -308,19 +309,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  height: clamp(520px, 72vh, 780px);
+  height: clamp(650px, 85vh, 920px);
   margin: 0.5rem 0;
   pointer-events: none;
 }
 
 .hero-full-cutout-img {
   height: 100%;
+  max-height: 85vh;
   width: auto;
   max-width: 95vw;
   object-fit: contain;
-  display: block;
-  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.28));
-  transition: transform 0.2s ease-out;
+  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.3));
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-bottom-grid {
@@ -443,10 +444,7 @@ body {
   margin-bottom: 1.2rem;
 }
 
-.mac-dot { width: 8px; height: 8px; border-radius: 50%; }
-.mac-dot.red { background: #ff5f56; }
-.mac-dot.yellow { background: #ffbd2e; }
-.mac-dot.green { background: #27c93f; }
+/* clean mac-dot removed */
 
 .matrix-title {
   font-family: var(--font-mono);
@@ -527,10 +525,10 @@ body {
   align-items: center;
 }
 
-.acad-icon-circle {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
+.acad-icon-badge {
+  width: 58px;
+  height: 58px;
+  border-radius: 8px;
   background: rgba(var(--red-rgb), 0.12);
   color: var(--red-primary);
   display: flex;
@@ -820,9 +818,6 @@ body {
 @keyframes dash-pulse { to { stroke-dashoffset: 0; } }
 
 .ui-mockup-stage { background: #18181b; padding: 1.5rem; }
-.mockup-header-dots { display: flex; gap: 5px; width: 100%; margin-bottom: 1rem; }
-.mockup-header-dots .dot { width: 6px; height: 6px; border-radius: 50%; }
-.dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
 .mockup-stat-bars { display: flex; align-items: flex-end; gap: 8px; height: 70px; width: 100%; }
 .stat-bar-fill { flex: 1; background: var(--red-primary); border-radius: 4px; opacity: 0.85; }
 
@@ -832,9 +827,6 @@ body {
 
 .ai-radar-stage { background: #050508; position: relative; }
 .radar-scan-icon { font-size: 2.5rem; color: var(--red-primary); z-index: 2; }
-.radar-circle-pulse { position: absolute; width: 100px; height: 100px; border-radius: 50%; border: 1.5px solid var(--red-primary); animation: radar-ping 2s infinite; }
-
-@keyframes radar-ping { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
 
 .energy-mockup-stage { background: #061c16; color: #34d399; }
 .energy-icon { font-size: 2.2rem; color: #10b981; margin-bottom: 0.3rem; }
