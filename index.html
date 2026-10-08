@@ -1034,42 +1034,127 @@
       <div class="container">
         <div class="section-header">
           <span class="section-num">[ 07 // SYSTEM APPEARANCE ]</span>
-          <h2 class="font-outfit gradient-text">Theme & Color Appearance</h2>
-          <p class="section-subtitle">Toggle between macOS Light & Dark interface modes</p>
+          <h2 class="font-outfit gradient-text">Control Center Appearance</h2>
+          <p class="section-subtitle">Select your active aesthetic environment engine & color theme palette</p>
         </div>
 
         <div class="theme-cards-grid">
-          <div class="theme-card glass-card 3d-tilt active" id="theme-card-dark" data-set-theme="dark" data-cursor="DARK">
-            <div class="theme-preview theme-preview-dark">
-              <div class="preview-dot"></div>
-              <div class="preview-line long"></div>
-              <div class="preview-line short"></div>
-            </div>
-            <div class="theme-card-info">
-              <div class="theme-title-row">
-                <i data-lucide="moon"></i>
-                <h4>Space Black (Dark Mode)</h4>
-              </div>
-              <p>Apple Space Black matte canvas with frosted glass blur</p>
-              <span class="theme-badge">ACTIVE THEME</span>
-            </div>
-          </div>
-
+          <!-- Theme 1: Crisp Studio Light -->
           <div class="theme-card glass-card 3d-tilt" id="theme-card-light" data-set-theme="light" data-cursor="LIGHT">
-            <div class="theme-preview theme-preview-light">
-              <div class="preview-dot"></div>
-              <div class="preview-line long"></div>
-              <div class="preview-line short"></div>
+            <div class="theme-mini-stage theme-stage-light">
+              <div class="mini-mac-header">
+                <span class="mac-dot red"></span>
+                <span class="mac-dot yellow"></span>
+                <span class="mac-dot green"></span>
+                <span class="mini-stage-title">Crisp White</span>
+              </div>
+              <div class="mini-card-body">
+                <div class="mini-accent-pill light-pill">STUDIO WHITE</div>
+                <div class="mini-color-swatches">
+                  <span class="swatch" style="background: #ffffff; border: 1px solid #cbd5e1;"></span>
+                  <span class="swatch" style="background: #f1f5f9;"></span>
+                  <span class="swatch" style="background: #0066cc;"></span>
+                  <span class="swatch" style="background: #0055b3;"></span>
+                </div>
+              </div>
             </div>
             <div class="theme-card-info">
               <div class="theme-title-row">
                 <i data-lucide="sun"></i>
-                <h4>Silver Canvas (Light Mode)</h4>
+                <h4>Crisp Studio (Light)</h4>
               </div>
-              <p>Apple Light Silver canvas with translucent glass cards</p>
+              <p>Apple Light Silver canvas with ultra-clean solid typography &amp; translucent glass</p>
               <span class="theme-badge">SELECT THEME</span>
             </div>
           </div>
+
+          <!-- Theme 2: Space Black (Dark) -->
+          <div class="theme-card glass-card 3d-tilt" id="theme-card-dark" data-set-theme="dark" data-cursor="DARK">
+            <div class="theme-mini-stage theme-stage-dark">
+              <div class="mini-mac-header">
+                <span class="mac-dot red"></span>
+                <span class="mac-dot yellow"></span>
+                <span class="mac-dot green"></span>
+                <span class="mini-stage-title">Space Black</span>
+              </div>
+              <div class="mini-card-body">
+                <div class="mini-accent-pill dark-pill">SPACE BLACK</div>
+                <div class="mini-color-swatches">
+                  <span class="swatch" style="background: #0b0f19;"></span>
+                  <span class="swatch" style="background: #1e293b;"></span>
+                  <span class="swatch" style="background: #3b82f6;"></span>
+                  <span class="swatch" style="background: #0ea5e9;"></span>
+                </div>
+              </div>
+            </div>
+            <div class="theme-card-info">
+              <div class="theme-title-row">
+                <i data-lucide="moon"></i>
+                <h4>Space Black (Dark)</h4>
+              </div>
+              <p>Deep obsidian matte canvas with ambient neon glow &amp; frosted glass</p>
+              <span class="theme-badge">SELECT THEME</span>
+            </div>
+          </div>
+
+          <!-- Theme 3: Cyber Volt -->
+          <div class="theme-card glass-card 3d-tilt" id="theme-card-cyber" data-set-theme="cyber" data-cursor="CYBER">
+            <div class="theme-mini-stage theme-stage-cyber">
+              <div class="mini-mac-header">
+                <span class="mac-dot red"></span>
+                <span class="mac-dot yellow"></span>
+                <span class="mac-dot green"></span>
+                <span class="mini-stage-title">Cyber Volt</span>
+              </div>
+              <div class="mini-card-body">
+                <div class="mini-accent-pill cyber-pill">ELECTRIC NEON</div>
+                <div class="mini-color-swatches">
+                  <span class="swatch" style="background: #050508;"></span>
+                  <span class="swatch" style="background: #161a26;"></span>
+                  <span class="swatch" style="background: #d4ff00;"></span>
+                  <span class="swatch" style="background: #00f0ff;"></span>
+                </div>
+              </div>
+            </div>
+            <div class="theme-card-info">
+              <div class="theme-title-row">
+                <i data-lucide="zap"></i>
+                <h4>Cyber Volt (Neon)</h4>
+              </div>
+              <p>High-voltage electric volt yellow accents on pitch midnight backdrop</p>
+              <span class="theme-badge">SELECT THEME</span>
+            </div>
+          </div>
+
+          <!-- Theme 4: Nordic Aurora -->
+          <div class="theme-card glass-card 3d-tilt" id="theme-card-aurora" data-set-theme="aurora" data-cursor="AURORA">
+            <div class="theme-mini-stage theme-stage-aurora">
+              <div class="mini-mac-header">
+                <span class="mac-dot red"></span>
+                <span class="mac-dot yellow"></span>
+                <span class="mac-dot green"></span>
+                <span class="mini-stage-title">Nordic Aurora</span>
+              </div>
+              <div class="mini-card-body">
+                <div class="mini-accent-pill aurora-pill">AURORA TEAL</div>
+                <div class="mini-color-swatches">
+                  <span class="swatch" style="background: #051419;"></span>
+                  <span class="swatch" style="background: #103844;"></span>
+                  <span class="swatch" style="background: #10b981;"></span>
+                  <span class="swatch" style="background: #06b6d4;"></span>
+                </div>
+              </div>
+            </div>
+            <div class="theme-card-info">
+              <div class="theme-title-row">
+                <i data-lucide="compass"></i>
+                <h4>Nordic Aurora (Emerald)</h4>
+              </div>
+              <p>Deep oceanic teal canvas infused with glowing emerald &amp; cyan highlights</p>
+              <span class="theme-badge">SELECT THEME</span>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
