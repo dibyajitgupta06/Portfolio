@@ -208,36 +208,79 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ─────────────────────────────────────────────────────────────────────────
-  // 7. 3D CARD TILT ON MOUSE MOVE (glass cards)
+  // 7. 3D CARD TILT & INTERACTIVE SPOTLIGHT GLARE (Mouse & Mobile Touch)
   // ─────────────────────────────────────────────────────────────────────────
-  if (!isTouchDevice) {
-    document.querySelectorAll('.glass-card, .exp-role-card, .project-card-editorial, .academic-badge-card, .skills-domain-card, .contact-form-column').forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const dx = (e.clientX - cx) / (rect.width / 2);
-        const dy = (e.clientY - cy) / (rect.height / 2);
-        const rotX = dy * -6;
-        const rotY = dx * 6;
-        card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.025, 1.025, 1.025)`;
-        card.style.boxShadow = `${-dx * 12}px ${-dy * 12}px 40px rgba(var(--red-rgb), 0.14), var(--shadow-card)`;
-      });
+  const interactiveCards = document.querySelectorAll(
+    '.glass-card, .exp-role-card, .project-card-editorial, .academic-badge-card, .skills-domain-card, .contact-form-column, .tech-matrix-card, .timeline-item, .hero-status-hud'
+  );
 
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-        card.style.boxShadow = '';
-        card.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease';
-        setTimeout(() => { card.style.transition = ''; }, 500);
-      });
+  interactiveCards.forEach(card => {
+    // Mouse Interaction
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      const mouseY = e.clientY - rect.top;
+      card.style.setProperty('--card-mouse-x', `${mouseX}px`);
+      card.style.setProperty('--card-mouse-y', `${mouseY}px`);
+
+      if (!isTouchDevice) {
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const dx = (mouseX - cx) / cx;
+        const dy = (mouseY - cy) / cy;
+        const rotX = dy * -5.5;
+        const rotY = dx * 5.5;
+        card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+        card.style.boxShadow = `${-dx * 10}px ${-dy * 10}px 36px rgba(var(--red-rgb), 0.12), var(--shadow-card)`;
+      }
     });
-  }
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.boxShadow = '';
+      card.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease';
+      setTimeout(() => { card.style.transition = ''; }, 500);
+    });
+
+    // Mobile Touch Interaction
+    card.addEventListener('touchstart', (e) => {
+      card.classList.add('touch-active');
+      const touch = e.touches[0];
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--card-mouse-x', `${touch.clientX - rect.left}px`);
+      card.style.setProperty('--card-mouse-y', `${touch.clientY - rect.top}px`);
+    }, { passive: true });
+
+    card.addEventListener('touchmove', (e) => {
+      const touch = e.touches[0];
+      const rect = card.getBoundingClientRect();
+      const touchX = touch.clientX - rect.left;
+      const touchY = touch.clientY - rect.top;
+      card.style.setProperty('--card-mouse-x', `${touchX}px`);
+      card.style.setProperty('--card-mouse-y', `${touchY}px`);
+
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const dx = (touchX - cx) / cx;
+      const dy = (touchY - cy) / cy;
+      const rotX = Math.max(-4, Math.min(4, dy * -4));
+      const rotY = Math.max(-4, Math.min(4, dx * 4));
+      card.style.transform = `perspective(800px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(0.99)`;
+    }, { passive: true });
+
+    card.addEventListener('touchend', () => {
+      card.classList.remove('touch-active');
+      card.style.transform = '';
+      card.style.transition = 'transform 0.4s cubic-bezier(0.16,1,0.3,1)';
+      setTimeout(() => { card.style.transition = ''; }, 400);
+    });
+  });
 
   // ─────────────────────────────────────────────────────────────────────────
-  // 8. MAGNETIC BUTTON EFFECT (red pills & submit)
+  // 8. MAGNETIC BUTTON EFFECT (red pills, HUD chip & submit)
   // ─────────────────────────────────────────────────────────────────────────
   if (!isTouchDevice) {
-    document.querySelectorAll('.contact-red-pill, .btn-red-submit').forEach(btn => {
+    document.querySelectorAll('.contact-red-pill, .btn-red-submit, .hero-status-hud').forEach(btn => {
       btn.addEventListener('mousemove', (e) => {
         const rect = btn.getBoundingClientRect();
         const dx = e.clientX - (rect.left + rect.width / 2);
@@ -315,8 +358,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handled in CSS with ::after pseudo-element
 
   // ─────────────────────────────────────────────────────────────────────────
-  // 12. DOMAIN TAG PILL HOVER RIPPLE
+  // 12. DOMAIN TAG PILL HOVER RIPPLE & CATEGORY CONNECTION
   // ─────────────────────────────────────────────────────────────────────────
+  const skillCategoryBlocks = document.querySelectorAll('.skill-category-block');
   document.querySelectorAll('.domain-tag-pill').forEach(pill => {
     pill.addEventListener('click', (e) => {
       const ripple = document.createElement('span');
@@ -326,6 +370,17 @@ document.addEventListener('DOMContentLoaded', () => {
       ripple.style.top = `${e.clientY - rect.top}px`;
       pill.appendChild(ripple);
       setTimeout(() => ripple.remove(), 600);
+
+      // Interactive category glow connection
+      const text = pill.textContent.toLowerCase();
+      skillCategoryBlocks.forEach(block => {
+        const blockText = block.textContent.toLowerCase();
+        const keywords = text.split('&').map(k => k.trim());
+        if (keywords.some(kw => blockText.includes(kw))) {
+          block.classList.add('category-highlight');
+          setTimeout(() => block.classList.remove('category-highlight'), 1800);
+        }
+      });
     });
   });
 
