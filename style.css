@@ -73,32 +73,20 @@ body {
   box-shadow: 0 0 12px var(--red-primary);
 }
 
-/* --- Ambient Spotlight --- */
-.ambient-spotlight {
-  position: fixed;
-  top: -9999px;
-  left: -9999px;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--red-rgb), 0.06) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease-out;
-}
-
 /* --- Navbar --- */
 .navbar {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
   z-index: 1000;
   background: var(--nav-bg);
   border-bottom: 1px solid var(--nav-border);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   padding: 0.9rem 0;
+  margin: 0;
 }
 
 .navbar-container {
@@ -2038,15 +2026,7 @@ body {
   gap: 0.8rem;
 }
 
-/* --- Subtle page-entry fade for entire body --- */
-@keyframes page-entry {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
-body {
-  animation: page-entry 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
 
 /* --- Marquee shimmer text effect --- */
 .hero-name-track {

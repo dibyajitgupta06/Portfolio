@@ -91,16 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ─────────────────────────────────────────────────────────────────────────
-  // 3. AMBIENT SPOTLIGHT
-  // ─────────────────────────────────────────────────────────────────────────
-  const ambientSpotlight = document.getElementById('ambient-spotlight');
-  if (!isTouchDevice && ambientSpotlight) {
-    window.addEventListener('mousemove', (e) => {
-      ambientSpotlight.style.left = `${e.clientX}px`;
-      ambientSpotlight.style.top = `${e.clientY}px`;
-    }, { passive: true });
-  }
 
   // ─────────────────────────────────────────────────────────────────────────
   // 4. CINEMATIC SCROLL PROGRESS + FRAME SCRUBBING + PARALLAX
