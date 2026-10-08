@@ -227,9 +227,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 7. Theme Switcher Handler (Navbar & Appearance Section) ---
-  const themeSegBtns = document.querySelectorAll('.theme-seg-btn');
-  const themeCards = document.querySelectorAll('.theme-card');
+  // --- 7. Theme Switcher Handler (Minimal Icon Toggle Button) ---
+  const themeToggleBtn = document.getElementById('theme-toggle-btn');
   const htmlElement = document.documentElement;
   const savedTheme = localStorage.getItem('theme') || 'light';
 
@@ -245,52 +244,29 @@ document.addEventListener('DOMContentLoaded', () => {
       htmlElement.classList.add('dark');
     }
 
-    // Sync top navigation bar theme segmented control
-    themeSegBtns.forEach(btn => {
-      const btnTheme = btn.getAttribute('data-set-theme');
-      if (btnTheme === theme) {
-        btn.classList.add('active');
+    if (themeToggleBtn) {
+      const moonIcon = themeToggleBtn.querySelector('.theme-moon-icon');
+      const sunIcon = themeToggleBtn.querySelector('.theme-sun-icon');
+      if (theme === 'light') {
+        if (moonIcon) moonIcon.style.display = 'inline-block';
+        if (sunIcon) sunIcon.style.display = 'none';
       } else {
-        btn.classList.remove('active');
+        if (moonIcon) moonIcon.style.display = 'none';
+        if (sunIcon) sunIcon.style.display = 'inline-block';
       }
-    });
-
-    // Sync theme section cards if present
-    themeCards.forEach(card => {
-      const cardTheme = card.getAttribute('data-set-theme');
-      if (cardTheme === theme) {
-        card.classList.add('active');
-        const badge = card.querySelector('.theme-badge');
-        if (badge) badge.textContent = 'ACTIVE THEME';
-      } else {
-        card.classList.remove('active');
-        const badge = card.querySelector('.theme-badge');
-        if (badge) badge.textContent = 'SELECT THEME';
-      }
-    });
+    }
   }
 
   applyTheme(savedTheme);
 
-  // Top Bar Segmented Control click listener
-  themeSegBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const selectedTheme = btn.getAttribute('data-set-theme');
-      if (selectedTheme) {
-        applyTheme(selectedTheme);
-      }
+  if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      applyTheme(newTheme);
+      playSound('click');
     });
-  });
-
-  // Appearance Section theme cards click listener
-  themeCards.forEach(card => {
-    card.addEventListener('click', () => {
-      const selectedTheme = card.getAttribute('data-set-theme');
-      if (selectedTheme) {
-        applyTheme(selectedTheme);
-      }
-    });
-  });
+  }
 
   // --- 8. Mobile Navigation Toggle ---
   const mobileToggle = document.getElementById('mobile-toggle');
