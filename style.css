@@ -257,28 +257,14 @@ body {
 }
 
 /* --- Red Paint Splatter Background Graphics --- */
-.splatter-bg {
-  position: absolute;
-  pointer-events: none;
-  width: 320px;
-  height: 320px;
-  z-index: 1;
-  background-image: radial-gradient(circle, rgba(255, 43, 43, 0.8) 2px, transparent 2px),
-                    radial-gradient(circle, rgba(255, 43, 43, 0.6) 4px, transparent 4px),
-                    radial-gradient(circle, rgba(255, 43, 43, 0.9) 6px, transparent 6px),
-                    radial-gradient(circle, rgba(255, 43, 43, 0.5) 3px, transparent 3px);
-  background-size: 60px 60px, 90px 90px, 120px 120px, 45px 45px;
-  background-position: 0 0, 30px 20px, 10px 40px, 50px 70px;
-  opacity: 0.65;
+/* --- Red Dot Splatter Removed — Canvas Particle Field replaces --- */
+.splatter-bg,
+.splatter-top-right, .splatter-top-right-heavy,
+.splatter-centered, .splatter-bottom-left, .splatter-bottom-right,
+.splatter-center-right, .splatter-center-right-heavy {
+  display: none !important;
 }
 
-.splatter-top-right { top: -20px; right: -20px; }
-.splatter-top-right-heavy { top: -40px; right: -40px; width: 450px; height: 450px; opacity: 0.85; }
-.splatter-centered { top: 50%; left: 50%; transform: translate(-50%, -50%); width: 400px; height: 400px; }
-.splatter-bottom-left { bottom: -20px; left: -20px; }
-.splatter-bottom-right { bottom: -20px; right: -20px; }
-.splatter-center-right { top: 30%; right: 5%; }
-.splatter-center-right-heavy { top: 20%; right: 0; width: 500px; height: 500px; opacity: 0.9; }
 
 /* --- Slide 01: Hero Stage Layout & Larger Cutout --- */
 .hero-slide {
@@ -1123,28 +1109,414 @@ body {
 }
 
 /* --- Responsive Media Queries --- */
+/* ═══════════════════════════════════════════════════════════════════════════
+   TABLET — 1024px
+   ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
-  .hero-bottom-grid, .two-col-grid, .project-detail-top, .contact-two-col, .project-detail-bottom {
+  .hero-bottom-grid,
+  .two-col-grid,
+  .project-detail-top,
+  .contact-two-col,
+  .project-detail-bottom {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
   }
-  .exp-full-grid, .portfolio-quad-grid {
+  .exp-full-grid,
+  .portfolio-quad-grid,
+  .projects-editorial-grid,
+  .achieve-editorial-grid {
     grid-template-columns: 1fr;
   }
-  .exp-role-card.full-span {
+  .exp-role-card.full-span,
+  .project-card-editorial.full-width,
+  .achieve-card.full-width {
     grid-column: span 1;
   }
   .hero-full-cutout-stage {
-    height: 440px;
+    height: 480px;
+  }
+  .about-portrait-wrap {
+    width: clamp(260px, 50vw, 360px);
+  }
+  .canva-slide {
+    padding: 7rem 4vw 4rem 4vw;
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOBILE — 768px
+   ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+
+  /* --- Navbar & Mobile Menu --- */
   .desktop-only { display: none; }
-  .nav-menu { display: none; }
-  .canva-slide { padding: 6rem 1.5rem 3rem 1.5rem; }
-  .slide-giant-red-title { font-size: 3.5rem; }
-  .hero-name-track { font-size: 4.5rem; }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 78vw;
+    max-width: 320px;
+    height: 100dvh;
+    background: var(--bg-canvas);
+    border-left: 1px solid var(--border-card);
+    padding: 5rem 2rem 2rem 2rem;
+    z-index: 999;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(24px);
+    box-shadow: -20px 0 60px rgba(0,0,0,0.18);
+    overflow-y: auto;
+  }
+
+  .nav-menu.mobile-open {
+    right: 0;
+  }
+
+  .nav-menu .nav-link {
+    font-family: var(--font-body);
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--border-card);
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+  }
+
+  .nav-menu .nav-link:hover,
+  .nav-menu .nav-link.nav-active {
+    color: var(--red-primary);
+    padding-left: 0.8rem;
+  }
+
+  .nav-menu .nav-link::after {
+    display: none; /* underline handled differently on mobile */
+  }
+
+  /* Overlay scrim when menu is open */
+  .mobile-menu-scrim {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 998;
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+
+  .mobile-menu-scrim.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Show the hamburger button */
+  .mobile-only {
+    display: flex !important;
+  }
+
+  /* --- Slides --- */
+  .canva-slide {
+    padding: 5.5rem 1.4rem 3.5rem 1.4rem;
+    min-height: auto;
+  }
+
+  /* --- Typography scale-down --- */
+  .slide-giant-red-title {
+    font-size: clamp(2.8rem, 14vw, 4.5rem);
+    line-height: 0.9;
+    margin-bottom: 1.2rem;
+  }
+
+  .slide-giant-red-title.compact {
+    font-size: clamp(2.2rem, 11vw, 3.8rem);
+  }
+
+  /* --- Hero Section --- */
+  .hero-stage {
+    min-height: auto;
+    padding: 0.5rem 0;
+    gap: 0;
+  }
+
+  .hero-bg-name-marquee {
+    top: 38%;
+  }
+
+  .hero-name-track {
+    font-size: clamp(3.5rem, 16vw, 6rem);
+    gap: 1.5rem;
+  }
+
+  .hero-full-cutout-stage {
+    height: clamp(360px, 70vw, 500px);
+    margin: 0;
+  }
+
+  .hero-full-cutout-img {
+    max-height: 72vw;
+    max-width: 90vw;
+  }
+
+  .hero-bottom-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem 0 0.5rem;
+  }
+
+  .hero-desc-left {
+    font-size: 0.9rem;
+    line-height: 1.65;
+  }
+
+  .hero-desc-right {
+    font-size: clamp(1.6rem, 7vw, 2.6rem);
+    padding-left: 1rem;
+    border-left-width: 3px;
+    min-height: 3rem;
+  }
+
+  /* --- Section Lead Text --- */
+  .section-lead-text {
+    font-size: 1.05rem;
+    margin-bottom: 1.4rem;
+  }
+
+  .text-muted-canva {
+    font-size: 0.92rem;
+  }
+
+  /* --- About --- */
+  .about-portrait-wrap {
+    width: clamp(200px, 60vw, 300px);
+    margin: 0 auto;
+  }
+
+  .about-highlights-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 1.2rem;
+  }
+
+  .highlight-pill {
+    font-size: 0.82rem;
+    padding: 0.75rem 1rem;
+  }
+
+  /* --- Education --- */
+  .academic-badge-card {
+    padding: 1.8rem 1.2rem;
+  }
+
+  .academic-badge-card h3 {
+    font-size: 1.5rem;
+  }
+
+  .acad-stat-row {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .education-canva-list {
+    gap: 1rem;
+  }
+
+  .edu-canva-item {
+    gap: 0.9rem;
+  }
+
+  .edu-info h4 {
+    font-size: 1rem;
+  }
+
+  /* --- Skills --- */
+  .skills-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .skill-category-block {
+    margin-bottom: 1.4rem;
+  }
+
+  .skill-cat-title {
+    font-size: 0.95rem;
+  }
+
+  .skill-cat-desc {
+    font-size: 0.88rem;
+  }
+
+  .skills-domain-card {
+    padding: 1.4rem;
+    border-radius: 16px;
+  }
+
+  .domain-tags-wrap {
+    gap: 0.45rem;
+  }
+
+  .domain-tag-pill {
+    font-size: 0.73rem;
+    padding: 0.35rem 0.7rem;
+  }
+
+  /* --- Experience --- */
+  .exp-full-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .exp-role-card {
+    padding: 1.2rem;
+    border-radius: 14px;
+  }
+
+  .company-name {
+    font-size: 1.1rem;
+  }
+
+  .role-title {
+    font-size: 0.78rem;
+  }
+
+  .role-desc {
+    font-size: 0.88rem;
+  }
+
+  /* --- Projects & Achievements --- */
+  .projects-editorial-grid,
+  .achieve-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .project-card-editorial,
+  .achieve-card,
+  .club-card {
+    padding: 1.2rem;
+    border-radius: 14px;
+    gap: 0.6rem;
+  }
+
+  .card-title-text {
+    font-size: 1.05rem;
+  }
+
+  .card-body-text {
+    font-size: 0.88rem;
+  }
+
+  /* --- Contact --- */
+  .giant-contact-title {
+    font-size: clamp(3rem, 15vw, 5.5rem);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-two-col {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .contact-red-pill {
+    padding: 0.95rem 1.3rem;
+    font-size: 0.95rem;
+    border-radius: 14px;
+  }
+
+  .contact-form-column {
+    padding: 1.5rem 1.2rem;
+    border-radius: 18px;
+  }
+
+  .contact-form-column h3 {
+    font-size: 1.2rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.85rem 1rem;
+    font-size: 0.93rem;
+  }
+
+  /* --- Welcome matrix card --- */
+  .welcome-matrix-card {
+    padding: 1.2rem;
+  }
+
+  .matrix-row {
+    font-size: 0.82rem;
+  }
+
+  /* --- Two col grid --- */
+  .two-col-grid {
+    gap: 1.5rem;
+  }
+
+  /* --- Footer --- */
+  .canva-footer .footer-content {
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: center;
+  }
+
+  /* --- Disable 3D tilt on touch --- */
+  .glass-card,
+  .exp-role-card,
+  .project-card-editorial {
+    transform: none !important;
+  }
+
+  /* --- Disable cursor ring on touch --- */
+  .cursor-ring, .cursor-dot { display: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SMALL PHONES — 420px
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width: 420px) {
+  .canva-slide {
+    padding: 5rem 1rem 2.8rem 1rem;
+  }
+
+  .slide-giant-red-title {
+    font-size: clamp(2.4rem, 13vw, 3.8rem);
+  }
+
+  .hero-full-cutout-stage {
+    height: clamp(300px, 75vw, 420px);
+  }
+
+  .hero-name-track {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+
+  .navbar-container {
+    padding: 0 1rem;
+  }
+
+  .contact-red-pill {
+    font-size: 0.88rem;
+    gap: 0.8rem;
+  }
+
+  .domain-tag-pill {
+    font-size: 0.68rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .exp-role-card {
+    padding: 1rem;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1538,4 +1910,20 @@ html {
 
 #typed-roles {
   color: var(--red-primary);
+}
+
+/* Hide mobile-only elements on desktop */
+.mobile-only {
+  display: none;
+}
+
+/* Navbar container uses padding on mobile */
+@media (max-width: 768px) {
+  .navbar-container {
+    padding: 0 1.2rem;
+  }
+  /* Canvas particle system — lighter on mobile */
+  #particle-canvas {
+    opacity: 0.4;
+  }
 }

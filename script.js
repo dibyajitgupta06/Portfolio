@@ -10,6 +10,50 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ─────────────────────────────────────────────────────────────────────────
+  // 1b. MOBILE HAMBURGER MENU
+  // ─────────────────────────────────────────────────────────────────────────
+  const mobileToggle = document.getElementById('mobile-toggle');
+  const navMenu = document.getElementById('nav-menu');
+  const mobileScrim = document.getElementById('mobile-scrim');
+
+  function openMobileMenu() {
+    navMenu.classList.add('mobile-open');
+    if (mobileScrim) mobileScrim.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+    if (mobileToggle) {
+      mobileToggle.innerHTML = '<i data-lucide="x"></i>';
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+  }
+
+  function closeMobileMenu() {
+    navMenu.classList.remove('mobile-open');
+    if (mobileScrim) mobileScrim.classList.remove('visible');
+    document.body.style.overflow = '';
+    if (mobileToggle) {
+      mobileToggle.innerHTML = '<i data-lucide="menu"></i>';
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+  }
+
+  if (mobileToggle) {
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.contains('mobile-open') ? closeMobileMenu() : openMobileMenu();
+    });
+  }
+
+  if (mobileScrim) {
+    mobileScrim.addEventListener('click', closeMobileMenu);
+  }
+
+  // Close drawer on any nav link tap
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 768) closeMobileMenu();
+    });
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
   // 2. CUSTOM CURSOR RING
   // ─────────────────────────────────────────────────────────────────────────
   const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
