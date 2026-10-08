@@ -123,25 +123,17 @@
           </div>
         </div>
 
-        <!-- Hero macOS Avatar Widget Card -->
+        <!-- Hero Interactive Floating Cutout Figure (Massive Scale) -->
         <div class="hero-image-container animate-fade-in-right">
-          <div class="avatar-card-wrapper glass-card" data-cursor="TOGGLE">
+          <div class="hero-floating-stage" data-cursor="LOOK">
+            <img src="avatar-suit.png" alt="Dibyajit Das Gupta" class="hero-floating-cutout scroll-parallax-large" id="hero-avatar-img">
             
-            <!-- macOS Segmented Picker Control -->
-            <div class="avatar-toggle-bar">
-              <button class="avatar-mode-btn active" id="btn-mode-suit" data-img="avatar-suit.png"><i data-lucide="briefcase"></i> Formal</button>
-              <button class="avatar-mode-btn" id="btn-mode-casual" data-img="avatar-casual.png"><i data-lucide="user"></i> Casual</button>
-              <button class="avatar-mode-btn" id="btn-mode-portrait" data-img="avatar-portrait.png"><i data-lucide="smile"></i> Portrait</button>
-            </div>
-
-            <div class="avatar-frame">
-              <img src="avatar-suit.png" alt="Dibyajit Das Gupta" class="avatar-img" id="hero-avatar-img">
-            </div>
-            
-            <div class="avatar-info-tag">
-              <span class="tag-status"><span class="status-pulse-green"></span> ACTIVE DEVELOPER</span>
-              <span class="tag-title">DIBYAJIT DAS GUPTA</span>
-              <span class="tag-sub">Associate Software Developer • SELISE</span>
+            <div class="hero-floating-tag">
+              <span class="status-pulse-green"></span>
+              <div>
+                <span class="tag-title">DIBYAJIT DAS GUPTA</span>
+                <span class="tag-sub">Associate Software Developer • SELISE</span>
+              </div>
             </div>
           </div>
         </div>
@@ -965,6 +957,49 @@
               </div>
               <button type="submit" class="btn btn-primary magnetic-target" id="form-submit" data-cursor="SEND"><i data-lucide="send"></i> Dispatch Message</button>
             </form>
+          </div>
+        </div>
+      </div>
+    <!-- Dedicated System Appearance & Theme Customizer Section -->
+    <section class="theme-section section-padding" id="appearance">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-num">[ 07 // SYSTEM APPEARANCE ]</span>
+          <h2 class="font-outfit gradient-text">Theme & Color Appearance</h2>
+          <p class="section-subtitle">Toggle between macOS Light & Dark interface modes</p>
+        </div>
+
+        <div class="theme-cards-grid">
+          <div class="theme-card glass-card 3d-tilt active" id="theme-card-dark" data-set-theme="dark" data-cursor="DARK">
+            <div class="theme-preview theme-preview-dark">
+              <div class="preview-dot"></div>
+              <div class="preview-line long"></div>
+              <div class="preview-line short"></div>
+            </div>
+            <div class="theme-card-info">
+              <div class="theme-title-row">
+                <i data-lucide="moon"></i>
+                <h4>Space Black (Dark Mode)</h4>
+              </div>
+              <p>Apple Space Black matte canvas with frosted glass blur</p>
+              <span class="theme-badge">ACTIVE THEME</span>
+            </div>
+          </div>
+
+          <div class="theme-card glass-card 3d-tilt" id="theme-card-light" data-set-theme="light" data-cursor="LIGHT">
+            <div class="theme-preview theme-preview-light">
+              <div class="preview-dot"></div>
+              <div class="preview-line long"></div>
+              <div class="preview-line short"></div>
+            </div>
+            <div class="theme-card-info">
+              <div class="theme-title-row">
+                <i data-lucide="sun"></i>
+                <h4>Silver Canvas (Light Mode)</h4>
+              </div>
+              <p>Apple Light Silver canvas with translucent glass cards</p>
+              <span class="theme-badge">SELECT THEME</span>
+            </div>
           </div>
         </div>
       </div>

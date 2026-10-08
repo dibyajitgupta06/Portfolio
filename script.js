@@ -162,16 +162,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- Scroll Parallax Floating Cutout Physics ---
-  const parallaxImages = document.querySelectorAll('.scroll-parallax');
+  // --- Scroll Parallax Floating Cutout Physics (Enhanced Scale & Drift) ---
+  const parallaxImages = document.querySelectorAll('.scroll-parallax, .scroll-parallax-large');
   if (parallaxImages.length && !isTouchDevice) {
     window.addEventListener('scroll', () => {
       parallaxImages.forEach(img => {
         const rect = img.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
-          const speed = 0.06;
+          const isLarge = img.classList.contains('scroll-parallax-large');
+          const speed = isLarge ? 0.09 : 0.05;
           const offsetY = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * speed;
-          img.style.transform = `translate3d(0, ${offsetY}px, 0)`;
+          const scale = isLarge ? 1 + Math.abs(offsetY) * 0.0003 : 1;
+          img.style.transform = `translate3d(0, ${offsetY}px, 0) scale(${scale})`;
         }
       });
     });
@@ -225,37 +227,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 7. Theme Switcher Handler ---
+  // --- 7. Theme Switcher Handler (Navbar & Appearance Section) ---
   const themeToggle = document.getElementById('theme-toggle');
+  const themeCards = document.querySelectorAll('.theme-card');
   const htmlElement = document.documentElement;
   const savedTheme = localStorage.getItem('theme') || 'dark';
-  htmlElement.setAttribute('data-theme', savedTheme);
 
-  if (savedTheme === 'light') {
-    htmlElement.classList.remove('dark');
-    htmlElement.classList.add('light');
-  } else {
-    htmlElement.classList.remove('light');
-    htmlElement.classList.add('dark');
+  function applyTheme(theme) {
+    htmlElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+
+    if (theme === 'light') {
+      htmlElement.classList.remove('dark');
+      htmlElement.classList.add('light');
+    } else {
+      htmlElement.classList.remove('light');
+      htmlElement.classList.add('dark');
+    }
+
+    // Sync theme section cards if present
+    themeCards.forEach(card => {
+      const cardTheme = card.getAttribute('data-set-theme');
+      if (cardTheme === theme) {
+        card.classList.add('active');
+        const badge = card.querySelector('.theme-badge');
+        if (badge) badge.textContent = 'ACTIVE THEME';
+      } else {
+        card.classList.remove('active');
+        const badge = card.querySelector('.theme-badge');
+        if (badge) badge.textContent = 'SELECT THEME';
+      }
+    });
   }
+
+  applyTheme(savedTheme);
 
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
       const currentTheme = htmlElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-      htmlElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-
-      if (newTheme === 'light') {
-        htmlElement.classList.remove('dark');
-        htmlElement.classList.add('light');
-      } else {
-        htmlElement.classList.remove('light');
-        htmlElement.classList.add('dark');
-      }
+      applyTheme(newTheme);
     });
   }
+
+  themeCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const selectedTheme = card.getAttribute('data-set-theme');
+      if (selectedTheme) {
+        applyTheme(selectedTheme);
+      }
+    });
+  });
 
   // --- 8. Mobile Navigation Toggle ---
   const mobileToggle = document.getElementById('mobile-toggle');
