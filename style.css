@@ -1048,6 +1048,56 @@ body {
   gap: 0.4rem;
 }
 
+/* --- Projects Showcase & Achievements Cards --- */
+.projects-editorial-grid, .achieve-editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.project-card-editorial, .achieve-card, .club-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 18px;
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.project-card-editorial.full-width, .achieve-card.full-width {
+  grid-column: span 2;
+}
+
+.card-header-badge {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-tag {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--red-primary);
+  text-transform: uppercase;
+}
+
+.card-title-text {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.card-body-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
 /* --- Responsive Media Queries --- */
 @media (max-width: 1024px) {
   .hero-bottom-grid, .two-col-grid, .project-detail-top, .contact-two-col, .project-detail-bottom {
