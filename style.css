@@ -1927,3 +1927,36 @@ html {
     opacity: 0.4;
   }
 }
+
+/* ─── Particle Canvas — fixed behind everything ─── */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 1;
+}
+
+/* Ensure all content sits above the canvas */
+.navbar,
+.main-content,
+.canva-footer,
+.cinematic-progress-bar,
+.ambient-spotlight,
+.cursor-ring,
+.cursor-dot,
+.mobile-menu-scrim {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar {
+  z-index: 1000;
+}
+
+.cursor-ring  { z-index: 9999; }
+.cursor-dot   { z-index: 10000; }
+.cinematic-progress-bar { z-index: 2000; }

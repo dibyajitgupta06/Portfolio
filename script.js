@@ -423,4 +423,158 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => el.classList.add('letters-visible'), 100);
   });
 
+  // ─────────────────────────────────────────────────────────────────────────
+  // 17. INTERACTIVE CANVAS PARTICLE FIELD
+  //     - Particles float + connect with lines
+  //     - Mouse repels nearby particles
+  //     - Click creates ripple burst
+  //     - Scroll shifts particle parallax
+  //     - Light/dark aware colors
+  // ─────────────────────────────────────────────────────────────────────────
+  const canvas = document.getElementById('particle-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let W = canvas.width  = window.innerWidth;
+    let H = canvas.height = window.innerHeight;
+
+    const PARTICLE_COUNT = window.innerWidth < 768 ? 40 : 72;
+    const CONNECTION_DIST = 130;
+    const REPEL_DIST = 120;
+    const REPEL_STRENGTH = 5.5;
+
+    let mouse = { x: -9999, y: -9999 };
+    let scrollY = 0;
+    let isDark = () => document.documentElement.getAttribute('data-theme') === 'dark';
+
+    // Build particles
+    class Particle {
+      constructor() { this.reset(true); }
+      reset(initial = false) {
+        this.x  = Math.random() * W;
+        this.y  = initial ? Math.random() * H : -10;
+        this.vx = (Math.random() - 0.5) * 0.38;
+        this.vy = (Math.random() - 0.5) * 0.38;
+        this.r  = Math.random() * 1.6 + 0.6;
+        this.alpha = Math.random() * 0.45 + 0.12;
+        this.ox = this.x; // original x for scroll parallax
+        this.oy = this.y;
+        this.scrollFactor = Math.random() * 0.06 + 0.01;
+      }
+      update(scrollDelta) {
+        this.x += this.vx;
+        this.y += this.vy + scrollDelta * this.scrollFactor;
+
+        // Soft-wall bounce
+        if (this.x < 0 || this.x > W) this.vx *= -1;
+        if (this.y < 0 || this.y > H) this.vy *= -1;
+        this.x = Math.max(0, Math.min(W, this.x));
+        this.y = Math.max(0, Math.min(H, this.y));
+
+        // Mouse repulsion
+        const dx = this.x - mouse.x;
+        const dy = this.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < REPEL_DIST && dist > 0) {
+          const force = (1 - dist / REPEL_DIST) * REPEL_STRENGTH;
+          this.x += (dx / dist) * force;
+          this.y += (dy / dist) * force;
+        }
+      }
+      draw() {
+        const dark = isDark();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = dark
+          ? `rgba(255, 43, 43, ${this.alpha * 0.9})`
+          : `rgba(255, 43, 43, ${this.alpha * 0.55})`;
+        ctx.fill();
+      }
+    }
+
+    const particles = Array.from({ length: PARTICLE_COUNT }, () => new Particle());
+
+    // Ripple clicks — listen on window since canvas has pointer-events: none
+    const ripples = [];
+    window.addEventListener('click', (e) => {
+      ripples.push({ x: e.clientX, y: e.clientY, r: 0, alpha: 0.65, maxR: 100 });
+    }, { passive: true });
+
+    // Track mouse
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    }, { passive: true });
+
+    // Track scroll for parallax
+    let lastScrollForParticle = 0;
+    window.addEventListener('scroll', () => {
+      scrollY = window.scrollY;
+    }, { passive: true });
+
+    // Resize
+    window.addEventListener('resize', () => {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    });
+
+    // Draw loop
+    function drawLoop() {
+      ctx.clearRect(0, 0, W, H);
+
+      const scrollDelta = scrollY - lastScrollForParticle;
+      lastScrollForParticle = scrollY;
+      const dark = isDark();
+
+      // Draw connections
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const p1 = particles[i], p2 = particles[j];
+          const dx = p1.x - p2.x, dy = p1.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECTION_DIST) {
+            const lineAlpha = (1 - dist / CONNECTION_DIST) * (dark ? 0.18 : 0.1);
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(255, 43, 43, ${lineAlpha})`;
+            ctx.lineWidth = 0.7;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Update & draw particles
+      particles.forEach(p => { p.update(scrollDelta); p.draw(); });
+
+      // Draw ripples
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const rp = ripples[i];
+        rp.r += 3.5;
+        rp.alpha -= 0.018;
+        if (rp.alpha <= 0 || rp.r > rp.maxR) { ripples.splice(i, 1); continue; }
+        ctx.beginPath();
+        ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255, 43, 43, ${rp.alpha})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+
+      // Mouse hover glow cluster
+      if (mouse.x > 0) {
+        const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
+        g.addColorStop(0, `rgba(255, 43, 43, ${dark ? 0.07 : 0.04})`);
+        g.addColorStop(1, 'transparent');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 80, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      requestAnimationFrame(drawLoop);
+    }
+
+    drawLoop();
+  }
+
 });
+
