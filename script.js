@@ -228,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 7. Theme Switcher Handler (Navbar & Appearance Section) ---
-  const themeToggle = document.getElementById('theme-toggle');
+  const themeSegBtns = document.querySelectorAll('.theme-seg-btn');
   const themeCards = document.querySelectorAll('.theme-card');
   const htmlElement = document.documentElement;
   const savedTheme = localStorage.getItem('theme') || 'light';
@@ -244,6 +244,16 @@ document.addEventListener('DOMContentLoaded', () => {
       htmlElement.classList.remove('light');
       htmlElement.classList.add('dark');
     }
+
+    // Sync top navigation bar theme segmented control
+    themeSegBtns.forEach(btn => {
+      const btnTheme = btn.getAttribute('data-set-theme');
+      if (btnTheme === theme) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
 
     // Sync theme section cards if present
     themeCards.forEach(card => {
@@ -262,14 +272,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   applyTheme(savedTheme);
 
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const currentTheme = htmlElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      applyTheme(newTheme);
+  // Top Bar Segmented Control click listener
+  themeSegBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedTheme = btn.getAttribute('data-set-theme');
+      if (selectedTheme) {
+        applyTheme(selectedTheme);
+      }
     });
-  }
+  });
 
+  // Appearance Section theme cards click listener
   themeCards.forEach(card => {
     card.addEventListener('click', () => {
       const selectedTheme = card.getAttribute('data-set-theme');

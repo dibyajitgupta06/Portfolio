@@ -69,11 +69,15 @@
           <i data-lucide="volume-x" class="sound-off-icon" style="display:none;"></i>
         </button>
 
-        <!-- Theme Switcher -->
-        <button id="theme-toggle" class="btn-icon magnetic-target" aria-label="Toggle Theme" data-cursor="THEME">
-          <i data-lucide="sun" class="sun-icon"></i>
-          <i data-lucide="moon" class="moon-icon"></i>
-        </button>
+        <!-- Top Bar macOS Theme Segmented Control -->
+        <div class="header-theme-segmented" id="header-theme-segmented">
+          <button class="theme-seg-btn active" id="btn-theme-light" data-set-theme="light" data-cursor="LIGHT">
+            <i data-lucide="sun"></i> <span>Light</span>
+          </button>
+          <button class="theme-seg-btn" id="btn-theme-dark" data-set-theme="dark" data-cursor="DARK">
+            <i data-lucide="moon"></i> <span>Dark</span>
+          </button>
+        </div>
 
         <!-- Mobile Menu Toggle -->
         <button id="mobile-toggle" class="btn-icon mobile-only" aria-label="Open mobile menu">
