@@ -21,7 +21,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <!-- Style link -->
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
 </head>
 <body>
 
@@ -72,7 +72,8 @@
         <!-- Floating Interactive Live HUD Chip -->
         <div class="hero-status-hud glass-card magnetic-target cinematic-reveal">
           <span class="live-status-dot"></span>
-          <span class="status-hud-text">AVAILABLE FOR ROLES • SELISE DEVELOPER • ICCR SCHOLAR</span>
+          <span class="status-hud-text btn-text-full">AVAILABLE FOR ROLES • SELISE DEVELOPER • ICCR SCHOLAR</span>
+          <span class="status-hud-text btn-text-short">AVAILABLE • SELISE DEV • ICCR SCHOLAR</span>
         </div>
 
         <!-- Background Continuous Horizontal Scrolling Name Marquee -->
@@ -91,14 +92,6 @@
         <!-- Interactive 3D Architectural WebGL Core (Zero dots, pure geometric tech wireframe & glass) -->
         <div class="hero-3d-canvas-wrap" id="hero-3d-wrap">
           <canvas id="hero-3d-canvas" class="hero-3d-canvas"></canvas>
-          <div class="hero-3d-controls-hud">
-            <div class="hero-3d-mode-switcher">
-              <button class="hero-3d-btn active" data-core="gyro"><i data-lucide="orbit"></i> Gyro Core</button>
-              <button class="hero-3d-btn" data-core="tesseract"><i data-lucide="box"></i> Hyper-Tesseract</button>
-              <button class="hero-3d-btn" data-core="neural"><i data-lucide="cpu"></i> Synaptic Node</button>
-            </div>
-            <div class="hero-3d-drag-hint"><i data-lucide="rotate-cw"></i> <span>DRAG IN 360° TO ROTATE</span></div>
-          </div>
         </div>
 
         <!-- 3D Floating Glass Orbitals around Cutout -->
@@ -151,6 +144,15 @@
         <!-- Center Floating Parallax Massive Uncropped Cutout Figure -->
         <div class="hero-full-cutout-stage">
           <img src="avatar-suit.png" alt="Dibyajit Das Gupta Cutout" class="hero-full-cutout-img scroll-parallax-large">
+        </div>
+
+        <!-- 3D Holographic Core Mode Switcher -->
+        <div class="hero-3d-controls-hud">
+          <div class="hero-3d-mode-switcher">
+            <button class="hero-3d-btn active" data-core="gyro"><i data-lucide="orbit"></i> <span class="btn-text-full">Gyro Core</span><span class="btn-text-short">Gyro</span></button>
+            <button class="hero-3d-btn" data-core="tesseract"><i data-lucide="box"></i> <span class="btn-text-full">Hyper-Tesseract</span><span class="btn-text-short">Tesseract</span></button>
+            <button class="hero-3d-btn" data-core="neural"><i data-lucide="cpu"></i> <span class="btn-text-full">Synaptic Node</span><span class="btn-text-short">Neural</span></button>
+          </div>
         </div>
 
         <div class="hero-bottom-grid">
@@ -818,6 +820,6 @@
   </footer>
 
   <!-- Main Interactivity Script -->
-  <script src="script.js?v=11"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>
