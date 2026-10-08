@@ -571,6 +571,39 @@ body {
   transition: transform 0.2s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.avatar-toggle-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+
+.avatar-mode-btn {
+  flex: 1;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.45rem 0.75rem;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: all 0.25s ease;
+}
+
+.avatar-mode-btn.active, .avatar-mode-btn:hover {
+  background: var(--primary);
+  color: #050508;
+  border-color: var(--primary);
+  box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.3);
+}
+
 .avatar-card-wrapper:hover {
   border-color: var(--primary);
   box-shadow: 0 0 35px rgba(var(--primary-rgb), 0.25);
@@ -582,19 +615,56 @@ body {
   border-radius: 16px;
   overflow: hidden;
   position: relative;
-  background: #0d0f16;
+  background: radial-gradient(circle at center, rgba(212, 255, 0, 0.06) 0%, rgba(13, 15, 22, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .avatar-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.avatar-card-wrapper:hover .avatar-img {
-  transform: scale(1.04);
+.bento-photo {
+  grid-column: span 1;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bento-photo-wrap {
+  width: 100%;
+  aspect-ratio: 4/5;
+  border-radius: 14px;
+  overflow: hidden;
+  background: radial-gradient(circle at center, rgba(212, 255, 0, 0.05) 0%, rgba(10, 12, 18, 0.95) 100%);
+}
+
+.bento-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.bento-photo:hover .bento-img {
+  transform: scale(1.05);
+}
+
+.bento-photo-tag {
+  margin-top: 1rem;
+}
+
+.bento-photo-tag h4 {
+  font-size: 0.98rem;
+  font-weight: 800;
+  color: var(--text-primary);
 }
 
 .avatar-info-tag {

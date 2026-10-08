@@ -125,15 +125,22 @@
 
         <!-- Hero Interactive 3D Avatar Card -->
         <div class="hero-image-container animate-fade-in-right">
-          <div class="avatar-card-wrapper glass-card 3d-tilt" data-cursor="DIBYAJIT">
+          <div class="avatar-card-wrapper glass-card 3d-tilt" data-cursor="TOGGLE">
+            
+            <!-- Photo Mode Switcher Pills -->
+            <div class="avatar-toggle-bar">
+              <button class="avatar-mode-btn active" id="btn-mode-suit" data-img="avatar-suit.png"><i data-lucide="briefcase"></i> FORMAL</button>
+              <button class="avatar-mode-btn" id="btn-mode-casual" data-img="avatar-casual.png"><i data-lucide="user"></i> CASUAL</button>
+            </div>
+
             <div class="avatar-frame">
-              <img src="avatar.jpg" alt="Dibyajit Das Gupta" class="avatar-img">
+              <img src="avatar-suit.png" alt="Dibyajit Das Gupta" class="avatar-img" id="hero-avatar-img">
             </div>
             
             <div class="avatar-info-tag">
-              <span class="tag-status"><span class="status-pulse-green"></span> AVAILABLE FOR HIRE</span>
+              <span class="tag-status"><span class="status-pulse-green"></span> ACTIVE DEVELOPER</span>
               <span class="tag-title">DIBYAJIT DAS GUPTA</span>
-              <span class="tag-sub">B.Tech CSE • NIT Sikkim '26</span>
+              <span class="tag-sub">Associate Software Developer • SELISE</span>
             </div>
           </div>
         </div>
@@ -186,11 +193,22 @@
             <div class="card-icon gradient-glow-cyan"><i data-lucide="user"></i></div>
             <h3>Engineering Mindset & Passion</h3>
             <p>
-              I am <strong>Dibyajit Das Gupta</strong>, an aspiring Computer Science Engineer specializing in software development, AI systems, cybersecurity, data analytics, and business analysis. My technical repertoire spans core languages (C++, Python, Java, SQL) to full-stack Web Development (React, Node, Express, MongoDB) and AI applications (LLMs, Prompt Engineering, RAG, Computer Vision).
+              I am <strong>Dibyajit Das Gupta</strong>, an Associate Software Developer at SELISE Digital Platforms and Computer Science Engineer from NIT Sikkim. My technical repertoire spans core languages (C++, Python, Java, SQL) to full-stack Web Development (React, Node, Express, MongoDB), Generative AI (LLMs, RAG, Prompt Engineering), and Cybersecurity.
             </p>
             <p style="margin-top: 1rem;">
-              Driven by innovation and entrepreneurial problem solving, I strive to build scalable technology solutions that deliver tangible impact. Beyond code, I hold leadership positions in cultural and entrepreneurship cells, perform as a drummer, and compete in esports.
+              Driven by technical innovation and entrepreneurial problem solving, I strive to build scalable technology solutions that deliver tangible impact. Beyond code, I hold leadership positions in cultural and entrepreneurship cells, perform as a drummer, and compete in esports.
             </p>
+          </div>
+
+          <!-- Persona Photo Card -->
+          <div class="bento-card bento-photo glass-card 3d-tilt" data-cursor="PERSONA">
+            <div class="bento-photo-wrap">
+              <img src="avatar-casual.png" alt="Dibyajit Das Gupta Casual" class="bento-img">
+            </div>
+            <div class="bento-photo-tag">
+              <span class="badge-index">// CREATIVE & DYNAMIC</span>
+              <h4>Associate Developer @ SELISE</h4>
+            </div>
           </div>
 
           <!-- Highlight Stat Card 1 -->

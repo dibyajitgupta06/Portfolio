@@ -422,6 +422,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3500);
       }, 1400);
     });
+  // --- 15. Avatar Image Mode Switcher (Formal vs Casual) ---
+  const avatarModeBtns = document.querySelectorAll('.avatar-mode-btn');
+  const heroAvatarImg = document.getElementById('hero-avatar-img');
+
+  if (avatarModeBtns.length && heroAvatarImg) {
+    avatarModeBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        avatarModeBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const newImgSrc = btn.getAttribute('data-img');
+        if (newImgSrc) {
+          heroAvatarImg.style.opacity = '0.3';
+          heroAvatarImg.style.transform = 'scale(0.96)';
+
+          setTimeout(() => {
+            heroAvatarImg.src = newImgSrc;
+            heroAvatarImg.style.opacity = '1';
+            heroAvatarImg.style.transform = 'scale(1)';
+          }, 200);
+        }
+      });
+    });
   }
 
 });
