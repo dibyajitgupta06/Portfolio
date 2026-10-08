@@ -1,19 +1,221 @@
-// Personal Portfolio Interactivity Script
+// Dibyajit Das Gupta — Personal Portfolio Interactivity Script (Awwwards Edition)
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize Lucide Icons
+
+  // --- 1. Initialize Lucide Icons ---
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
 
-  // --- Theme Toggle Handler ---
+  // --- 2. Web Audio Synthesizer (Click & Hover FX) ---
+  let audioCtx = null;
+  let soundEnabled = true;
+
+  function playSound(type = 'click') {
+    if (!soundEnabled) return;
+    try {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) audioCtx = new AudioContext();
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      if (!audioCtx) return;
+
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      const now = audioCtx.currentTime;
+      if (type === 'click') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, now);
+        osc.frequency.exponentialRampToValueAtTime(400, now + 0.04);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        osc.start(now);
+        osc.stop(now + 0.04);
+      } else if (type === 'hover') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(450, now);
+        osc.frequency.exponentialRampToValueAtTime(650, now + 0.03);
+        gain.gain.setValueAtTime(0.04, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+        osc.start(now);
+        osc.stop(now + 0.03);
+      }
+    } catch (e) {
+      // Ignore audio policy restrictions gracefully
+    }
+  }
+
+  // Sound FX Toggle Button Handler
+  const soundToggle = document.getElementById('sound-toggle');
+  if (soundToggle) {
+    const soundOnIcon = soundToggle.querySelector('.sound-on-icon');
+    const soundOffIcon = soundToggle.querySelector('.sound-off-icon');
+
+    soundToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      if (soundEnabled) {
+        if (soundOnIcon) soundOnIcon.style.display = 'inline-block';
+        if (soundOffIcon) soundOffIcon.style.display = 'none';
+        playSound('click');
+      } else {
+        if (soundOnIcon) soundOnIcon.style.display = 'none';
+        if (soundOffIcon) soundOffIcon.style.display = 'inline-block';
+      }
+    });
+  }
+
+  // --- 3. Live Dhaka Time Widget (GMT+6) ---
+  function updateDhakaClock() {
+    const clockEl = document.getElementById('live-clock');
+    if (!clockEl) return;
+    try {
+      const dhakaTimeStr = new Date().toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Dhaka',
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+      clockEl.textContent = `DHAKA ${dhakaTimeStr} GMT+6`;
+    } catch (e) {
+      clockEl.textContent = `DHAKA 16:00:00 GMT+6`;
+    }
+  }
+  setInterval(updateDhakaClock, 1000);
+  updateDhakaClock();
+
+  // --- 4. Custom Cursor & Ambient Spotlight Lerp ---
+  const cursorDot = document.getElementById('cursor-dot');
+  const cursorFollower = document.getElementById('cursor-follower');
+  const cursorText = document.getElementById('cursor-text');
+  const ambientSpotlight = document.getElementById('ambient-spotlight');
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let followerX = mouseX;
+  let followerY = mouseY;
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  if (!isTouchDevice) {
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (cursorDot) {
+        cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+      }
+
+      if (ambientSpotlight) {
+        ambientSpotlight.style.left = `${mouseX}px`;
+        ambientSpotlight.style.top = `${mouseY}px`;
+      }
+    });
+
+    function animateCursor() {
+      followerX += (mouseX - followerX) * 0.15;
+      followerY += (mouseY - followerY) * 0.15;
+
+      if (cursorFollower) {
+        cursorFollower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`;
+      }
+
+      requestAnimationFrame(animateCursor);
+    }
+    requestAnimationFrame(animateCursor);
+
+    // Interactive Hover Listeners for Cursor State
+    const interactiveElements = document.querySelectorAll(
+      'a, button, input, textarea, select, .magnetic-target, .timeline-header, .filter-btn, [data-cursor], .glass-card, .project-card'
+    );
+
+    interactiveElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        const text = el.getAttribute('data-cursor');
+        if (cursorFollower) {
+          cursorFollower.classList.add('hovering');
+          if (text) {
+            cursorFollower.classList.add('has-text');
+            if (cursorText) cursorText.textContent = text;
+          }
+        }
+        if (cursorDot) cursorDot.classList.add('hovering');
+        playSound('hover');
+      });
+
+      el.addEventListener('mouseleave', () => {
+        if (cursorFollower) {
+          cursorFollower.classList.remove('hovering', 'has-text');
+          if (cursorText) cursorText.textContent = '';
+        }
+        if (cursorDot) cursorDot.classList.remove('hovering');
+      });
+
+      el.addEventListener('click', () => {
+        playSound('click');
+      });
+    });
+  }
+
+  // --- 5. Magnetic Targets Pull Effect ---
+  if (!isTouchDevice) {
+    const magneticTargets = document.querySelectorAll('.magnetic-target');
+    magneticTargets.forEach(target => {
+      target.addEventListener('mousemove', (e) => {
+        const rect = target.getBoundingClientRect();
+        const relX = e.clientX - rect.left - rect.width / 2;
+        const relY = e.clientY - rect.top - rect.height / 2;
+
+        target.style.transform = `translate3d(${relX * 0.22}px, ${relY * 0.22}px, 0)`;
+      });
+
+      target.addEventListener('mouseleave', () => {
+        target.style.transform = 'translate3d(0px, 0px, 0)';
+        target.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+        setTimeout(() => {
+          target.style.transition = '';
+        }, 400);
+      });
+    });
+  }
+
+  // --- 6. 3D Tilt Interaction ---
+  if (!isTouchDevice) {
+    const tiltCards = document.querySelectorAll('.glass-card, .project-card, .avatar-wrapper, .bento-item');
+    tiltCards.forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardWidth = cardRect.width;
+        const cardHeight = cardRect.height;
+
+        const relX = e.clientX - cardRect.left - cardWidth / 2;
+        const relY = e.clientY - cardRect.top - cardHeight / 2;
+
+        const rotateX = -(relY / (cardHeight / 2)) * 5;
+        const rotateY = (relX / (cardWidth / 2)) * 5;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.015)`;
+        card.style.boxShadow = `${-rotateY * 1.5}px ${rotateX * 1.5}px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(6, 182, 212, 0.15)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+      });
+    });
+  }
+
+  // --- 7. Theme Switcher Handler ---
   const themeToggle = document.getElementById('theme-toggle');
   const htmlElement = document.documentElement;
-
-  // Retrieve saved theme preference, default to dark
   const savedTheme = localStorage.getItem('theme') || 'dark';
   htmlElement.setAttribute('data-theme', savedTheme);
-  
+
   if (savedTheme === 'light') {
     htmlElement.classList.remove('dark');
     htmlElement.classList.add('light');
@@ -22,52 +224,57 @@ document.addEventListener('DOMContentLoaded', () => {
     htmlElement.classList.add('dark');
   }
 
-  themeToggle.addEventListener('click', () => {
-    const currentTheme = htmlElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    htmlElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
 
-    if (newTheme === 'light') {
-      htmlElement.classList.remove('dark');
-      htmlElement.classList.add('light');
-    } else {
-      htmlElement.classList.remove('light');
-      htmlElement.classList.add('dark');
-    }
-  });
+      htmlElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
 
-  // --- Mobile Navigation Menu ---
+      if (newTheme === 'light') {
+        htmlElement.classList.remove('dark');
+        htmlElement.classList.add('light');
+      } else {
+        htmlElement.classList.remove('light');
+        htmlElement.classList.add('dark');
+      }
+    });
+  }
+
+  // --- 8. Mobile Navigation Toggle ---
   const mobileToggle = document.getElementById('mobile-toggle');
   const navMenu = document.getElementById('nav-menu');
   const navLinks = document.querySelectorAll('.nav-link');
 
-  mobileToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-  });
-
-  // Close menu when clicking a link
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      navMenu.classList.remove('active');
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
     });
-  });
 
-  // --- Navbar Shrink on Scroll ---
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+      });
+    });
+  }
+
+  // --- 9. Navbar Shrink on Scroll ---
   const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add('shrunk');
-    } else {
-      navbar.classList.remove('shrunk');
-    }
-  });
+  if (navbar) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('shrunk');
+      } else {
+        navbar.classList.remove('shrunk');
+      }
+    });
+  }
 
-  // --- Timeline Accordion Expansion ---
+  // --- 10. Experience Timeline Accordion ---
   const timelineItems = document.querySelectorAll('.timeline-item');
   timelineItems.forEach((item, index) => {
-    // Expand the first item by default
+    // First experience opened by default
     if (index === 0) {
       item.classList.add('expanded');
     }
@@ -76,35 +283,35 @@ document.addEventListener('DOMContentLoaded', () => {
     if (header) {
       header.addEventListener('click', () => {
         const isExpanded = item.classList.contains('expanded');
-        
-        // Close other items
-        timelineItems.forEach(otherItem => {
-          if (otherItem !== item) {
-            otherItem.classList.remove('expanded');
-          }
-        });
 
-        item.classList.toggle('expanded');
+        // Toggle current accordion
+        if (isExpanded) {
+          item.classList.remove('expanded');
+        } else {
+          // Collapse others for clean accordion feel
+          timelineItems.forEach(other => other.classList.remove('expanded'));
+          item.classList.add('expanded');
+        }
       });
     }
   });
 
-  // --- Typing Text Animation ---
+  // --- 11. Typing Role Animation ---
   const typedTextSpan = document.getElementById('typed-text');
   const roles = [
-    'Computer Science Engineer',
-    'Full-Stack Developer',
-    'AI & Data Analyst',
-    'Cybersecurity Enthusiast',
-    'Business Analyst'
+    'Full-Stack Software Engineer',
+    'AI & Data Analytics Specialist',
+    'Cybersecurity Developer',
+    'B.Tech CSE @ NIT Sikkim'
   ];
-  const typingSpeed = 100;
-  const erasingSpeed = 50;
-  const newRoleDelay = 2000;
+  const typingSpeed = 90;
+  const erasingSpeed = 45;
+  const newRoleDelay = 2200;
   let roleIndex = 0;
   let charIndex = 0;
 
   function type() {
+    if (!typedTextSpan) return;
     if (charIndex < roles[roleIndex].length) {
       typedTextSpan.textContent += roles[roleIndex].charAt(charIndex);
       charIndex++;
@@ -115,147 +322,106 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function erase() {
+    if (!typedTextSpan) return;
     if (charIndex > 0) {
       typedTextSpan.textContent = roles[roleIndex].substring(0, charIndex - 1);
       charIndex--;
       setTimeout(erase, erasingSpeed);
     } else {
       roleIndex = (roleIndex + 1) % roles.length;
-      setTimeout(type, typingSpeed + 500);
+      setTimeout(type, typingSpeed + 400);
     }
   }
 
-  // Init typing cycle
   if (typedTextSpan) {
-    setTimeout(type, 1000);
+    setTimeout(type, 800);
   }
 
-  // --- Project Filtering ---
+  // --- 12. Project Filtering Logic ---
   const filterButtons = document.querySelectorAll('.filter-btn');
   const projectCards = document.querySelectorAll('.project-card');
 
   filterButtons.forEach(button => {
     button.addEventListener('click', () => {
-      // Set active button style
       filterButtons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
 
       const filterValue = button.getAttribute('data-filter');
 
       projectCards.forEach(card => {
-        const categories = card.getAttribute('data-categories');
-        
-        if (filterValue === 'all') {
+        const categories = card.getAttribute('data-categories') || '';
+
+        if (filterValue === 'all' || categories.includes(filterValue)) {
           card.style.display = 'flex';
-          setTimeout(() => card.style.opacity = '1', 50);
-        } else if (categories && categories.includes(filterValue)) {
-          card.style.display = 'flex';
-          setTimeout(() => card.style.opacity = '1', 50);
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0) scale(1)';
+          }, 50);
         } else {
           card.style.opacity = '0';
-          setTimeout(() => card.style.display = 'none', 300);
+          card.style.transform = 'translateY(20px) scale(0.95)';
+          setTimeout(() => {
+            card.style.display = 'none';
+          }, 300);
         }
       });
     });
   });
 
-  // --- Scroll Reveal Animation ---
-  // Let's add the scroll-reveal class to section-headers, cards, and timeline items
-  const revealElements = [];
-  
-  document.querySelectorAll('.section-header, .about-card, .skill-category, .timeline-item, .project-card, .ach-item, .contact-info, .contact-form').forEach(el => {
-    el.classList.add('scroll-reveal');
-    revealElements.push(el);
-  });
+  // --- 13. Intersection Observer Scroll Reveal ---
+  const revealElements = document.querySelectorAll(
+    '.section-header, .bento-item, .skill-category, .timeline-item, .project-card, .ach-card, .contact-card'
+  );
 
-  // Setup IntersectionObserver for reveal triggers
   if ('IntersectionObserver' in window) {
     const revealObserver = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('active');
-          observer.unobserve(entry.target); // Reveal once
+          observer.unobserve(entry.target);
         }
       });
     }, {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+      threshold: 0.08,
+      rootMargin: '0px 0px -40px 0px'
     });
 
     revealElements.forEach(el => {
+      el.classList.add('scroll-reveal');
       revealObserver.observe(el);
     });
   } else {
-    // Fallback: make everything visible immediately
     revealElements.forEach(el => el.classList.add('active'));
   }
 
-  // --- Contact Form Submission MOCK ---
+  // --- 14. Contact Form Submission Handler ---
   const contactForm = document.getElementById('portfolio-contact-form');
   const submitButton = document.getElementById('form-submit');
 
-  if (contactForm) {
+  if (contactForm && submitButton) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      
-      // Visual feedback
+
       const originalContent = submitButton.innerHTML;
-      submitButton.innerHTML = '<i class="spin-icon" style="animation: rotate 1s linear infinite;">↻</i> Sending...';
+      submitButton.innerHTML = '<i data-lucide="loader-2" class="spin-icon"></i> Transmitting...';
       submitButton.style.pointerEvents = 'none';
+      if (typeof lucide !== 'undefined') lucide.createIcons();
 
-      // Mock delay
       setTimeout(() => {
-        submitButton.innerHTML = '<i data-lucide="check"></i> Message Sent!';
-        submitButton.style.background = 'linear-gradient(135deg, #22c55e, #10b981)'; // Green success accent
-        
-        // Re-init lucide icons inside button
-        if (typeof lucide !== 'undefined') {
-          lucide.createIcons();
-        }
+        submitButton.innerHTML = '<i data-lucide="check-circle-2"></i> Message Sent!';
+        submitButton.style.background = 'linear-gradient(135deg, #10b981, #059669)';
 
-        // Reset form
+        if (typeof lucide !== 'undefined') lucide.createIcons();
         contactForm.reset();
 
         setTimeout(() => {
           submitButton.innerHTML = originalContent;
           submitButton.style.background = '';
           submitButton.style.pointerEvents = 'auto';
-          if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-          }
-        }, 3000);
-      }, 1500);
+          if (typeof lucide !== 'undefined') lucide.createIcons();
+        }, 3500);
+      }, 1400);
     });
   }
 
-  // --- 3D Hover Tilt Effect ---
-  const isMobile = window.innerWidth <= 768;
-  if (!isMobile) {
-    const tiltCards = document.querySelectorAll('.glass-card, .project-card, .avatar-wrapper');
-    tiltCards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const cardRect = card.getBoundingClientRect();
-        const cardWidth = cardRect.width;
-        const cardHeight = cardRect.height;
-        
-        // Get mouse position relative to card center
-        const mouseX = e.clientX - cardRect.left - cardWidth / 2;
-        const mouseY = e.clientY - cardRect.top - cardHeight / 2;
-        
-        // Calculate rotation angles (max 6 degrees for subtle classiness)
-        const rotateX = -(mouseY / (cardHeight / 2)) * 6;
-        const rotateY = (mouseX / (cardWidth / 2)) * 6;
-        
-        // Apply transform style
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-        card.style.boxShadow = `${-rotateY * 1.2}px ${rotateX * 1.2}px 35px rgba(0, 0, 0, 0.4), 0 0 25px rgba(6, 182, 212, 0.12)`;
-      });
-      
-      card.addEventListener('mouseleave', () => {
-        // Reset transform styles smoothly
-        card.style.transform = '';
-        card.style.boxShadow = '';
-      });
-    });
-  }
 });
