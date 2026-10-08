@@ -257,13 +257,7 @@ body {
 }
 
 /* --- Red Paint Splatter Background Graphics --- */
-/* --- Red Dot Splatter Removed — Canvas Particle Field replaces --- */
-.splatter-bg,
-.splatter-top-right, .splatter-top-right-heavy,
-.splatter-centered, .splatter-bottom-left, .splatter-bottom-right,
-.splatter-center-right, .splatter-center-right-heavy {
-  display: none !important;
-}
+
 
 
 /* --- Slide 01: Hero Stage Layout & Larger Cutout --- */
@@ -1922,23 +1916,9 @@ html {
   .navbar-container {
     padding: 0 1.2rem;
   }
-  /* Canvas particle system — lighter on mobile */
-  #particle-canvas {
-    opacity: 0.4;
-  }
 }
 
-/* ─── Particle Canvas — fixed behind everything ─── */
-#particle-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 1;
-}
+/* Particle canvas removed */
 
 /* Ensure all content sits above the canvas */
 .navbar,
