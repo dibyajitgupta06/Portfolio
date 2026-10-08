@@ -182,13 +182,47 @@ body {
 /* Scroll-Driven Cinematic Reveal Animations */
 .cinematic-reveal {
   opacity: 0;
-  transform: translateY(40px) scale(0.96);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(52px) scale(0.95);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .cinematic-reveal.visible {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+/* Stagger delays */
+.cinematic-reveal:nth-child(1)  { transition-delay: 0ms; }
+.cinematic-reveal:nth-child(2)  { transition-delay: 80ms; }
+.cinematic-reveal:nth-child(3)  { transition-delay: 160ms; }
+.cinematic-reveal:nth-child(4)  { transition-delay: 240ms; }
+.cinematic-reveal:nth-child(5)  { transition-delay: 320ms; }
+.cinematic-reveal:nth-child(6)  { transition-delay: 400ms; }
+
+/* Slide from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px) scale(0.96);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+/* Slide from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px) scale(0.96);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
 }
 
 .canva-slide-content {
@@ -1111,4 +1145,397 @@ body {
   .canva-slide { padding: 6rem 1.5rem 3rem 1.5rem; }
   .slide-giant-red-title { font-size: 3.5rem; }
   .hero-name-track { font-size: 4.5rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PROFESSIONAL INTERACTIVE LAYER
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* --- Custom Cursor Ring --- */
+.cursor-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(var(--red-rgb), 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  top: -20px;
+  left: -20px;
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, border-width 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring.expanded {
+  width: 68px;
+  height: 68px;
+  border-color: var(--red-primary);
+  border-width: 1.5px;
+  top: -34px;
+  left: -34px;
+}
+
+.cursor-dot {
+  position: fixed;
+  width: 7px;
+  height: 7px;
+  background: var(--red-primary);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  top: -3.5px;
+  left: -3.5px;
+  transition: transform 0.05s linear;
+}
+
+/* --- Active Nav Link Indicator --- */
+.nav-link {
+  position: relative;
+  padding-bottom: 3px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: var(--red-primary);
+  border-radius: 99px;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.nav-active::after {
+  width: 100%;
+}
+
+.nav-link.nav-active {
+  color: var(--red-primary);
+}
+
+/* --- Navbar Scroll Behavior --- */
+.navbar {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              background 0.3s ease;
+}
+
+.navbar-scrolled {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.12);
+}
+
+.navbar-hidden {
+  transform: translateY(-110%);
+}
+
+/* --- Glass Card Elevated Hover (base — 3D tilt done in JS) --- */
+.glass-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color 0.35s ease;
+}
+
+.exp-role-card,
+.project-card-editorial,
+.achieve-card,
+.club-card,
+.academic-badge-card,
+.skills-domain-card,
+.contact-form-column {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease,
+              border-color 0.35s ease;
+}
+
+.exp-role-card:hover,
+.project-card-editorial:hover,
+.achieve-card:hover,
+.club-card:hover {
+  border-color: rgba(var(--red-rgb), 0.4);
+}
+
+/* --- Domain Tag Pill hover effect --- */
+.domain-tag-pill {
+  cursor: default;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.domain-tag-pill:hover {
+  background: rgba(var(--red-rgb), 0.16);
+  border-color: rgba(var(--red-rgb), 0.45);
+  color: var(--red-primary);
+  transform: translateY(-2px);
+}
+
+/* Ripple on pill click */
+.pill-ripple {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(var(--red-rgb), 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: pill-ripple-anim 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes pill-ripple-anim {
+  to {
+    transform: translate(-50%, -50%) scale(22);
+    opacity: 0;
+  }
+}
+
+/* --- Typed Text Cursor blink --- */
+#typed-roles::after {
+  content: '|';
+  color: var(--red-primary);
+  animation: blink-cursor 1.1s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* --- Split Letter Hero Animation --- */
+.split-letters .letter-span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) rotateX(-30deg);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--li, 0) * 40ms);
+}
+
+.split-letters.letters-visible .letter-span {
+  opacity: 1;
+  transform: translateY(0) rotateX(0deg);
+}
+
+/* --- Section Title Red Underline Draw Animation --- */
+.slide-giant-red-title {
+  position: relative;
+}
+
+/* --- Highlight pill elevated hover --- */
+.highlight-pill {
+  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.highlight-pill:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--red-rgb), 0.45);
+  background: rgba(var(--red-rgb), 0.14);
+}
+
+/* --- Education item hover --- */
+.edu-canva-item {
+  transition: padding-left 0.25s ease;
+  cursor: default;
+}
+
+.edu-canva-item:hover {
+  padding-left: 0.4rem;
+}
+
+/* --- Skill category block hover --- */
+.skill-category-block {
+  transition: transform 0.25s ease;
+}
+
+.skill-category-block:hover {
+  transform: translateX(6px);
+}
+
+/* --- Contact pill glowing border --- */
+.contact-red-pill {
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-red-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(-100%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-red-pill:hover::before {
+  transform: translateX(0);
+}
+
+/* --- Progress bar glow pulse --- */
+.cinematic-progress-bar {
+  animation: progress-glow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes progress-glow {
+  from { box-shadow: 0 0 8px var(--red-primary); }
+  to   { box-shadow: 0 0 20px var(--red-primary), 0 0 40px rgba(var(--red-rgb), 0.4); }
+}
+
+/* --- Button submit hover fill sweep --- */
+.btn-red-submit {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-red-submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-100%) skewX(-15deg);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-red-submit:hover::before {
+  transform: translateX(120%) skewX(-15deg);
+}
+
+/* --- Role card left-border accent on hover --- */
+.exp-role-card {
+  border-left: 3px solid transparent;
+  transition: border-left-color 0.3s ease,
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease;
+}
+
+.exp-role-card:hover {
+  border-left-color: var(--red-primary);
+}
+
+/* --- Project card tag underline draw on hover --- */
+.card-tag {
+  position: relative;
+  display: inline-block;
+}
+
+.card-tag::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0%;
+  height: 1.5px;
+  background: var(--red-primary);
+  transition: width 0.3s ease;
+}
+
+.project-card-editorial:hover .card-tag::after,
+.achieve-card:hover .card-tag::after {
+  width: 100%;
+}
+
+/* --- Red asterisk spin on card hover --- */
+.red-asterisk {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.exp-role-card:hover .red-asterisk {
+  transform: rotate(45deg) scale(1.2);
+}
+
+/* --- Back to top link underline grow --- */
+.back-to-top {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: gap 0.3s ease;
+}
+
+.back-to-top:hover {
+  gap: 0.8rem;
+}
+
+/* --- Subtle page-entry fade for entire body --- */
+@keyframes page-entry {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+body {
+  animation: page-entry 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* --- Marquee shimmer text effect --- */
+.hero-name-track {
+  -webkit-text-stroke: 1px rgba(var(--red-rgb), 0.3);
+}
+
+/* ─── Glass card shimmer on hover ─── */
+.glass-card::after,
+.exp-role-card::after,
+.project-card-editorial::after,
+.achieve-card::after,
+.academic-badge-card::after,
+.skills-domain-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0.04) 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.glass-card:hover::after,
+.exp-role-card:hover::after,
+.project-card-editorial:hover::after,
+.achieve-card:hover::after,
+.academic-badge-card:hover::after,
+.skills-domain-card:hover::after {
+  opacity: 1;
+}
+
+/* Ensure position: relative on cards for shimmer pseudo-element */
+.exp-role-card,
+.project-card-editorial,
+.achieve-card,
+.club-card,
+.academic-badge-card,
+.skills-domain-card {
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- Smooth scroll on HTML (ensure it's enforced) --- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* --- Typed Text Hero Right Panel --- */
+.hero-desc-right {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 900;
+  color: var(--text-dark);
+  line-height: 1.05;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  border-left: 4px solid var(--red-primary);
+  padding-left: 1.5rem;
+}
+
+#typed-roles {
+  color: var(--red-primary);
 }

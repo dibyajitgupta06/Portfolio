@@ -1,53 +1,103 @@
-// Dibyajit Das Gupta — Personal Website & Engineering Portfolio Script
+// Dibyajit Das Gupta — Professional Interactive Portfolio Script
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- 1. Initialize Lucide Icons ---
+  // ─────────────────────────────────────────────────────────────────────────
+  // 1. LUCIDE ICON INIT
+  // ─────────────────────────────────────────────────────────────────────────
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
 
-  // --- 2. Cinematic Video-Like Frame Scrubbing & Scroll Progress ---
-  const progressBar = document.getElementById('cinematic-progress');
+  // ─────────────────────────────────────────────────────────────────────────
+  // 2. CUSTOM CURSOR RING
+  // ─────────────────────────────────────────────────────────────────────────
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  if (!isTouchDevice) {
+    const cursorRing = document.createElement('div');
+    cursorRing.className = 'cursor-ring';
+    const cursorDot = document.createElement('div');
+    cursorDot.className = 'cursor-dot';
+    document.body.appendChild(cursorRing);
+    document.body.appendChild(cursorDot);
+
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    });
+
+    // Smooth lag ring
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px)`;
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Hover expand on interactive elements
+    document.querySelectorAll('a, button, .glass-card, .exp-role-card, .project-card-editorial, .contact-red-pill, .nav-link, .domain-tag-pill').forEach(el => {
+      el.addEventListener('mouseenter', () => cursorRing.classList.add('expanded'));
+      el.addEventListener('mouseleave', () => cursorRing.classList.remove('expanded'));
+    });
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 3. AMBIENT SPOTLIGHT
+  // ─────────────────────────────────────────────────────────────────────────
   const ambientSpotlight = document.getElementById('ambient-spotlight');
+  if (!isTouchDevice && ambientSpotlight) {
+    window.addEventListener('mousemove', (e) => {
+      ambientSpotlight.style.left = `${e.clientX}px`;
+      ambientSpotlight.style.top = `${e.clientY}px`;
+    }, { passive: true });
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 4. CINEMATIC SCROLL PROGRESS + FRAME SCRUBBING + PARALLAX
+  // ─────────────────────────────────────────────────────────────────────────
+  const progressBar = document.getElementById('cinematic-progress');
   const cinematicSlides = document.querySelectorAll('.canva-slide');
+  const sections = document.querySelectorAll('[data-section]');
 
   function updateCinematicScroll() {
     const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
     const currentScroll = window.scrollY;
-    
-    // Top progress bar update
+
+    // Top progress bar
     if (totalScroll > 0 && progressBar) {
-      const scrollPercentage = (currentScroll / totalScroll) * 100;
-      progressBar.style.width = `${scrollPercentage}%`;
+      progressBar.style.width = `${(currentScroll / totalScroll) * 100}%`;
     }
 
-    // Video Scrubbing Frame Effect for Slides & Parallax
+    // Frame scrubbing (video-like)
     const viewCenter = window.innerHeight / 2;
     cinematicSlides.forEach(slide => {
       const rect = slide.getBoundingClientRect();
       const slideCenter = rect.top + rect.height / 2;
-      const distanceFromCenter = slideCenter - viewCenter;
-      const normalizedDist = distanceFromCenter / (window.innerHeight * 0.85);
-      
+      const dist = slideCenter - viewCenter;
+      const norm = Math.max(-1, Math.min(1, dist / (window.innerHeight * 0.85)));
+
       if (rect.top < window.innerHeight && rect.bottom > 0) {
         const content = slide.querySelector('.canva-slide-content, .hero-stage');
         if (content) {
-          const clampedDist = Math.max(-1, Math.min(1, normalizedDist));
-          const scale = 1 - Math.abs(clampedDist) * 0.05;
-          const opacity = 1 - Math.abs(clampedDist) * 0.22;
-          content.style.transform = `scale(${scale}) translate3d(0, ${clampedDist * -18}px, 0)`;
-          content.style.opacity = Math.max(0.7, opacity);
+          const scale = 1 - Math.abs(norm) * 0.04;
+          const opacity = 1 - Math.abs(norm) * 0.18;
+          content.style.transform = `scale(${scale}) translate3d(0, ${norm * -14}px, 0)`;
+          content.style.opacity = Math.max(0.72, opacity);
         }
       }
     });
 
-    // Parallax on Dibyajit's real photos
+    // Parallax on real photos
     document.querySelectorAll('.scroll-parallax, .scroll-parallax-large').forEach(img => {
       const rect = img.getBoundingClientRect();
       if (rect.top < window.innerHeight && rect.bottom > 0) {
-        const isLarge = img.classList.contains('scroll-parallax-large');
-        const speed = isLarge ? 0.12 : 0.06;
+        const speed = img.classList.contains('scroll-parallax-large') ? 0.10 : 0.055;
         const offsetY = (viewCenter - (rect.top + rect.height / 2)) * speed;
         img.style.transform = `translate3d(0, ${offsetY}px, 0)`;
       }
@@ -57,37 +107,187 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', updateCinematicScroll, { passive: true });
   updateCinematicScroll();
 
-  // IntersectionObserver for Reveal Animations
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px 0px -80px 0px',
-    threshold: 0.1
-  };
+  // ─────────────────────────────────────────────────────────────────────────
+  // 5. ACTIVE NAV LINK TRACKING (IntersectionObserver per section)
+  // ─────────────────────────────────────────────────────────────────────────
+  const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
 
-  const cinematicObserver = new IntersectionObserver((entries) => {
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.remove('nav-active');
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('nav-active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+
+  document.querySelectorAll('.canva-slide[id]').forEach(section => {
+    sectionObserver.observe(section);
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 6. STAGGERED CINEMATIC REVEAL (IntersectionObserver)
+  // ─────────────────────────────────────────────────────────────────────────
+  const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        // Stagger children
+        const children = entry.target.querySelectorAll('.stagger-child');
+        children.forEach((child, i) => {
+          child.style.transitionDelay = `${i * 90}ms`;
+          child.classList.add('visible');
+        });
       }
     });
-  }, observerOptions);
+  }, { root: null, rootMargin: '0px 0px -70px 0px', threshold: 0.08 });
 
-  document.querySelectorAll('.cinematic-reveal').forEach(el => {
-    cinematicObserver.observe(el);
+  document.querySelectorAll('.cinematic-reveal').forEach((el, i) => {
+    revealObserver.observe(el);
   });
 
-  // Spotlight Follower Mouse Listener
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  // Also observe directional reveal elements
+  document.querySelectorAll('.reveal-left, .reveal-right').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+  // Auto-assign stagger delays to grid card children inside parent sections
+  document.querySelectorAll('.exp-full-grid, .projects-editorial-grid, .achieve-editorial-grid, .about-highlights-grid, .domain-tags-wrap').forEach(grid => {
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.setProperty('--stagger-i', i);
+    });
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 7. 3D CARD TILT ON MOUSE MOVE (glass cards)
+  // ─────────────────────────────────────────────────────────────────────────
   if (!isTouchDevice) {
-    window.addEventListener('mousemove', (e) => {
-      if (ambientSpotlight) {
-        ambientSpotlight.style.left = `${e.clientX}px`;
-        ambientSpotlight.style.top = `${e.clientY}px`;
-      }
+    document.querySelectorAll('.glass-card, .exp-role-card, .project-card-editorial, .academic-badge-card, .skills-domain-card, .contact-form-column').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = (e.clientX - cx) / (rect.width / 2);
+        const dy = (e.clientY - cy) / (rect.height / 2);
+        const rotX = dy * -6;
+        const rotY = dx * 6;
+        card.style.transform = `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.025, 1.025, 1.025)`;
+        card.style.boxShadow = `${-dx * 12}px ${-dy * 12}px 40px rgba(var(--red-rgb), 0.14), var(--shadow-card)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        card.style.boxShadow = '';
+        card.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease';
+        setTimeout(() => { card.style.transition = ''; }, 500);
+      });
     });
   }
 
-  // --- 3. Theme Switcher Handler (Minimal Icon Toggle Button) ---
+  // ─────────────────────────────────────────────────────────────────────────
+  // 8. MAGNETIC BUTTON EFFECT (red pills & submit)
+  // ─────────────────────────────────────────────────────────────────────────
+  if (!isTouchDevice) {
+    document.querySelectorAll('.contact-red-pill, .btn-red-submit').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + rect.width / 2);
+        const dy = e.clientY - (rect.top + rect.height / 2);
+        btn.style.transform = `translate(${dx * 0.22}px, ${dy * 0.22}px) scale(1.04)`;
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 9. TYPED TEXT ANIMATION (hero subtitle cycling)
+  // ─────────────────────────────────────────────────────────────────────────
+  const typedEl = document.getElementById('typed-roles');
+  if (typedEl) {
+    const roles = [
+      'ML Researcher',
+      'Full-Stack Engineer',
+      'VANET Specialist',
+      'IIT Bombay Finalist',
+      'Open-Source Contributor',
+      'Cloud & IoT Enthusiast'
+    ];
+    let roleIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    let typingSpeed = 80;
+
+    function typeLoop() {
+      const current = roles[roleIdx];
+      if (!isDeleting) {
+        typedEl.textContent = current.substring(0, charIdx + 1);
+        charIdx++;
+        if (charIdx === current.length) {
+          isDeleting = true;
+          typingSpeed = 2200; // pause at end
+        } else {
+          typingSpeed = 75;
+        }
+      } else {
+        typedEl.textContent = current.substring(0, charIdx - 1);
+        charIdx--;
+        typingSpeed = 38;
+        if (charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+        }
+      }
+      setTimeout(typeLoop, typingSpeed);
+    }
+    typeLoop();
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 10. SECTION TITLE UNDERLINE DRAW ON SCROLL
+  // ─────────────────────────────────────────────────────────────────────────
+  const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('title-drawn');
+        titleObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('.slide-giant-red-title, .skill-cat-title, .domain-card-title').forEach(el => {
+    titleObserver.observe(el);
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 11. HOVER LINE SWEEP on nav-link
+  // ─────────────────────────────────────────────────────────────────────────
+  // Handled in CSS with ::after pseudo-element
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 12. DOMAIN TAG PILL HOVER RIPPLE
+  // ─────────────────────────────────────────────────────────────────────────
+  document.querySelectorAll('.domain-tag-pill').forEach(pill => {
+    pill.addEventListener('click', (e) => {
+      const ripple = document.createElement('span');
+      ripple.className = 'pill-ripple';
+      const rect = pill.getBoundingClientRect();
+      ripple.style.left = `${e.clientX - rect.left}px`;
+      ripple.style.top = `${e.clientY - rect.top}px`;
+      pill.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    });
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 13. THEME SWITCHER
+  // ─────────────────────────────────────────────────────────────────────────
   const themeToggleBtn = document.getElementById('theme-toggle-btn');
   const htmlElement = document.documentElement;
   const savedTheme = localStorage.getItem('theme') || 'light';
@@ -95,7 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function applyTheme(theme) {
     htmlElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
-
     if (theme === 'light') {
       htmlElement.classList.remove('dark');
       htmlElement.classList.add('light');
@@ -103,7 +302,6 @@ document.addEventListener('DOMContentLoaded', () => {
       htmlElement.classList.remove('light');
       htmlElement.classList.add('dark');
     }
-
     if (themeToggleBtn) {
       const moonIcon = themeToggleBtn.querySelector('.theme-moon-icon');
       const sunIcon = themeToggleBtn.querySelector('.theme-sun-icon');
@@ -121,21 +319,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
-      const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
-      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-      applyTheme(newTheme);
+      const current = htmlElement.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'light' ? 'dark' : 'light');
     });
   }
 
-  // --- 4. Contact Form Submission Handler ---
+  // ─────────────────────────────────────────────────────────────────────────
+  // 14. CONTACT FORM
+  // ─────────────────────────────────────────────────────────────────────────
   const contactForm = document.getElementById('portfolio-contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('name').value;
-      alert(`Thank you ${name}! Your message has been received. I will get back to you shortly.`);
+      const submitBtn = contactForm.querySelector('.btn-red-submit');
+      if (submitBtn) {
+        submitBtn.textContent = '✓ Message Sent!';
+        submitBtn.style.background = '#16a34a';
+        setTimeout(() => {
+          submitBtn.textContent = 'Send Message';
+          submitBtn.style.background = '';
+        }, 3500);
+      }
       contactForm.reset();
     });
   }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 15. NAVBAR GLASS BLUR ON SCROLL + HIDE/SHOW
+  // ─────────────────────────────────────────────────────────────────────────
+  const navbar = document.querySelector('.navbar');
+  let lastScrollY = 0;
+
+  window.addEventListener('scroll', () => {
+    const currentY = window.scrollY;
+    if (navbar) {
+      if (currentY > 80) {
+        navbar.classList.add('navbar-scrolled');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+      }
+      if (currentY > lastScrollY + 8 && currentY > 200) {
+        navbar.classList.add('navbar-hidden');
+      } else if (currentY < lastScrollY - 4) {
+        navbar.classList.remove('navbar-hidden');
+      }
+    }
+    lastScrollY = currentY;
+  }, { passive: true });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 16. HERO HEADLINE LETTER SPLIT ANIMATION
+  // ─────────────────────────────────────────────────────────────────────────
+  document.querySelectorAll('.split-letters').forEach(el => {
+    const text = el.textContent;
+    el.innerHTML = text.split('').map((ch, i) =>
+      `<span class="letter-span" style="--li:${i}">${ch === ' ' ? '&nbsp;' : ch}</span>`
+    ).join('');
+    setTimeout(() => el.classList.add('letters-visible'), 100);
+  });
 
 });
