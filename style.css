@@ -2083,4 +2083,608 @@ html {
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   CINEMATIC 3D INTERACTIVE ARCHITECTURE & WEBGL OBJECTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* --- 1. Hero 3D WebGL Canvas Wrap --- */
+.hero-3d-canvas-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: auto;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-3d-canvas-wrap:active {
+  cursor: grabbing;
+}
+
+.hero-3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: auto;
+}
+
+.hero-3d-drag-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateZ(40px);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 99px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-dark);
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 4;
+}
+
+.hero-3d-canvas-wrap:hover .hero-3d-drag-hint {
+  opacity: 1;
+  border-color: rgba(var(--red-rgb), 0.4);
+}
+
+/* --- 2. 3D Floating Glass Orbitals around Cutout --- */
+.hero-orbitals-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1300px;
+  height: clamp(650px, 85vh, 920px);
+  pointer-events: none;
+  z-index: 6;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.hero-orbital-card {
+  position: absolute;
+  pointer-events: auto;
+  border-radius: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1), 0 0 25px rgba(var(--red-rgb), 0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  padding: 0.85rem 1.35rem;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  user-select: none;
+}
+
+.hero-orbital-card:hover,
+.hero-orbital-card.touch-active {
+  transform: translateZ(140px) scale(1.06) !important;
+  border-color: var(--red-primary);
+  box-shadow: 0 25px 60px rgba(var(--red-rgb), 0.28), 0 0 30px rgba(var(--red-rgb), 0.2);
+}
+
+.orbital-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  transform-style: preserve-3d;
+}
+
+.orbital-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(var(--red-rgb), 0.1);
+  border: 1px solid rgba(var(--red-rgb), 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--red-primary);
+  flex-shrink: 0;
+  transform: translateZ(28px);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.hero-orbital-card:hover .orbital-icon-box {
+  background: var(--red-primary);
+  color: #ffffff;
+  transform: translateZ(36px) scale(1.08);
+}
+
+.orbital-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  transform-style: preserve-3d;
+}
+
+.orbital-badge-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--red-primary);
+  text-transform: uppercase;
+  transform: translateZ(22px);
+}
+
+.orbital-badge-tag.gold-tag {
+  color: #eab308;
+}
+
+.orbital-title {
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1.2;
+  transform: translateZ(30px);
+}
+
+.orbital-desc {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+  line-height: 1.2;
+  transform: translateZ(18px);
+}
+
+/* Individual Orbital Placement */
+.orbital-tl {
+  top: 22%;
+  left: max(2vw, calc(50% - 460px));
+  animation: orbital-bob-1 7s ease-in-out infinite;
+}
+
+.orbital-tr {
+  top: 18%;
+  right: max(2vw, calc(50% - 470px));
+  animation: orbital-bob-2 8s ease-in-out infinite;
+}
+
+.orbital-bl {
+  top: 60%;
+  left: max(2vw, calc(50% - 480px));
+  animation: orbital-bob-3 7.5s ease-in-out infinite;
+}
+
+.orbital-br {
+  top: 56%;
+  right: max(2vw, calc(50% - 480px));
+  animation: orbital-bob-4 8.5s ease-in-out infinite;
+}
+
+@keyframes orbital-bob-1 {
+  0%, 100% { transform: translateY(0) translateZ(80px) rotate(-1deg); }
+  50% { transform: translateY(-12px) translateZ(95px) rotate(1.5deg); }
+}
+
+@keyframes orbital-bob-2 {
+  0%, 100% { transform: translateY(0) translateZ(110px) rotate(1deg); }
+  50% { transform: translateY(14px) translateZ(125px) rotate(-1.5deg); }
+}
+
+@keyframes orbital-bob-3 {
+  0%, 100% { transform: translateY(0) translateZ(70px) rotate(1.5deg); }
+  50% { transform: translateY(-10px) translateZ(85px) rotate(-1deg); }
+}
+
+@keyframes orbital-bob-4 {
+  0%, 100% { transform: translateY(0) translateZ(100px) rotate(-1.5deg); }
+  50% { transform: translateY(12px) translateZ(115px) rotate(1deg); }
+}
+
+/* --- 3. Welcome Slide 3D Tech Matrix Console --- */
+.matrix-3d-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.25rem;
+  border-radius: 99px;
+  border: 1px solid var(--border-card);
+}
+
+[data-theme="dark"] .matrix-3d-tabs,
+html.dark .matrix-3d-tabs {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.matrix-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.35rem 0.8rem;
+  border-radius: 99px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.matrix-tab-btn:hover {
+  color: var(--text-dark);
+}
+
+.matrix-tab-btn.active {
+  background: var(--red-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(var(--red-rgb), 0.35);
+}
+
+.matrix-pill.3d-pop {
+  transform-style: preserve-3d;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, opacity 0.3s ease;
+}
+
+.matrix-pill.3d-pop:hover {
+  transform: translateZ(24px) translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.matrix-pill.hidden-by-filter {
+  opacity: 0.15;
+  pointer-events: none;
+  transform: scale(0.92);
+}
+
+.matrix-footer-hologram {
+  margin-top: 1.2rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--border-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.hologram-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.live-status-dot.mini {
+  width: 6px;
+  height: 6px;
+}
+
+/* --- 4. Interactive 3D System Architecture Console --- */
+.interactive-3d-showcase {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 28px;
+  padding: 2.2rem;
+  margin-bottom: 3.5rem;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.showcase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1.8rem;
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 1.4rem;
+}
+
+.showcase-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.showcase-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--red-primary);
+  text-transform: uppercase;
+}
+
+.showcase-title {
+  font-family: var(--font-body);
+  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+  font-weight: 800;
+  color: var(--text-dark);
+  line-height: 1.15;
+}
+
+.showcase-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.model-select-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 99px;
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border-card);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] .model-select-btn,
+html.dark .model-select-btn {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.model-select-btn:hover {
+  background: rgba(var(--red-rgb), 0.12);
+  color: var(--red-primary);
+  border-color: rgba(var(--red-rgb), 0.3);
+  transform: translateY(-2px);
+}
+
+.model-select-btn.active {
+  background: var(--red-primary);
+  color: #ffffff;
+  border-color: var(--red-primary);
+  box-shadow: 0 8px 24px rgba(var(--red-rgb), 0.36);
+  transform: translateY(-2px);
+}
+
+.showcase-viewport-wrap {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 46vw, 480px);
+  border-radius: 20px;
+  background: radial-gradient(circle at center, rgba(var(--red-rgb), 0.06) 0%, rgba(0, 0, 0, 0.02) 70%, transparent 100%);
+  border: 1px solid var(--border-card);
+  overflow: hidden;
+  cursor: grab;
+}
+
+[data-theme="dark"] .showcase-viewport-wrap,
+html.dark .showcase-viewport-wrap {
+  background: radial-gradient(circle at center, rgba(var(--red-rgb), 0.15) 0%, rgba(0, 0, 0, 0.4) 75%, transparent 100%);
+}
+
+.showcase-viewport-wrap:active {
+  cursor: grabbing;
+}
+
+.showcase-3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.showcase-telemetry {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.telemetry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+}
+
+.telemetry-pill strong {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.telemetry-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #16a34a;
+  box-shadow: 0 0 8px #16a34a;
+  animation: live-pulse 2s infinite;
+}
+
+.showcase-info-overlay {
+  position: absolute;
+  bottom: 1.2rem;
+  left: 1.2rem;
+  max-width: 520px;
+  padding: 1.2rem 1.6rem;
+  border-radius: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+  z-index: 5;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.showcase-info-overlay h4 {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 0.35rem;
+  line-height: 1.2;
+}
+
+.showcase-info-overlay p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* --- 5. True 3D Depth Layering on Glass Cards --- */
+.glass-card,
+.exp-role-card,
+.project-card-editorial,
+.academic-badge-card,
+.skills-domain-card {
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+}
+
+.glass-card > *,
+.exp-role-card > *,
+.project-card-editorial > * {
+  transform-style: preserve-3d;
+}
+
+.card-title-text,
+.company-name,
+.acad-icon-badge,
+.domain-card-title {
+  transform: translateZ(30px);
+  transition: transform 0.3s ease;
+}
+
+.card-header-badge,
+.role-header,
+.matrix-header {
+  transform: translateZ(22px);
+}
+
+.card-body-text,
+.role-desc {
+  transform: translateZ(16px);
+}
+
+/* Responsive Orbitals for Tablet & Phone */
+@media (max-width: 1100px) {
+  .hero-orbital-card {
+    padding: 0.75rem 1.1rem;
+  }
+  .orbital-title {
+    font-size: 0.88rem;
+  }
+  .orbital-tl {
+    top: 15%;
+    left: 2vw;
+  }
+  .orbital-tr {
+    top: 15%;
+    right: 2vw;
+  }
+  .orbital-bl {
+    top: 66%;
+    left: 2vw;
+  }
+  .orbital-br {
+    top: 66%;
+    right: 2vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-orbitals-container {
+    height: 520px;
+  }
+  .hero-orbital-card {
+    padding: 0.6rem 0.9rem;
+    border-radius: 14px;
+  }
+  .orbital-icon-box {
+    width: 34px;
+    height: 34px;
+  }
+  .orbital-icon-box i {
+    width: 16px;
+    height: 16px;
+  }
+  .orbital-title {
+    font-size: 0.82rem;
+  }
+  .orbital-desc {
+    display: none;
+  }
+  .orbital-badge-tag {
+    font-size: 0.62rem;
+  }
+  .orbital-tl {
+    top: 8%;
+    left: 2vw;
+  }
+  .orbital-tr {
+    top: 8%;
+    right: 2vw;
+  }
+  .orbital-bl {
+    top: 72%;
+    left: 2vw;
+  }
+  .orbital-br {
+    top: 72%;
+    right: 2vw;
+  }
+  .interactive-3d-showcase {
+    padding: 1.4rem;
+  }
+  .showcase-viewport-wrap {
+    height: 340px;
+  }
+  .showcase-info-overlay {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    margin-top: 1rem;
+    max-width: 100%;
+    padding: 1rem;
+  }
+}
+
 

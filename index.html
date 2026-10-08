@@ -17,8 +17,11 @@
   <!-- Lucide Icons UMD Bundle -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
+  <!-- Three.js Hardware-Accelerated 3D Engine (Zero-dependency, high performance) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <!-- Style link -->
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -84,6 +87,59 @@
             <span>DIBYAJIT DAS GUPTA</span>
           </div>
         </div>
+
+        <!-- Interactive 3D Architectural WebGL Core (Zero dots, pure geometric tech wireframe & glass) -->
+        <div class="hero-3d-canvas-wrap" id="hero-3d-wrap">
+          <canvas id="hero-3d-canvas" class="hero-3d-canvas"></canvas>
+          <div class="hero-3d-drag-hint"><i data-lucide="rotate-cw"></i> <span>DRAG 3D OBJECT TO ROTATE</span></div>
+        </div>
+
+        <!-- 3D Floating Glass Orbitals around Cutout -->
+        <div class="hero-orbitals-container" id="hero-orbitals">
+          <div class="hero-orbital-card orbital-tl 3d-orbital-object" data-depth="1.6">
+            <div class="orbital-card-inner">
+              <div class="orbital-icon-box"><i data-lucide="briefcase"></i></div>
+              <div class="orbital-info">
+                <span class="orbital-badge-tag">SELISE DIGITAL</span>
+                <h4 class="orbital-title">Software Developer</h4>
+                <p class="orbital-desc">Finance &amp; Legal Platform</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-orbital-card orbital-tr 3d-orbital-object" data-depth="2.2">
+            <div class="orbital-card-inner">
+              <div class="orbital-icon-box"><i data-lucide="award"></i></div>
+              <div class="orbital-info">
+                <span class="orbital-badge-tag gold-tag">ICCR SCHOLAR</span>
+                <h4 class="orbital-title">NIT Sikkim '26</h4>
+                <p class="orbital-desc">Govt. of India Fellowship</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-orbital-card orbital-bl 3d-orbital-object" data-depth="1.4">
+            <div class="orbital-card-inner">
+              <div class="orbital-icon-box"><i data-lucide="code-2"></i></div>
+              <div class="orbital-info">
+                <span class="orbital-badge-tag">ENGINEERING CORE</span>
+                <h4 class="orbital-title">Full-Stack &amp; Low-Code</h4>
+                <p class="orbital-desc">React • Node • Corteza</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-orbital-card orbital-br 3d-orbital-object" data-depth="2.0">
+            <div class="orbital-card-inner">
+              <div class="orbital-info">
+                <span class="orbital-badge-tag">AI SYSTEMS</span>
+                <h4 class="orbital-title">RAG &amp; Computer Vision</h4>
+                <p class="orbital-desc">VANET NDN Thesis</p>
+              </div>
+              <div class="orbital-icon-box"><i data-lucide="cpu"></i></div>
+            </div>
+          </div>
+        </div>
         
         <!-- Center Floating Parallax Massive Uncropped Cutout Figure -->
         <div class="hero-full-cutout-stage">
@@ -128,18 +184,30 @@
 
           <div class="col-right rel-pos cinematic-reveal">
 
-            <!-- Clean Interactive Tech Matrix Card -->
-            <div class="tech-matrix-card glass-card 3d-tilt">
+            <!-- Clean Interactive Tech Matrix Card with 3D Depth & Category Tabs -->
+            <div class="tech-matrix-card glass-card 3d-tilt" id="welcome-matrix-card">
               <div class="matrix-header">
                 <span class="matrix-title">ENGINEERING MATRIX</span>
+                <div class="matrix-3d-tabs">
+                  <button class="matrix-tab-btn active" data-pillar="all">All</button>
+                  <button class="matrix-tab-btn" data-pillar="enterprise">Enterprise</button>
+                  <button class="matrix-tab-btn" data-pillar="ai">AI/ML</button>
+                  <button class="matrix-tab-btn" data-pillar="security">Security</button>
+                </div>
               </div>
-              <div class="matrix-body">
-                <div class="matrix-pill red-pill"><i data-lucide="layers"></i> Low-Code Corteza</div>
-                <div class="matrix-pill"><i data-lucide="code-2"></i> MERN Stack</div>
-                <div class="matrix-pill"><i data-lucide="cpu"></i> Machine Learning &amp; AI</div>
-                <div class="matrix-pill"><i data-lucide="database"></i> SQL &amp; MongoDB</div>
-                <div class="matrix-pill"><i data-lucide="shield"></i> Cybersecurity</div>
-                <div class="matrix-pill"><i data-lucide="bar-chart-3"></i> Power BI &amp; Analytics</div>
+              <div class="matrix-body" id="matrix-pills-container">
+                <div class="matrix-pill red-pill 3d-pop" data-cat="enterprise"><i data-lucide="layers"></i> Low-Code Corteza</div>
+                <div class="matrix-pill 3d-pop" data-cat="enterprise"><i data-lucide="code-2"></i> MERN Stack</div>
+                <div class="matrix-pill 3d-pop" data-cat="ai"><i data-lucide="cpu"></i> Machine Learning &amp; AI</div>
+                <div class="matrix-pill 3d-pop" data-cat="enterprise"><i data-lucide="database"></i> SQL &amp; MongoDB</div>
+                <div class="matrix-pill 3d-pop" data-cat="security"><i data-lucide="shield"></i> Cybersecurity</div>
+                <div class="matrix-pill 3d-pop" data-cat="enterprise"><i data-lucide="bar-chart-3"></i> Power BI &amp; Analytics</div>
+                <div class="matrix-pill 3d-pop" data-cat="ai"><i data-lucide="sparkles"></i> LLMs &amp; RAG</div>
+                <div class="matrix-pill 3d-pop" data-cat="security"><i data-lucide="wifi"></i> VANET &amp; NDN</div>
+              </div>
+              <div class="matrix-footer-hologram">
+                <span class="hologram-label"><i data-lucide="terminal"></i> SYSTEM METRICS: OPTIMIZED</span>
+                <span class="hologram-live-badge"><span class="live-status-dot mini"></span> 3D INTERACTIVE MATRIX</span>
               </div>
             </div>
           </div>
@@ -415,6 +483,34 @@
 
         <h1 class="slide-giant-red-title compact cinematic-reveal">RESEARCH &amp; BUILDS</h1>
 
+        <!-- Interactive 3D System Architecture Console -->
+        <div class="interactive-3d-showcase glass-card cinematic-reveal" id="research-3d-showcase">
+          <div class="showcase-header">
+            <div class="showcase-title-group">
+              <span class="showcase-badge"><i data-lucide="box"></i> INTERACTIVE 3D SYSTEM ARCHITECTURE</span>
+              <h3 class="showcase-title">Real-Time Cryptographic &amp; AI Node Viewer</h3>
+            </div>
+            <div class="showcase-controls">
+              <button class="model-select-btn active" data-model="vanet"><i data-lucide="shield-check"></i> NDN VANET Node</button>
+              <button class="model-select-btn" data-model="neural"><i data-lucide="brain"></i> Neural Core</button>
+              <button class="model-select-btn" data-model="mesh"><i data-lucide="network"></i> Enterprise Mesh</button>
+            </div>
+          </div>
+          
+          <div class="showcase-viewport-wrap">
+            <canvas id="showcase-3d-canvas" class="showcase-3d-canvas"></canvas>
+            <div class="showcase-telemetry">
+              <div class="telemetry-pill"><span class="telemetry-dot"></span> 3D ENGINE: <strong id="telemetry-status">60 FPS WEBGL</strong></div>
+              <div class="telemetry-pill">ACTIVE: <strong id="telemetry-node">VANET NDN CRYPTO</strong></div>
+              <div class="telemetry-pill">GESTURE: <strong>DRAG / ROTATE / PINCH</strong></div>
+            </div>
+            <div class="showcase-info-overlay" id="showcase-model-info">
+              <h4 id="model-info-heading">Certificateless Short Signature Scheme (VANETs • NDN)</h4>
+              <p id="model-info-desc">3D cryptographic key-exchange node simulating lightweight bilinear pairings and signature verification in high-mobility vehicular networks with zero certificate overhead.</p>
+            </div>
+          </div>
+        </div>
+
         <div class="projects-editorial-grid">
           
           <div class="project-card-editorial glass-card full-width cinematic-reveal">
@@ -655,6 +751,6 @@
   </footer>
 
   <!-- Main Interactivity Script -->
-  <script src="script.js?v=8"></script>
+  <script src="script.js?v=9"></script>
 </body>
 </html>
