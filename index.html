@@ -69,14 +69,12 @@
           <i data-lucide="volume-x" class="sound-off-icon" style="display:none;"></i>
         </button>
 
-        <!-- Top Bar macOS Theme Segmented Control -->
+        <!-- Top Bar Multi-Theme Segmented Control -->
         <div class="header-theme-segmented" id="header-theme-segmented">
-          <button class="theme-seg-btn active" id="btn-theme-light" data-set-theme="light" data-cursor="LIGHT">
-            <i data-lucide="sun"></i> <span>Light</span>
-          </button>
-          <button class="theme-seg-btn" id="btn-theme-dark" data-set-theme="dark" data-cursor="DARK">
-            <i data-lucide="moon"></i> <span>Dark</span>
-          </button>
+          <button class="theme-seg-btn active" data-set-theme="light" data-cursor="LIGHT" title="Studio Light White"><i data-lucide="sun"></i><span>Light</span></button>
+          <button class="theme-seg-btn" data-set-theme="dark" data-cursor="DARK" title="Space Black Dark"><i data-lucide="moon"></i><span>Dark</span></button>
+          <button class="theme-seg-btn" data-set-theme="cyber" data-cursor="CYBER" title="Cyber Volt Neon"><i data-lucide="zap"></i><span>Cyber</span></button>
+          <button class="theme-seg-btn" data-set-theme="aurora" data-cursor="AURORA" title="Nordic Aurora Teal"><i data-lucide="sparkles"></i><span>Aurora</span></button>
         </div>
 
         <!-- Mobile Menu Toggle -->
@@ -681,6 +679,34 @@
           
           <!-- Project 1 -->
           <div class="project-card glass-card 3d-tilt" data-categories="academic" data-cursor="THESIS">
+            <div class="project-media-stage media-vanet">
+              <div class="media-live-badge"><span class="pulse-dot"></span> LIVE SIMULATION</div>
+              <!-- Animated VANETs Network SVG Visualizer -->
+              <svg class="media-visualizer-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="netGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.8"/>
+                    <stop offset="100%" stop-color="var(--secondary)" stop-opacity="0.2"/>
+                  </linearGradient>
+                </defs>
+                <!-- Vehicle Nodes & Encrypted Mesh Links -->
+                <line x1="60" y1="100" x2="160" y2="50" stroke="var(--primary)" stroke-width="2" stroke-dasharray="6 4" class="anim-line"/>
+                <line x1="160" y1="50" x2="260" y2="130" stroke="var(--primary)" stroke-width="2" stroke-dasharray="6 4" class="anim-line-rev"/>
+                <line x1="260" y1="130" x2="340" y2="70" stroke="var(--primary)" stroke-width="2" stroke-dasharray="6 4" class="anim-line"/>
+                <line x1="60" y1="100" x2="260" y2="130" stroke="var(--primary)" stroke-width="1.5" stroke-dasharray="4 4" class="anim-line"/>
+
+                <circle cx="60" cy="100" r="16" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2"/>
+                <circle cx="160" cy="50" r="20" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2"/>
+                <circle cx="260" cy="130" r="18" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2"/>
+                <circle cx="340" cy="70" r="14" fill="var(--bg-card)" stroke="var(--primary)" stroke-width="2"/>
+
+                <text x="60" y="104" text-anchor="middle" fill="var(--text-primary)" font-size="10" font-family="monospace">V1</text>
+                <text x="160" y="54" text-anchor="middle" fill="var(--text-primary)" font-size="10" font-family="monospace">RSU</text>
+                <text x="260" y="134" text-anchor="middle" fill="var(--text-primary)" font-size="10" font-family="monospace">V2</text>
+                <text x="340" y="74" text-anchor="middle" fill="var(--text-primary)" font-size="10" font-family="monospace">NDN</text>
+              </svg>
+            </div>
+
             <div class="project-top">
               <span class="project-index">01</span>
               <span class="project-category">B.Tech Thesis Project (2025 - 2026)</span>
@@ -701,6 +727,32 @@
 
           <!-- Project 2 -->
           <div class="project-card glass-card 3d-tilt" data-categories="db" data-cursor="MEDFLOW">
+            <div class="project-media-stage media-medflow">
+              <div class="media-live-badge"><span class="pulse-dot"></span> MERN DASHBOARD</div>
+              <!-- Animated MedFlow Dashboard UI Preview Stage -->
+              <div class="ui-mockup-window">
+                <div class="mockup-bar">
+                  <span class="dot red"></span>
+                  <span class="dot yellow"></span>
+                  <span class="dot green"></span>
+                  <span class="mockup-url">https://medflow-health.app</span>
+                </div>
+                <div class="mockup-content">
+                  <div class="mockup-stat-row">
+                    <div class="mockup-stat-box"><span class="stat-lbl">PATIENTS</span><span class="stat-val">1,420</span></div>
+                    <div class="mockup-stat-box"><span class="stat-lbl">APPOINTMENTS</span><span class="stat-val">98.4%</span></div>
+                  </div>
+                  <div class="mockup-chart-bars">
+                    <div class="chart-bar" style="height: 40%"></div>
+                    <div class="chart-bar" style="height: 75%"></div>
+                    <div class="chart-bar" style="height: 60%"></div>
+                    <div class="chart-bar" style="height: 90%"></div>
+                    <div class="chart-bar" style="height: 50%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="project-top">
               <span class="project-index">02</span>
               <span class="project-category">Personal Full-Stack Project (2026)</span>
@@ -721,6 +773,19 @@
 
           <!-- Project 3 -->
           <div class="project-card glass-card 3d-tilt" data-categories="ai" data-cursor="ADDEP">
+            <div class="project-media-stage media-ai">
+              <div class="media-live-badge"><span class="pulse-dot"></span> AI VISION BOT</div>
+              <!-- Animated AI Computer Vision Radar Visualizer -->
+              <div class="ai-radar-container">
+                <div class="radar-circle circle-1"></div>
+                <div class="radar-circle circle-2"></div>
+                <div class="radar-sweep"></div>
+                <div class="radar-point" style="top: 35%; left: 45%;"></div>
+                <div class="radar-point" style="top: 65%; left: 70%;"></div>
+                <span class="radar-label">SCANNING DERMATOLOGICAL TISSUE...</span>
+              </div>
+            </div>
+
             <div class="project-top">
               <span class="project-index">03</span>
               <span class="project-category">AI Healthcare Platform</span>
