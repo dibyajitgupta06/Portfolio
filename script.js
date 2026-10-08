@@ -1,4 +1,4 @@
-// Dibyajit Das Gupta — Personal Portfolio Interactivity & Cinematic Scroll Script
+// Dibyajit Das Gupta — Personal Website & Engineering Portfolio Script
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -7,70 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
   }
 
-  // --- 2. Web Audio Synthesizer (Click & Hover FX) ---
-  let audioCtx = null;
-  let soundEnabled = true;
-
-  function playSound(type = 'click') {
-    if (!soundEnabled) return;
-    try {
-      if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (AudioContext) audioCtx = new AudioContext();
-      }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        audioCtx.resume();
-      }
-      if (!audioCtx) return;
-
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-
-      const now = audioCtx.currentTime;
-      if (type === 'click') {
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(800, now);
-        osc.frequency.exponentialRampToValueAtTime(400, now + 0.04);
-        gain.gain.setValueAtTime(0.12, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-        osc.start(now);
-        osc.stop(now + 0.04);
-      } else if (type === 'hover') {
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(450, now);
-        osc.frequency.exponentialRampToValueAtTime(650, now + 0.03);
-        gain.gain.setValueAtTime(0.04, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
-        osc.start(now);
-        osc.stop(now + 0.03);
-      }
-    } catch (e) {
-      // Ignore audio policy restrictions gracefully
-    }
-  }
-
-  // Sound FX Toggle Button Handler
-  const soundToggle = document.getElementById('sound-toggle');
-  if (soundToggle) {
-    const soundOnIcon = soundToggle.querySelector('.sound-on-icon');
-    const soundOffIcon = soundToggle.querySelector('.sound-off-icon');
-
-    soundToggle.addEventListener('click', () => {
-      soundEnabled = !soundEnabled;
-      if (soundEnabled) {
-        if (soundOnIcon) soundOnIcon.style.display = 'inline-block';
-        if (soundOffIcon) soundOffIcon.style.display = 'none';
-        playSound('click');
-      } else {
-        if (soundOnIcon) soundOnIcon.style.display = 'none';
-        if (soundOffIcon) soundOffIcon.style.display = 'inline-block';
-      }
-    });
-  }
-
-  // --- 3. Cinematic Video-Like Frame Scrubbing & Scroll Progress ---
+  // --- 2. Cinematic Video-Like Frame Scrubbing & Scroll Progress ---
   const progressBar = document.getElementById('cinematic-progress');
   const ambientSpotlight = document.getElementById('ambient-spotlight');
   const cinematicSlides = document.querySelectorAll('.canva-slide');
@@ -150,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 5. Theme Switcher Handler (Minimal Icon Toggle Button) ---
+  // --- 3. Theme Switcher Handler (Minimal Icon Toggle Button) ---
   const themeToggleBtn = document.getElementById('theme-toggle-btn');
   const htmlElement = document.documentElement;
   const savedTheme = localStorage.getItem('theme') || 'light';
@@ -187,16 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
       const newTheme = currentTheme === 'light' ? 'dark' : 'light';
       applyTheme(newTheme);
-      playSound('click');
     });
   }
 
-  // --- 6. Contact Form Submission Handler ---
+  // --- 4. Contact Form Submission Handler ---
   const contactForm = document.getElementById('portfolio-contact-form');
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      playSound('click');
       const name = document.getElementById('name').value;
       alert(`Thank you ${name}! Your message has been received. I will get back to you shortly.`);
       contactForm.reset();
