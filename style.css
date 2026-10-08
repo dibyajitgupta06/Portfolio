@@ -272,7 +272,7 @@ body {
 
 /* --- Slide 01: Hero Stage Layout --- */
 .hero-slide {
-  justify-content: flex-start;
+  justify-content: space-between;
 }
 
 .hero-stage {
@@ -281,57 +281,81 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  margin-top: 1rem;
+  justify-content: center;
+  min-height: calc(100vh - 12rem);
+  overflow: hidden;
+  padding: 1rem 0;
 }
 
-.hero-personal-sub {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 8vw, 8rem);
-  font-weight: 900;
-  color: var(--text-dark);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  line-height: 1;
+.hero-bg-name-marquee {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
-.hero-giant-title {
+.hero-name-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.5rem;
   font-family: var(--font-display);
-  font-size: clamp(6.5rem, 20vw, 22rem);
+  font-size: clamp(6rem, 19vw, 21rem);
   font-weight: 900;
   color: var(--red-primary);
   line-height: 0.82;
-  width: 100%;
-  letter-spacing: -0.01em;
   text-transform: uppercase;
-  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+  animation: hero-name-scroll 35s linear infinite;
+  will-change: transform;
 }
 
-.hero-cutout-wrap {
-  position: absolute;
-  top: 18%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: clamp(260px, 34vw, 460px);
+@keyframes hero-name-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.hero-name-track .red-dot {
+  color: var(--text-dark);
+  font-size: 0.55em;
+}
+
+.hero-full-cutout-stage {
+  position: relative;
   z-index: 5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: clamp(380px, 50vh, 560px);
+  margin: 1rem 0;
   pointer-events: none;
 }
 
-.hero-cutout-img {
-  width: 100%;
-  height: auto;
+.hero-full-cutout-img {
+  height: 100%;
+  width: auto;
+  max-width: 90vw;
+  object-fit: contain;
   display: block;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.25));
+  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.22));
 }
 
 .hero-bottom-grid {
+  position: relative;
+  z-index: 10;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   text-align: left;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   width: 100%;
-  z-index: 6;
+  background: var(--bg-canvas);
+  padding: 1rem 0;
 }
 
 .hero-desc-left, .hero-desc-right {
