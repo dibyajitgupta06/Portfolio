@@ -2687,4 +2687,377 @@ html.dark .showcase-viewport-wrap {
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   ADVANCED 3D ARCHITECTURE & CAD WORKSTATION SUITE (YEAR-LONG POLISH)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* --- Hero 3D Controls HUD & Mode Switcher --- */
+.hero-3d-controls-hud {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateZ(45px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+.hero-3d-mode-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem;
+  border-radius: 99px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.hero-3d-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  border-radius: 99px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-3d-btn:hover {
+  color: var(--text-dark);
+}
+
+.hero-3d-btn.active {
+  background: var(--red-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(var(--red-rgb), 0.35);
+}
+
+/* --- Skills 3D Competencies Matrix --- */
+.skills-3d-matrix-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 24px;
+  padding: 1.8rem;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  transform-style: preserve-3d;
+}
+
+.matrix-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 0.9rem;
+}
+
+.matrix-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--text-dark);
+}
+
+.matrix-header-title i {
+  color: var(--red-primary);
+  width: 18px;
+  height: 18px;
+}
+
+.telemetry-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.skills-canvas-viewport {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  border-radius: 18px;
+  background: radial-gradient(circle at center, rgba(var(--red-rgb), 0.08) 0%, rgba(0, 0, 0, 0.02) 75%, transparent 100%);
+  border: 1px solid var(--border-card);
+  overflow: hidden;
+  cursor: grab;
+}
+
+[data-theme="dark"] .skills-canvas-viewport,
+html.dark .skills-canvas-viewport {
+  background: radial-gradient(circle at center, rgba(var(--red-rgb), 0.16) 0%, rgba(0, 0, 0, 0.45) 80%, transparent 100%);
+}
+
+.skills-canvas-viewport:active {
+  cursor: grabbing;
+}
+
+.skills-3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.skills-3d-hint {
+  position: absolute;
+  bottom: 0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 99px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  pointer-events: none;
+  backdrop-filter: blur(12px);
+}
+
+/* --- CAD Workstation Engineering Toolbar --- */
+.model-select-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cad-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  padding: 0.75rem 1.2rem;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--border-card);
+}
+
+[data-theme="dark"] .cad-toolbar,
+html.dark .cad-toolbar {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.cad-tool-group {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cad-group-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-right: 0.2rem;
+}
+
+.cad-tool-btn,
+.cad-camera-btn,
+.cad-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.42rem 0.85rem;
+  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cad-tool-btn:hover,
+.cad-camera-btn:hover,
+.cad-action-btn:hover {
+  border-color: rgba(var(--red-rgb), 0.4);
+  color: var(--red-primary);
+  transform: translateY(-1px);
+}
+
+.cad-tool-btn.active,
+.cad-camera-btn.active,
+.cad-action-btn.active {
+  background: var(--red-primary);
+  color: #ffffff;
+  border-color: var(--red-primary);
+  box-shadow: 0 4px 12px rgba(var(--red-rgb), 0.3);
+}
+
+.info-overlay-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.4rem;
+}
+
+.info-spec-badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--red-primary);
+  text-transform: uppercase;
+}
+
+.model-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--border-card);
+}
+
+.metric-item {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.metric-k {
+  font-weight: 700;
+  display: block;
+}
+
+.metric-v {
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+/* --- Achievements 3D Trophy Stage --- */
+.achievements-3d-stage {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 24px;
+  padding: 1.8rem;
+  margin-bottom: 2.8rem;
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+.trophy-3d-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.trophy-3d-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--red-primary);
+  text-transform: uppercase;
+}
+
+.trophy-hint-pill {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.trophy-viewport {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  border-radius: 18px;
+  background: radial-gradient(circle at center, rgba(var(--red-rgb), 0.08) 0%, rgba(0, 0, 0, 0.02) 75%, transparent 100%);
+  border: 1px solid var(--border-card);
+  overflow: hidden;
+  cursor: grab;
+}
+
+[data-theme="dark"] .trophy-viewport,
+html.dark .trophy-viewport {
+  background: radial-gradient(circle at center, rgba(var(--red-rgb), 0.16) 0%, rgba(0, 0, 0, 0.45) 80%, transparent 100%);
+}
+
+.trophy-viewport:active {
+  cursor: grabbing;
+}
+
+.achievements-3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.trophy-meta-dock {
+  position: absolute;
+  bottom: 1rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  pointer-events: none;
+}
+
+.trophy-badge {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #eab308;
+  text-transform: uppercase;
+}
+
+.trophy-meta-dock h4 {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.trophy-meta-dock p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 

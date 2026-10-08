@@ -21,7 +21,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <!-- Style link -->
-  <link rel="stylesheet" href="style.css?v=9">
+  <link rel="stylesheet" href="style.css?v=10">
 </head>
 <body>
 
@@ -91,7 +91,14 @@
         <!-- Interactive 3D Architectural WebGL Core (Zero dots, pure geometric tech wireframe & glass) -->
         <div class="hero-3d-canvas-wrap" id="hero-3d-wrap">
           <canvas id="hero-3d-canvas" class="hero-3d-canvas"></canvas>
-          <div class="hero-3d-drag-hint"><i data-lucide="rotate-cw"></i> <span>DRAG 3D OBJECT TO ROTATE</span></div>
+          <div class="hero-3d-controls-hud">
+            <div class="hero-3d-mode-switcher">
+              <button class="hero-3d-btn active" data-core="gyro"><i data-lucide="orbit"></i> Gyro Core</button>
+              <button class="hero-3d-btn" data-core="tesseract"><i data-lucide="box"></i> Hyper-Tesseract</button>
+              <button class="hero-3d-btn" data-core="neural"><i data-lucide="cpu"></i> Synaptic Node</button>
+            </div>
+            <div class="hero-3d-drag-hint"><i data-lucide="rotate-cw"></i> <span>DRAG IN 360° TO ROTATE</span></div>
+          </div>
         </div>
 
         <!-- 3D Floating Glass Orbitals around Cutout -->
@@ -380,25 +387,31 @@
 
           <div class="col-right rel-pos cinematic-reveal">
 
-            <!-- Clean Domain Mastery Glass Card -->
-            <div class="skills-domain-card glass-card 3d-tilt">
-              <h3 class="domain-card-title"><i data-lucide="code-2"></i> CORE COMPETENCIES</h3>
+            <!-- Interactive 3D System Competencies Polyhedral Matrix -->
+            <div class="skills-3d-matrix-wrap glass-card 3d-tilt" id="skills-3d-wrap">
+              <div class="matrix-card-header">
+                <div class="matrix-header-title">
+                  <i data-lucide="cpu"></i>
+                  <span>3D COMPETENCIES MATRIX</span>
+                </div>
+                <span class="telemetry-badge"><span class="telemetry-dot"></span> KINETIC SPHERE</span>
+              </div>
               
-              <div class="domain-tags-wrap">
-                <span class="domain-tag-pill">Python &amp; ML</span>
-                <span class="domain-tag-pill">React.js &amp; Node.js</span>
-                <span class="domain-tag-pill">Corteza Low-Code</span>
-                <span class="domain-tag-pill">MongoDB Atlas</span>
-                <span class="domain-tag-pill">PostgreSQL &amp; MySQL</span>
-                <span class="domain-tag-pill">Generative AI &amp; RAG</span>
-                <span class="domain-tag-pill">LLMs &amp; Prompting</span>
-                <span class="domain-tag-pill">Computer Vision</span>
-                <span class="domain-tag-pill">VANETs &amp; NDN</span>
-                <span class="domain-tag-pill">Cybersecurity &amp; Cisco</span>
-                <span class="domain-tag-pill">Power BI &amp; Tableau</span>
-                <span class="domain-tag-pill">System Design &amp; MVC</span>
-                <span class="domain-tag-pill">Shell Scripting &amp; Linux</span>
-                <span class="domain-tag-pill">Nature-Inspired (ACO/FPA)</span>
+              <div class="skills-canvas-viewport">
+                <canvas id="skills-3d-canvas" class="skills-3d-canvas"></canvas>
+                <div class="skills-3d-hint"><i data-lucide="rotate-cw"></i> DRAG SPHERE TO EXPLORE NODES</div>
+              </div>
+
+              <div class="domain-tags-wrap" id="skills-interactive-tags">
+                <span class="domain-tag-pill active" data-node="python"><i data-lucide="code"></i> Python &amp; ML</span>
+                <span class="domain-tag-pill" data-node="react"><i data-lucide="layers"></i> React &amp; Node.js</span>
+                <span class="domain-tag-pill" data-node="corteza"><i data-lucide="box"></i> Corteza Low-Code</span>
+                <span class="domain-tag-pill" data-node="dbms"><i data-lucide="database"></i> SQL &amp; MongoDB</span>
+                <span class="domain-tag-pill" data-node="genai"><i data-lucide="sparkles"></i> GenAI &amp; RAG</span>
+                <span class="domain-tag-pill" data-node="vision"><i data-lucide="scan"></i> Computer Vision</span>
+                <span class="domain-tag-pill" data-node="vanet"><i data-lucide="wifi"></i> VANETs &amp; NDN</span>
+                <span class="domain-tag-pill" data-node="security"><i data-lucide="shield"></i> Cybersecurity</span>
+                <span class="domain-tag-pill" data-node="analytics"><i data-lucide="bar-chart-3"></i> Power BI &amp; Analytics</span>
               </div>
             </div>
           </div>
@@ -483,30 +496,69 @@
 
         <h1 class="slide-giant-red-title compact cinematic-reveal">RESEARCH &amp; BUILDS</h1>
 
-        <!-- Interactive 3D System Architecture Console -->
+        <!-- Interactive 3D System Architecture CAD Workstation -->
         <div class="interactive-3d-showcase glass-card cinematic-reveal" id="research-3d-showcase">
           <div class="showcase-header">
             <div class="showcase-title-group">
-              <span class="showcase-badge"><i data-lucide="box"></i> INTERACTIVE 3D SYSTEM ARCHITECTURE</span>
-              <h3 class="showcase-title">Real-Time Cryptographic &amp; AI Node Viewer</h3>
+              <span class="showcase-badge"><i data-lucide="box"></i> INTERACTIVE 3D CAD SYSTEM WORKSTATION</span>
+              <h3 class="showcase-title">Real-Time Cryptographic &amp; AI Node Inspector</h3>
             </div>
+            
             <div class="showcase-controls">
-              <button class="model-select-btn active" data-model="vanet"><i data-lucide="shield-check"></i> NDN VANET Node</button>
-              <button class="model-select-btn" data-model="neural"><i data-lucide="brain"></i> Neural Core</button>
-              <button class="model-select-btn" data-model="mesh"><i data-lucide="network"></i> Enterprise Mesh</button>
+              <!-- 5 Project Models -->
+              <div class="model-select-group">
+                <button class="model-select-btn active" data-model="vanet"><i data-lucide="shield-check"></i> NDN VANET</button>
+                <button class="model-select-btn" data-model="neural"><i data-lucide="brain"></i> MedFlow AI</button>
+                <button class="model-select-btn" data-model="mesh"><i data-lucide="network"></i> SELISE Mesh</button>
+                <button class="model-select-btn" data-model="vision"><i data-lucide="scan"></i> ADDEP Vision</button>
+                <button class="model-select-btn" data-model="energy"><i data-lucide="zap"></i> Smart Grid</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- CAD Engineering Toolbar -->
+          <div class="cad-toolbar">
+            <div class="cad-tool-group">
+              <span class="cad-group-label">SHADING:</span>
+              <button class="cad-tool-btn active" data-mode="pbr"><i data-lucide="sparkles"></i> PBR Solid</button>
+              <button class="cad-tool-btn" data-mode="wireframe"><i data-lucide="grid"></i> CAD Wireframe</button>
+              <button class="cad-tool-btn" data-mode="xray"><i data-lucide="eye"></i> X-Ray Holo</button>
+            </div>
+
+            <div class="cad-tool-group">
+              <span class="cad-group-label">CAMERA:</span>
+              <button class="cad-camera-btn active" data-cam="persp">Perspective</button>
+              <button class="cad-camera-btn" data-cam="top">Top View</button>
+              <button class="cad-camera-btn" data-cam="iso">Isometric</button>
+            </div>
+
+            <div class="cad-tool-group">
+              <button class="cad-action-btn" id="cad-explode-btn"><i data-lucide="maximize-2"></i> <span id="explode-text">Explode CAD</span></button>
+              <button class="cad-action-btn active" id="cad-autospin-btn"><i data-lucide="rotate-cw"></i> <span>Auto-Spin</span></button>
             </div>
           </div>
           
           <div class="showcase-viewport-wrap">
             <canvas id="showcase-3d-canvas" class="showcase-3d-canvas"></canvas>
+            
             <div class="showcase-telemetry">
               <div class="telemetry-pill"><span class="telemetry-dot"></span> 3D ENGINE: <strong id="telemetry-status">60 FPS WEBGL</strong></div>
               <div class="telemetry-pill">ACTIVE: <strong id="telemetry-node">VANET NDN CRYPTO</strong></div>
-              <div class="telemetry-pill">GESTURE: <strong>DRAG / ROTATE / PINCH</strong></div>
+              <div class="telemetry-pill">SHADING: <strong id="telemetry-shading">PBR METALLIC</strong></div>
+              <div class="telemetry-pill">GESTURE: <strong>ORBIT / ZOOM / DECONSTRUCT</strong></div>
             </div>
+            
             <div class="showcase-info-overlay" id="showcase-model-info">
-              <h4 id="model-info-heading">Certificateless Short Signature Scheme (VANETs • NDN)</h4>
+              <div class="info-overlay-header">
+                <span class="info-spec-badge" id="model-spec-badge">THESIS ARCHITECTURE • BILINEAR PAIRING</span>
+                <h4 id="model-info-heading">Certificateless Short Signature Scheme (VANETs • NDN)</h4>
+              </div>
               <p id="model-info-desc">3D cryptographic key-exchange node simulating lightweight bilinear pairings and signature verification in high-mobility vehicular networks with zero certificate overhead.</p>
+              <div class="model-metrics-row" id="model-metrics-row">
+                <div class="metric-item"><span class="metric-k">OVERHEAD:</span> <span class="metric-v">-64% PKI Delay</span></div>
+                <div class="metric-item"><span class="metric-k">TOPOLOGY:</span> <span class="metric-v">NDN Named-Data</span></div>
+                <div class="metric-item"><span class="metric-k">SECURITY:</span> <span class="metric-v">Provably Secure</span></div>
+              </div>
             </div>
           </div>
         </div>
@@ -587,6 +639,22 @@
     <section class="canva-slide cinematic-section" id="achievements">
       <div class="canva-slide-content">
         <h1 class="slide-giant-red-title compact cinematic-reveal">ACHIEVEMENTS</h1>
+
+        <!-- Interactive 3D Honors Trophy Stage -->
+        <div class="achievements-3d-stage glass-card cinematic-reveal" id="achievements-3d-wrap">
+          <div class="trophy-3d-header">
+            <span class="trophy-3d-tag"><i data-lucide="award"></i> 3D HONORS &amp; TROPHY SHOWCASE</span>
+            <span class="trophy-hint-pill"><i data-lucide="rotate-cw"></i> DRAG TROPHY TO ROTATE</span>
+          </div>
+          <div class="trophy-viewport">
+            <canvas id="achievements-3d-canvas" class="achievements-3d-canvas"></canvas>
+            <div class="trophy-meta-dock">
+              <span class="trophy-badge" id="trophy-badge">CHAMPIONSHIP HONORS</span>
+              <h4 id="trophy-title">Inter-NIT Hackathon Winner 2026</h4>
+              <p id="trophy-subtitle">Annual Technical Fest Abhiyantran'2026 • NIT Sikkim Championship Trophy</p>
+            </div>
+          </div>
+        </div>
 
         <div class="two-col-grid">
           <div class="col-left cinematic-reveal">
@@ -751,6 +819,6 @@
   </footer>
 
   <!-- Main Interactivity Script -->
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=10"></script>
 </body>
 </html>
