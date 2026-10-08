@@ -162,6 +162,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Scroll Parallax Floating Cutout Physics ---
+  const parallaxImages = document.querySelectorAll('.scroll-parallax');
+  if (parallaxImages.length && !isTouchDevice) {
+    window.addEventListener('scroll', () => {
+      parallaxImages.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const speed = 0.06;
+          const offsetY = (window.innerHeight / 2 - (rect.top + rect.height / 2)) * speed;
+          img.style.transform = `translate3d(0, ${offsetY}px, 0)`;
+        }
+      });
+    });
+  }
+
   // --- 5. Magnetic Targets Pull Effect ---
   if (!isTouchDevice) {
     const magneticTargets = document.querySelectorAll('.magnetic-target');
