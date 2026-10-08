@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dibyajit Das Gupta — Creative Portfolio 2026</title>
+  <title>Dibyajit Das Gupta — Engineering Portfolio</title>
   <meta name="description" content="Personal portfolio of Dibyajit Das Gupta, Associate Software Developer at SELISE Digital Platform, B.Tech CSE NIT Sikkim '26, ICCR Scholar.">
   <meta name="publisher" content="Dibyajit Das Gupta">
   
@@ -22,11 +22,8 @@
 </head>
 <body>
 
-  <!-- Custom Interactive Cursor -->
-  <div class="custom-cursor-dot" id="cursor-dot"></div>
-  <div class="custom-cursor-follower" id="cursor-follower">
-    <span class="cursor-text" id="cursor-text"></span>
-  </div>
+  <!-- Top Cinematic Video-Like Progress Bar -->
+  <div class="cinematic-progress-bar" id="cinematic-progress"></div>
 
   <!-- Ambient Glow Spotlight -->
   <div class="ambient-spotlight" id="ambient-spotlight"></div>
@@ -34,30 +31,30 @@
   <!-- Header Navigation Bar -->
   <header class="navbar" id="navbar">
     <div class="navbar-container">
-      <a href="#hero" class="logo magnetic-target" data-cursor="HOME">
+      <a href="#hero" class="logo magnetic-target">
         <span class="logo-bold">DIBYAJIT</span><span class="logo-red">.DAS GUPTA</span>
       </a>
 
       <nav class="nav-menu" id="nav-menu">
-        <a href="#hero" class="nav-link magnetic-target" data-cursor="HOME">Home</a>
-        <a href="#welcome" class="nav-link magnetic-target" data-cursor="WELCOME">Welcome</a>
-        <a href="#about" class="nav-link magnetic-target" data-cursor="ABOUT">About</a>
-        <a href="#education" class="nav-link magnetic-target" data-cursor="EDU">Education</a>
-        <a href="#skills" class="nav-link magnetic-target" data-cursor="SKILLS">Skills</a>
-        <a href="#experiences" class="nav-link magnetic-target" data-cursor="EXP">Experience</a>
-        <a href="#projects" class="nav-link magnetic-target" data-cursor="WORK">Portfolio</a>
-        <a href="#contact" class="nav-link magnetic-target" data-cursor="CONTACT">Contact</a>
+        <a href="#hero" class="nav-link magnetic-target">Home</a>
+        <a href="#welcome" class="nav-link magnetic-target">Welcome</a>
+        <a href="#about" class="nav-link magnetic-target">About</a>
+        <a href="#education" class="nav-link magnetic-target">Education</a>
+        <a href="#skills" class="nav-link magnetic-target">Skills</a>
+        <a href="#experiences" class="nav-link magnetic-target">Experience</a>
+        <a href="#projects" class="nav-link magnetic-target">Portfolio</a>
+        <a href="#contact" class="nav-link magnetic-target">Contact</a>
       </nav>
 
       <div class="nav-actions">
         <!-- Sound FX Toggle -->
-        <button id="sound-toggle" class="btn-icon magnetic-target" aria-label="Toggle Sound Effects" data-cursor="SOUND">
+        <button id="sound-toggle" class="btn-icon magnetic-target" aria-label="Toggle Sound Effects">
           <i data-lucide="volume-2" class="sound-on-icon"></i>
           <i data-lucide="volume-x" class="sound-off-icon" style="display:none;"></i>
         </button>
 
         <!-- Minimal Light/Dark Theme Toggle -->
-        <button id="theme-toggle-btn" class="btn-icon magnetic-target" aria-label="Toggle Light/Dark Theme" data-cursor="THEME">
+        <button id="theme-toggle-btn" class="btn-icon magnetic-target" aria-label="Toggle Light/Dark Theme">
           <i data-lucide="moon" class="theme-moon-icon"></i>
           <i data-lucide="sun" class="theme-sun-icon" style="display:none;"></i>
         </button>
@@ -73,12 +70,7 @@
   <main class="main-content">
     
     <!-- SLIDE 01: HERO SECTION -->
-    <section class="canva-slide hero-slide" id="hero">
-      <div class="canva-header-bar">
-        <span class="canva-brand-tag">DIBYAJIT DAS GUPTA — PORTFOLIO</span>
-        <span class="canva-year-tag">2026</span>
-      </div>
-
+    <section class="canva-slide hero-slide cinematic-section" id="hero">
       <div class="hero-stage">
         <!-- Background Continuous Horizontal Scrolling Name Marquee -->
         <div class="hero-bg-name-marquee">
@@ -93,7 +85,7 @@
           </div>
         </div>
         
-        <!-- Center Floating Parallax Uncropped Cutout Figure -->
+        <!-- Center Floating Parallax Massive Uncropped Cutout Figure -->
         <div class="hero-full-cutout-stage">
           <img src="avatar-suit.png" alt="Dibyajit Das Gupta Cutout" class="hero-full-cutout-img scroll-parallax-large">
         </div>
@@ -110,38 +102,58 @@
     </section>
 
     <!-- SLIDE 02: WELCOME SECTION -->
-    <section class="canva-slide" id="welcome">
-      <div class="canva-header-bar">
-        <span class="canva-brand-tag">DIBYAJIT DAS GUPTA — PORTFOLIO</span>
-        <span class="canva-year-tag">2026</span>
-      </div>
-
+    <section class="canva-slide cinematic-section" id="welcome">
       <div class="canva-slide-content">
-        <h1 class="slide-giant-red-title">WELCOME</h1>
+        <h1 class="slide-giant-red-title cinematic-reveal">WELCOME</h1>
         
         <div class="two-col-grid align-center">
-          <div class="col-left">
+          <div class="col-left cinematic-reveal">
             <p class="section-lead-text">
-              Welcome to my official engineering portfolio. I specialize in building robust enterprise web applications, high-performance APIs, and intelligent data systems that empower modern digital platforms.
+              Welcome to my engineering portfolio. I specialize in building robust enterprise web applications, high-performance APIs, and intelligent data systems that empower modern digital platforms.
             </p>
             <div class="welcome-tag-row">
-              <div class="small-thumb-card">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80" alt="Workspace Mockup">
-              </div>
               <div class="welcome-author-box">
                 <span class="red-asterisk">*</span>
                 <div>
                   <h3 class="author-name">DIBYAJIT DAS GUPTA</h3>
-                  <p class="author-role">Associate Software Developer @ SELISE</p>
+                  <p class="author-role">Associate Software Developer @ SELISE Digital Platform</p>
                 </div>
               </div>
             </div>
           </div>
           
-          <div class="col-right rel-pos">
+          <div class="col-right rel-pos cinematic-reveal">
             <div class="splatter-bg splatter-top-right"></div>
-            <div class="moodboard-card glass-card 3d-tilt">
-              <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=1000&q=80" alt="Design & Code Workspace" class="moodboard-img">
+            <!-- Interactive Tech Matrix Glass Card (No Stock Image) -->
+            <div class="tech-matrix-card glass-card 3d-tilt">
+              <div class="matrix-header">
+                <span class="mac-dot red"></span>
+                <span class="mac-dot yellow"></span>
+                <span class="mac-dot green"></span>
+                <span class="matrix-title">DEVELOPER_STACK.SYS</span>
+              </div>
+              <div class="matrix-body">
+                <div class="matrix-row">
+                  <span class="row-label">PRIMARY ROLE</span>
+                  <span class="row-val red-text">Software Developer @ SELISE</span>
+                </div>
+                <div class="matrix-row">
+                  <span class="row-label">EDUCATION</span>
+                  <span class="row-val">B.Tech CSE NIT Sikkim ('26)</span>
+                </div>
+                <div class="matrix-row">
+                  <span class="row-label">FELLOWSHIP</span>
+                  <span class="row-val">ICCR Scholar (Govt. of India)</span>
+                </div>
+                <div class="matrix-row">
+                  <span class="row-label">STACK</span>
+                  <span class="row-val">React • Node • Python • SQL</span>
+                </div>
+                <div class="matrix-row">
+                  <span class="row-label">LOCATION</span>
+                  <span class="row-val">Dhaka / Chattogram</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -149,20 +161,11 @@
     </section>
 
     <!-- SLIDE 03: ABOUT ME (I'M DIBYAJIT DAS GUPTA) -->
-    <section class="canva-slide" id="about">
-      <div class="canva-header-bar">
-        <span class="canva-brand-tag">DIBYAJIT DAS GUPTA — PORTFOLIO</span>
-        <span class="canva-year-tag">2026</span>
-      </div>
-
+    <section class="canva-slide cinematic-section" id="about">
       <div class="canva-slide-content">
         <div class="two-col-grid">
-          <div class="col-left">
+          <div class="col-left cinematic-reveal">
             <h1 class="slide-giant-red-title compact">I'M DIBYAJIT DAS GUPTA</h1>
-            
-            <div class="embedded-team-card glass-card">
-              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Team Collaboration">
-            </div>
 
             <p class="section-lead-text margin-top-15">
               Currently working as Associate Software Developer at <strong>SELISE Digital Platform</strong> since July 1, 2026. B.Tech Computer Science &amp; Engineering graduate from <strong>NIT Sikkim</strong> ('26) and fully funded <strong>ICCR Scholar</strong> under the Ministry of External Affairs, Government of India.
@@ -170,12 +173,28 @@
             <p class="text-muted-canva">
               Experienced across enterprise software engineering, database normalization, full-stack React &amp; Node.js platforms, and machine learning models. Built solutions for VANET network routing, healthcare platforms, and smart energy grids.
             </p>
+
+            <div class="about-highlights-grid">
+              <div class="highlight-pill">
+                <i data-lucide="code"></i> Full-Stack React &amp; Node
+              </div>
+              <div class="highlight-pill">
+                <i data-lucide="brain"></i> AI &amp; Computer Vision
+              </div>
+              <div class="highlight-pill">
+                <i data-lucide="database"></i> Relational DBMS &amp; MongoDB
+              </div>
+              <div class="highlight-pill">
+                <i data-lucide="award"></i> Inter-NIT Hackathon Winner
+              </div>
+            </div>
           </div>
 
-          <div class="col-right rel-pos center-content">
+          <div class="col-right rel-pos center-content cinematic-reveal">
             <div class="splatter-bg splatter-centered"></div>
+            <!-- Dibyajit's Real Photo (avatar-casual.png) -->
             <div class="about-portrait-wrap">
-              <img src="avatar-casual.png" alt="Dibyajit Casual Portrait" class="about-portrait-img scroll-parallax">
+              <img src="avatar-casual.png" alt="Dibyajit Das Gupta Casual Portrait" class="about-portrait-img scroll-parallax">
             </div>
           </div>
         </div>
@@ -183,24 +202,35 @@
     </section>
 
     <!-- SLIDE 04: EDUCATION -->
-    <section class="canva-slide" id="education">
-      <div class="canva-header-bar">
-        <span class="canva-brand-tag">DIBYAJIT DAS GUPTA — PORTFOLIO</span>
-        <span class="canva-year-tag">2026</span>
-      </div>
-
+    <section class="canva-slide cinematic-section" id="education">
       <div class="canva-slide-content">
-        <h1 class="slide-giant-red-title">EDUCATION</h1>
+        <h1 class="slide-giant-red-title cinematic-reveal">EDUCATION</h1>
 
         <div class="two-col-grid align-center">
-          <div class="col-left rel-pos">
+          <div class="col-left rel-pos cinematic-reveal">
             <div class="splatter-bg splatter-bottom-left"></div>
-            <div class="edu-image-card glass-card 3d-tilt">
-              <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80" alt="Graduation & Education">
+            <!-- Clean Academic Summary Badge (No Stock Image) -->
+            <div class="academic-badge-card glass-card 3d-tilt">
+              <div class="acad-icon-circle">
+                <i data-lucide="graduation-cap"></i>
+              </div>
+              <h3>ACADEMIC CREDENTIALS</h3>
+              <p>Bachelor of Technology in Computer Science &amp; Engineering</p>
+              <div class="acad-divider"></div>
+              <div class="acad-stat-row">
+                <div>
+                  <span class="stat-lbl">INSTITUTE</span>
+                  <span class="stat-val">NIT Sikkim</span>
+                </div>
+                <div>
+                  <span class="stat-lbl">HONOR</span>
+                  <span class="stat-val">ICCR Scholar</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="col-right">
+          <div class="col-right cinematic-reveal">
             <div class="education-canva-list">
               
               <div class="edu-canva-item">
@@ -246,20 +276,15 @@
     </section>
 
     <!-- SLIDE 05: MY SKILLS -->
-    <section class="canva-slide" id="skills">
-      <div class="canva-header-bar">
-        <span class="canva-brand-tag">DIBYAJIT DAS GUPTA — PORTFOLIO</span>
-        <span class="canva-year-tag">2026</span>
-      </div>
-
+    <section class="canva-slide cinematic-section" id="skills">
       <div class="canva-slide-content">
-        <div class="skills-header-row">
+        <div class="skills-header-row cinematic-reveal">
           <span class="red-asterisk giant-asterisk">*</span>
           <h1 class="slide-giant-red-title inline-title">MY SKILLS</h1>
         </div>
 
         <div class="two-col-grid">
-          <div class="col-left">
+          <div class="col-left cinematic-reveal">
             <div class="skill-category-block">
               <h3 class="skill-cat-title">FULL-STACK ENGINEERING</h3>
               <p class="skill-cat-desc">
@@ -282,17 +307,26 @@
             </div>
           </div>
 
-          <div class="col-right rel-pos">
+          <div class="col-right rel-pos cinematic-reveal">
             <div class="splatter-bg splatter-center-right"></div>
-            <div class="skills-trio-cards">
-              <div class="trio-card glass-card 3d-tilt">
-                <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=600&q=80" alt="UI Design & Prototyping">
+            <!-- Clean Interactive Skill Metrics Container (No Stock Images) -->
+            <div class="skills-matrix-board glass-card 3d-tilt">
+              <h4 class="board-title"><i data-lucide="layers"></i> TECH METRICS</h4>
+              <div class="skill-meter-item">
+                <div class="meter-info"><span>Frontend &amp; React</span><span>95%</span></div>
+                <div class="meter-bar"><div class="meter-fill" style="width: 95%"></div></div>
               </div>
-              <div class="trio-card glass-card 3d-tilt">
-                <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=600&q=80" alt="Code & Development">
+              <div class="skill-meter-item">
+                <div class="meter-info"><span>Backend &amp; Node APIs</span><span>92%</span></div>
+                <div class="meter-bar"><div class="meter-fill" style="width: 92%"></div></div>
               </div>
-              <div class="trio-card glass-card 3d-tilt">
-                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Software Architecture">
+              <div class="skill-meter-item">
+                <div class="meter-info"><span>Python &amp; Machine Learning</span><span>88%</span></div>
+                <div class="meter-bar"><div class="meter-fill" style="width: 88%"></div></div>
+              </div>
+              <div class="skill-meter-item">
+                <div class="meter-info"><span>Database Systems &amp; SQL</span><span>90%</span></div>
+                <div class="meter-bar"><div class="meter-fill" style="width: 90%"></div></div>
               </div>
             </div>
           </div>
@@ -301,18 +335,13 @@
     </section>
 
     <!-- SLIDE 06: EXPERIENCE -->
-    <section class="canva-slide" id="experiences">
-      <div class="canva-header-bar">
-        <span class="canva-brand-tag">DIBYAJIT DAS GUPTA — PORTFOLIO</span>
-        <span class="canva-year-tag">2026</span>
-      </div>
-
+    <section class="canva-slide cinematic-section" id="experiences">
       <div class="canva-slide-content">
-        <h1 class="slide-giant-red-title compact">EXPERIENCE</h1>
+        <h1 class="slide-giant-red-title compact cinematic-reveal">EXPERIENCE</h1>
 
         <div class="exp-full-grid">
           
-          <div class="exp-role-card glass-card">
+          <div class="exp-role-card glass-card cinematic-reveal">
             <div class="role-header">
               <span class="red-asterisk">*</span>
               <h3 class="company-name">SELISE Bangladesh Ltd</h3>
@@ -323,7 +352,7 @@
             </p>
           </div>
 
-          <div class="exp-role-card glass-card">
+          <div class="exp-role-card glass-card cinematic-reveal">
             <div class="role-header">
               <span class="red-asterisk">*</span>
               <h3 class="company-name">SELISE Bangladesh Ltd</h3>
@@ -334,7 +363,7 @@
             </p>
           </div>
 
-          <div class="exp-role-card glass-card">
+          <div class="exp-role-card glass-card cinematic-reveal">
             <div class="role-header">
               <span class="red-asterisk">*</span>
               <h3 class="company-name">Shajinaz Hospital Ltd</h3>
@@ -345,7 +374,7 @@
             </p>
           </div>
 
-          <div class="exp-role-card glass-card">
+          <div class="exp-role-card glass-card cinematic-reveal">
             <div class="role-header">
               <span class="red-asterisk">*</span>
               <h3 class="company-name">CodeClause</h3>
@@ -356,7 +385,7 @@
             </p>
           </div>
 
-          <div class="exp-role-card glass-card full-span">
+          <div class="exp-role-card glass-card full-span cinematic-reveal">
             <div class="role-header">
               <span class="red-asterisk">*</span>
               <h3 class="company-name">PwC, Deloitte, Mastercard, Cognizant, J.P. Morgan, Accenture</h3>
@@ -372,19 +401,14 @@
     </section>
 
     <!-- SLIDE 07: PORTFOLIO SHOWCASE -->
-    <section class="canva-slide" id="projects">
-      <div class="canva-header-bar">
-        <span class="canva-brand-tag">DIBYAJIT DAS GUPTA — PORTFOLIO</span>
-        <span class="canva-year-tag">2026</span>
-      </div>
-
+    <section class="canva-slide cinematic-section" id="projects">
       <div class="canva-slide-content rel-pos">
         <div class="splatter-bg splatter-top-right-heavy"></div>
-        <h1 class="slide-giant-red-title">PORTFOLIO</h1>
+        <h1 class="slide-giant-red-title cinematic-reveal">PORTFOLIO</h1>
 
         <div class="portfolio-quad-grid">
           
-          <div class="portfolio-card glass-card 3d-tilt">
+          <div class="portfolio-card glass-card 3d-tilt cinematic-reveal">
             <div class="port-img-wrap">
               <div class="vanet-live-preview">
                 <svg viewBox="0 0 400 220" class="vanet-svg">
@@ -405,9 +429,16 @@
             </div>
           </div>
 
-          <div class="portfolio-card glass-card 3d-tilt">
+          <div class="portfolio-card glass-card 3d-tilt cinematic-reveal">
             <div class="port-img-wrap">
-              <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=700&q=80" alt="MedFlow Platform">
+              <div class="ui-mockup-stage">
+                <div class="mockup-header-dots"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+                <div class="mockup-stat-bars">
+                  <div class="stat-bar-fill" style="height: 60%"></div>
+                  <div class="stat-bar-fill" style="height: 90%"></div>
+                  <div class="stat-bar-fill" style="height: 75%"></div>
+                </div>
+              </div>
             </div>
             <div class="port-card-footer">
               <span class="port-tag">MERN Stack Platform</span>
@@ -415,9 +446,12 @@
             </div>
           </div>
 
-          <div class="portfolio-card glass-card 3d-tilt">
+          <div class="portfolio-card glass-card 3d-tilt cinematic-reveal">
             <div class="port-img-wrap">
-              <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=700&q=80" alt="Classroom Allotment DBMS">
+              <div class="dbms-mockup-stage">
+                <i data-lucide="layout-grid" class="dbms-icon"></i>
+                <span>ROOM_ALLOTMENT.SQL</span>
+              </div>
             </div>
             <div class="port-card-footer">
               <span class="port-tag">DBMS Mini Project</span>
@@ -425,9 +459,12 @@
             </div>
           </div>
 
-          <div class="portfolio-card glass-card 3d-tilt">
+          <div class="portfolio-card glass-card 3d-tilt cinematic-reveal">
             <div class="port-img-wrap">
-              <img src="https://images.unsplash.com/photo-1541888946425-d0fbb186a5b7?auto=format&fit=crop&w=700&q=80" alt="Water Supply Management DBMS">
+              <div class="dbms-mockup-stage">
+                <i data-lucide="droplet" class="dbms-icon red-icon"></i>
+                <span>WATER_NETWORK.SQL</span>
+              </div>
             </div>
             <div class="port-card-footer">
               <span class="port-tag">DBMS Mini Project</span>
@@ -435,9 +472,12 @@
             </div>
           </div>
 
-          <div class="portfolio-card glass-card 3d-tilt">
+          <div class="portfolio-card glass-card 3d-tilt cinematic-reveal">
             <div class="port-img-wrap">
-              <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=700&q=80" alt="ADDEP Skin Disease AI">
+              <div class="ai-radar-stage">
+                <div class="radar-circle-pulse"></div>
+                <i data-lucide="scan" class="radar-scan-icon"></i>
+              </div>
             </div>
             <div class="port-card-footer">
               <span class="port-tag">Computer Vision AI</span>
@@ -445,9 +485,12 @@
             </div>
           </div>
 
-          <div class="portfolio-card glass-card 3d-tilt">
+          <div class="portfolio-card glass-card 3d-tilt cinematic-reveal">
             <div class="port-img-wrap">
-              <img src="https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=700&q=80" alt="Renewable Energy Smart Grid">
+              <div class="energy-mockup-stage">
+                <i data-lucide="zap" class="energy-icon"></i>
+                <span>IIT BOMBAY WINNER</span>
+              </div>
             </div>
             <div class="port-card-footer">
               <span class="port-tag">IIT Bombay Winner</span>
@@ -460,34 +503,36 @@
     </section>
 
     <!-- SLIDE 08 & 09: PROJECT DEEP DIVE -->
-    <section class="canva-slide" id="project-detail">
-      <div class="canva-header-bar">
-        <span class="canva-brand-tag">DIBYAJIT DAS GUPTA — PORTFOLIO</span>
-        <span class="canva-year-tag">2026</span>
-      </div>
-
+    <section class="canva-slide cinematic-section" id="project-detail">
       <div class="canva-slide-content">
-        <div class="project-detail-top">
+        <div class="project-detail-top cinematic-reveal">
           <p class="proj-intro-para">
-            Featured engineering project focusing on Vehicular Ad-Hoc Networks (VANETs), optimizing data packet delivery ratios, minimizing latency, and ensuring continuous inter-vehicle wireless communication.
+            Featured engineering project focusing on Vehicular Ad-Hoc Networks (VANETs), optimizing data packet delivery ratios, minimizing latency, and ensuring continuous inter-vehicle wireless communication using Named Data Networking (NDN).
           </p>
-          <div class="proj-banner-img glass-card">
-            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80" alt="Project Team Collaboration">
+          <!-- SVG Architecture Diagram (No Stock Image) -->
+          <div class="proj-banner-svg glass-card">
+            <svg viewBox="0 0 600 200" class="arch-svg">
+              <rect x="20" y="40" width="140" height="120" rx="12" fill="rgba(255, 43, 43, 0.1)" stroke="#ff2b2b" stroke-width="2"/>
+              <text x="90" y="105" fill="#ff2b2b" font-weight="700" text-anchor="middle" font-size="14">VANET NODE</text>
+              <rect x="230" y="40" width="140" height="120" rx="12" fill="rgba(0, 0, 0, 0.05)" stroke="var(--text-dark)" stroke-width="2"/>
+              <text x="300" y="105" fill="var(--text-dark)" font-weight="700" text-anchor="middle" font-size="14">NDN ROUTER</text>
+              <rect x="440" y="40" width="140" height="120" rx="12" fill="rgba(255, 43, 43, 0.1)" stroke="#ff2b2b" stroke-width="2"/>
+              <text x="510" y="105" fill="#ff2b2b" font-weight="700" text-anchor="middle" font-size="14">AUTH SERVER</text>
+              <line x1="160" y1="100" x2="230" y2="100" stroke="#ff2b2b" stroke-width="3" stroke-dasharray="4,4"/>
+              <line x1="370" y1="100" x2="440" y2="100" stroke="#ff2b2b" stroke-width="3" stroke-dasharray="4,4"/>
+            </svg>
           </div>
         </div>
 
-        <div class="project-title-giant-wrap rel-pos">
+        <div class="project-title-giant-wrap rel-pos cinematic-reveal">
           <div class="splatter-bg splatter-bottom-right"></div>
           <h1 class="slide-giant-red-title inline-title">FEATURED PROJECT</h1>
         </div>
 
-        <div class="project-detail-bottom">
+        <div class="project-detail-bottom cinematic-reveal">
           <div class="proj-author-tag">
             <h3>Dibyajit</h3>
             <h3>Das Gupta</h3>
-          </div>
-          <div class="proj-small-img glass-card">
-            <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=400&q=80" alt="Mockup preview">
           </div>
           <p class="proj-body-desc">
             Designed network simulation parameters and routing algorithms to dynamically manage vehicle mobility. Evaluated throughput performance, packet drop rates, and multi-hop routing reliability under high-density urban traffic scenarios.
@@ -497,19 +542,14 @@
     </section>
 
     <!-- SLIDE 10: LET'S WORK TOGETHER / CONTACT -->
-    <section class="canva-slide" id="contact">
-      <div class="canva-header-bar">
-        <span class="canva-brand-tag">CREATIVE PORTFOLIO</span>
-        <span class="canva-year-tag">2026</span>
-      </div>
-
+    <section class="canva-slide cinematic-section" id="contact">
       <div class="canva-slide-content rel-pos">
         <div class="splatter-bg splatter-center-right-heavy"></div>
         
-        <h1 class="slide-giant-red-title giant-contact-title">LET’S WORK<br>TOGETHER</h1>
+        <h1 class="slide-giant-red-title giant-contact-title cinematic-reveal">LET’S WORK<br>TOGETHER</h1>
 
         <div class="contact-two-col">
-          <div class="contact-pills-column">
+          <div class="contact-pills-column cinematic-reveal">
             
             <a href="tel:+8801815346963" class="contact-red-pill magnetic-target">
               <span class="pill-icon"><i data-lucide="phone"></i></span>
@@ -531,9 +571,14 @@
               <span class="pill-text">linkedin.com/in/dibyajit-das-gupta</span>
             </a>
 
+            <!-- Dibyajit's Real Portrait Photo (avatar-portrait.png) -->
+            <div class="contact-real-photo-wrap glass-card">
+              <img src="avatar-portrait.png" alt="Dibyajit Das Gupta Official Portrait" class="contact-real-photo">
+            </div>
+
           </div>
 
-          <div class="contact-form-column glass-card">
+          <div class="contact-form-column glass-card cinematic-reveal">
             <h3>Send Message</h3>
             <form id="portfolio-contact-form">
               <div class="form-group">

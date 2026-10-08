@@ -1,4 +1,4 @@
-/* Dibyajit Das Gupta — Canva Creative Portfolio 2026 Theme */
+/* Dibyajit Das Gupta — Cinematic Engineering Portfolio Theme */
 
 :root {
   --font-display: 'Bebas Neue', 'Anton', sans-serif;
@@ -8,14 +8,14 @@
   --red-primary: #ff2b2b;
   --red-rgb: 255, 43, 43;
   --bg-canvas: #ffffff;
-  --bg-card: rgba(255, 255, 255, 0.92);
+  --bg-card: rgba(255, 255, 255, 0.94);
   --border-card: rgba(0, 0, 0, 0.12);
   
   --text-dark: #09090b;
   --text-secondary: #3f3f46;
   --text-muted: #71717a;
   
-  --nav-bg: rgba(255, 255, 255, 0.92);
+  --nav-bg: rgba(255, 255, 255, 0.94);
   --nav-border: rgba(0, 0, 0, 0.08);
 
   --shadow-card: 0 15px 40px rgba(0, 0, 0, 0.08);
@@ -24,14 +24,14 @@
 
 [data-theme="dark"], html.dark {
   --bg-canvas: #0a0a0c;
-  --bg-card: rgba(20, 20, 26, 0.92);
+  --bg-card: rgba(20, 20, 26, 0.94);
   --border-card: rgba(255, 255, 255, 0.12);
   
   --text-dark: #f4f4f5;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;
   
-  --nav-bg: rgba(10, 10, 12, 0.92);
+  --nav-bg: rgba(10, 10, 12, 0.94);
   --nav-border: rgba(255, 255, 255, 0.1);
 
   --shadow-card: 0 20px 50px rgba(0, 0, 0, 0.6);
@@ -60,49 +60,30 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* --- Interactive Custom Cursor --- */
-.custom-cursor-dot {
+/* --- Top Cinematic Progress Bar --- */
+.cinematic-progress-bar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 8px;
-  height: 8px;
-  background: var(--red-primary);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
+  height: 3.5px;
+  background: linear-gradient(90deg, var(--red-primary), #ff6b6b);
+  z-index: 2000;
+  width: 0%;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 12px var(--red-primary);
 }
 
-.custom-cursor-follower {
+/* --- Ambient Spotlight --- */
+.ambient-spotlight {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid var(--red-primary);
+  width: 600px;
+  height: 600px;
   border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--red-rgb), 0.06) 0%, transparent 70%);
   pointer-events: none;
-  z-index: 9998;
+  z-index: 0;
   transform: translate(-50%, -50%);
-  transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cursor-text {
-  font-family: var(--font-mono);
-  font-size: 0.55rem;
-  font-weight: 700;
-  color: #fff;
-  opacity: 0;
-}
-
-.custom-cursor-follower.hovering {
-  width: 50px;
-  height: 50px;
-  background: rgba(var(--red-rgb), 0.15);
+  transition: transform 0.1s ease-out;
 }
 
 /* --- Navbar --- */
@@ -183,37 +164,32 @@ body {
   color: var(--red-primary);
 }
 
-/* --- Canva Slide Container Layout --- */
+/* --- Canva Slide Container Layout & Cinematic Sections --- */
 .canva-slide {
   width: 100%;
   min-height: 100vh;
-  padding: 6.5rem 6vw 4rem 6vw;
+  padding: 7rem 6vw 5rem 6vw;
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   border-bottom: 1px solid var(--nav-border);
   background: var(--bg-canvas);
   overflow: hidden;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.canva-header-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  font-family: var(--font-body);
-  font-weight: 800;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  margin-bottom: 2rem;
-  border-bottom: 1px solid var(--nav-border);
-  padding-bottom: 0.6rem;
+/* Scroll-Driven Cinematic Reveal Animations */
+.cinematic-reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.canva-brand-tag { color: var(--text-dark); }
-.canva-year-tag { color: var(--text-muted); font-family: var(--font-mono); }
-.canva-slide-num { color: var(--red-primary); font-family: var(--font-mono); font-weight: 700; }
+.cinematic-reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
 
 .canva-slide-content {
   flex: 1;
@@ -226,7 +202,7 @@ body {
 /* --- Giant Red Display Headlines --- */
 .slide-giant-red-title {
   font-family: var(--font-display);
-  font-size: clamp(4.5rem, 14vw, 15rem);
+  font-size: clamp(5rem, 15vw, 16rem);
   font-weight: 900;
   color: var(--red-primary);
   line-height: 0.85;
@@ -238,7 +214,7 @@ body {
 }
 
 .slide-giant-red-title.compact {
-  font-size: clamp(3.5rem, 10vw, 10rem);
+  font-size: clamp(3.8rem, 11vw, 11rem);
   margin-bottom: 1.5rem;
 }
 
@@ -270,7 +246,7 @@ body {
 .splatter-center-right { top: 30%; right: 5%; }
 .splatter-center-right-heavy { top: 20%; right: 0; width: 500px; height: 500px; opacity: 0.9; }
 
-/* --- Slide 01: Hero Stage Layout --- */
+/* --- Slide 01: Hero Stage Layout & Larger Cutout --- */
 .hero-slide {
   justify-content: space-between;
 }
@@ -282,7 +258,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 12rem);
+  min-height: calc(100vh - 10rem);
   overflow: hidden;
   padding: 1rem 0;
 }
@@ -304,7 +280,7 @@ body {
   align-items: center;
   gap: 2.5rem;
   font-family: var(--font-display);
-  font-size: clamp(6rem, 19vw, 21rem);
+  font-size: clamp(6.5rem, 21vw, 23rem);
   font-weight: 900;
   color: var(--red-primary);
   line-height: 0.82;
@@ -324,6 +300,7 @@ body {
   font-size: 0.55em;
 }
 
+/* LARGER Cutout Figure Container */
 .hero-full-cutout-stage {
   position: relative;
   z-index: 5;
@@ -331,18 +308,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  height: clamp(380px, 50vh, 560px);
-  margin: 1rem 0;
+  height: clamp(520px, 72vh, 780px);
+  margin: 0.5rem 0;
   pointer-events: none;
 }
 
 .hero-full-cutout-img {
   height: 100%;
   width: auto;
-  max-width: 90vw;
+  max-width: 95vw;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.22));
+  filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.28));
+  transition: transform 0.2s ease-out;
 }
 
 .hero-bottom-grid {
@@ -405,26 +383,12 @@ body {
 
 .margin-top-15 { margin-top: 1.5rem; }
 
-/* --- Welcome Tag Row --- */
+/* --- Welcome Tag Row & Tech Matrix Card (No Stock Image) --- */
 .welcome-tag-row {
   display: flex;
   align-items: center;
   gap: 1.5rem;
   margin-top: 1rem;
-}
-
-.small-thumb-card {
-  width: 120px;
-  height: 80px;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--border-card);
-}
-
-.small-thumb-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .welcome-author-box {
@@ -460,25 +424,60 @@ body {
   margin-top: 0.2rem;
 }
 
-.moodboard-card {
+.tech-matrix-card {
   width: 100%;
-  aspect-ratio: 4/3;
   border-radius: 20px;
-  overflow: hidden;
+  padding: 1.8rem;
+  background: var(--bg-card);
   border: 1px solid var(--border-card);
-  z-index: 2;
   box-shadow: var(--shadow-card);
+  z-index: 2;
 }
 
-.moodboard-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.matrix-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-card);
+  margin-bottom: 1.2rem;
 }
 
-/* --- About Portrait Wrap --- */
+.mac-dot { width: 8px; height: 8px; border-radius: 50%; }
+.mac-dot.red { background: #ff5f56; }
+.mac-dot.yellow { background: #ffbd2e; }
+.mac-dot.green { background: #27c93f; }
+
+.matrix-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+
+.matrix-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.matrix-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px dashed var(--border-card);
+}
+
+.row-label { font-family: var(--font-mono); color: var(--text-muted); font-size: 0.78rem; }
+.row-val { font-weight: 700; color: var(--text-dark); }
+.row-val.red-text { color: var(--red-primary); }
+
+/* --- About Highlights & Dibyajit's Photo --- */
 .about-portrait-wrap {
-  width: clamp(280px, 32vw, 420px);
+  width: clamp(320px, 36vw, 480px);
   z-index: 2;
   margin: 0 auto;
 }
@@ -487,40 +486,98 @@ body {
   width: 100%;
   height: auto;
   display: block;
-  filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.22));
 }
 
-.embedded-team-card {
+.about-highlights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.highlight-pill {
+  background: rgba(var(--red-rgb), 0.08);
+  border: 1px solid rgba(var(--red-rgb), 0.2);
+  padding: 0.8rem 1.2rem;
+  border-radius: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.highlight-pill i { color: var(--red-primary); }
+
+/* --- Slide 04: Education Badge Card --- */
+.academic-badge-card {
   width: 100%;
-  max-width: 340px;
-  height: 140px;
-  border-radius: 14px;
-  overflow: hidden;
-  margin: 1rem 0;
+  padding: 2.5rem 2rem;
+  border-radius: 24px;
+  background: var(--bg-card);
   border: 1px solid var(--border-card);
-}
-
-.embedded-team-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* --- Slide 04: Education List --- */
-.edu-image-card {
-  width: 100%;
-  aspect-ratio: 4/3;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid var(--border-card);
-  z-index: 2;
   box-shadow: var(--shadow-card);
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.edu-image-card img {
+.acad-icon-circle {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: rgba(var(--red-rgb), 0.12);
+  color: var(--red-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.academic-badge-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.academic-badge-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.acad-divider {
+  width: 60px;
+  height: 3px;
+  background: var(--red-primary);
+  margin: 1.5rem 0;
+}
+
+.acad-stat-row {
+  display: flex;
+  justify-content: space-around;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+}
+
+.acad-stat-row .stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  display: block;
+}
+
+.acad-stat-row .stat-val {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--red-primary);
 }
 
 .education-canva-list {
@@ -565,7 +622,7 @@ body {
   display: inline-block;
 }
 
-/* --- Slide 05: Skills --- */
+/* --- Slide 05: Skills Matrix Board --- */
 .skills-header-row {
   display: flex;
   align-items: center;
@@ -596,25 +653,59 @@ body {
   line-height: 1.6;
 }
 
-.skills-trio-cards {
-  display: flex;
-  gap: 1rem;
-  height: 340px;
-  z-index: 2;
-}
-
-.trio-card {
-  flex: 1;
-  border-radius: 16px;
-  overflow: hidden;
+.skills-matrix-board {
+  width: 100%;
+  padding: 2.2rem;
+  border-radius: 24px;
+  background: var(--bg-card);
   border: 1px solid var(--border-card);
   box-shadow: var(--shadow-card);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.trio-card img {
+.board-title {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.board-title i { color: var(--red-primary); }
+
+.skill-meter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.meter-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.meter-bar {
   width: 100%;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .meter-bar { background: rgba(255, 255, 255, 0.1); }
+
+.meter-fill {
   height: 100%;
-  object-fit: cover;
+  background: var(--red-primary);
+  border-radius: 4px;
 }
 
 /* --- Slide 06: Experience --- */
@@ -674,7 +765,7 @@ body {
   line-height: 1.6;
 }
 
-/* --- Slide 07: Portfolio Showcase Grid --- */
+/* --- Slide 07: Portfolio Showcase Grid (Clean SVG Mockups) --- */
 .portfolio-quad-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -700,44 +791,53 @@ body {
 
 .port-img-wrap {
   width: 100%;
-  height: 200px;
+  height: 190px;
   overflow: hidden;
   background: rgba(0, 0, 0, 0.05);
-}
-
-.port-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.portfolio-card:hover .port-img-wrap img {
-  transform: scale(1.06);
-}
-
-.vanet-live-preview {
-  width: 100%;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.vanet-live-preview, .ui-mockup-stage, .dbms-mockup-stage, .ai-radar-stage, .energy-mockup-stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background: #0d0e12;
+  color: #fff;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
-.vanet-svg {
-  width: 90%;
-  height: 90%;
-}
+.vanet-svg { width: 90%; height: 90%; }
+.anim-line { stroke-dashoffset: 100; animation: dash-pulse 3s linear infinite; }
 
-.anim-line {
-  stroke-dashoffset: 100;
-  animation: dash-pulse 3s linear infinite;
-}
+@keyframes dash-pulse { to { stroke-dashoffset: 0; } }
 
-@keyframes dash-pulse {
-  to { stroke-dashoffset: 0; }
-}
+.ui-mockup-stage { background: #18181b; padding: 1.5rem; }
+.mockup-header-dots { display: flex; gap: 5px; width: 100%; margin-bottom: 1rem; }
+.mockup-header-dots .dot { width: 6px; height: 6px; border-radius: 50%; }
+.dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
+.mockup-stat-bars { display: flex; align-items: flex-end; gap: 8px; height: 70px; width: 100%; }
+.stat-bar-fill { flex: 1; background: var(--red-primary); border-radius: 4px; opacity: 0.85; }
+
+.dbms-mockup-stage { background: #0f172a; color: #38bdf8; }
+.dbms-icon { font-size: 2.2rem; margin-bottom: 0.3rem; }
+.red-icon { color: var(--red-primary); }
+
+.ai-radar-stage { background: #050508; position: relative; }
+.radar-scan-icon { font-size: 2.5rem; color: var(--red-primary); z-index: 2; }
+.radar-circle-pulse { position: absolute; width: 100px; height: 100px; border-radius: 50%; border: 1.5px solid var(--red-primary); animation: radar-ping 2s infinite; }
+
+@keyframes radar-ping { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(1.5); opacity: 0; } }
+
+.energy-mockup-stage { background: #061c16; color: #34d399; }
+.energy-icon { font-size: 2.2rem; color: #10b981; margin-bottom: 0.3rem; }
 
 .port-card-footer {
   padding: 1.2rem;
@@ -759,7 +859,7 @@ body {
   color: var(--text-dark);
 }
 
-/* --- Slide 08 & 09: Project Detail --- */
+/* --- Slide 08 & 09: Project Deep Dive --- */
 .project-detail-top {
   display: grid;
   grid-template-columns: 1fr 1.2fr;
@@ -774,23 +874,24 @@ body {
   line-height: 1.6;
 }
 
-.proj-banner-img {
+.proj-banner-svg {
   width: 100%;
-  height: 240px;
+  height: 220px;
   border-radius: 20px;
   overflow: hidden;
   border: 1px solid var(--border-card);
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
 }
 
-.proj-banner-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.arch-svg { width: 100%; height: 100%; }
 
 .project-detail-bottom {
   display: grid;
-  grid-template-columns: 0.6fr 0.8fr 1.6fr;
+  grid-template-columns: 0.6fr 1.6fr;
   gap: 2.5rem;
   align-items: center;
   margin-top: 1rem;
@@ -805,27 +906,13 @@ body {
   text-transform: uppercase;
 }
 
-.proj-small-img {
-  width: 100%;
-  height: 140px;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid var(--border-card);
-}
-
-.proj-small-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .proj-body-desc {
   font-size: 0.98rem;
   color: var(--text-secondary);
   line-height: 1.65;
 }
 
-/* --- Slide 10: Contact / Let's Work Together --- */
+/* --- Slide 10: Contact / Dibyajit's Real Portrait --- */
 .giant-contact-title {
   font-size: clamp(5rem, 16vw, 17rem);
   line-height: 0.82;
@@ -871,6 +958,23 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 1.2rem;
+}
+
+.contact-real-photo-wrap {
+  width: 100%;
+  height: 240px;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 1rem;
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-card);
+}
+
+.contact-real-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .contact-form-column {
@@ -969,37 +1073,25 @@ body {
 
 /* --- Responsive Media Queries --- */
 @media (max-width: 1024px) {
-  .hero-bottom-grid, .two-col-grid, .project-detail-top, .contact-two-col {
+  .hero-bottom-grid, .two-col-grid, .project-detail-top, .contact-two-col, .project-detail-bottom {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
-  .exp-top-grid {
+  .exp-full-grid, .portfolio-quad-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
   }
-  .portfolio-quad-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .exp-role-card.full-span {
+    grid-column: span 1;
   }
-  .project-detail-bottom {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  .hero-cutout-wrap {
-    position: relative;
-    top: 0;
-    left: 0;
-    transform: none;
-    margin: 2rem 0;
-    width: 280px;
+  .hero-full-cutout-stage {
+    height: 440px;
   }
 }
 
 @media (max-width: 768px) {
   .desktop-only { display: none; }
   .nav-menu { display: none; }
-  .portfolio-quad-grid { grid-template-columns: 1fr; }
-  .canva-slide { padding: 5rem 1.5rem 3rem 1.5rem; }
+  .canva-slide { padding: 6rem 1.5rem 3rem 1.5rem; }
   .slide-giant-red-title { font-size: 3.5rem; }
-  .hero-giant-title { font-size: 4.5rem; }
-  .hero-personal-sub { font-size: 2.5rem; }
+  .hero-name-track { font-size: 4.5rem; }
 }
