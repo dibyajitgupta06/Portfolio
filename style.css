@@ -76,6 +76,8 @@ body {
 /* --- Ambient Spotlight --- */
 .ambient-spotlight {
   position: fixed;
+  top: -9999px;
+  left: -9999px;
   width: 600px;
   height: 600px;
   border-radius: 50%;
@@ -265,7 +267,10 @@ body {
 
 /* --- Slide 01: Hero Stage Layout & Larger Cutout --- */
 .hero-slide {
-  justify-content: space-between;
+  padding-top: 5rem;
+  padding-bottom: 3rem;
+  min-height: 100vh;
+  justify-content: flex-start;
 }
 
 .hero-stage {
@@ -2126,25 +2131,4 @@ html {
   }
 }
 
-/* Particle canvas removed */
 
-/* Ensure all content sits above the canvas */
-.navbar,
-.main-content,
-.canva-footer,
-.cinematic-progress-bar,
-.ambient-spotlight,
-.cursor-ring,
-.cursor-dot,
-.mobile-menu-scrim {
-  position: relative;
-  z-index: 1;
-}
-
-.navbar {
-  z-index: 1000;
-}
-
-.cursor-ring  { z-index: 9999; }
-.cursor-dot   { z-index: 10000; }
-.cinematic-progress-bar { z-index: 2000; }
