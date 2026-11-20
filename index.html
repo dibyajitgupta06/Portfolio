@@ -1,27 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" class="light" data-theme="light">
+<html lang="en" class="dark" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dibyajit Das Gupta — Software Developer & Engineering Portfolio</title>
+  <title>Dibyajit Das Gupta — Software Developer &amp; Engineering Portfolio</title>
   <meta name="description" content="Personal engineering website of Dibyajit Das Gupta, Associate Software Developer at SELISE Digital Platform, B.Tech CSE NIT Sikkim, ICCR Scholar.">
   <meta name="publisher" content="Dibyajit Das Gupta">
-  
+
   <link rel="icon" type="image/png" href="avatar.jpg">
 
   <!-- Google Fonts: Bebas Neue, Anton, Inter Tight & Outfit for High-Contrast Editorial Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <!-- Lucide Icons UMD Bundle -->
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
-  <!-- Three.js Hardware-Accelerated 3D Engine (Zero-dependency, high performance) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
-  <!-- Style link -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+<!-- Style link -->
   <link rel="stylesheet" href="style.css?v=12">
+  <link rel="stylesheet" href="portfolio-overrides.css?v=1">
 </head>
 <body>
 
@@ -47,12 +44,6 @@
       </nav>
 
       <div class="nav-actions">
-        <!-- Minimal Light/Dark Theme Toggle -->
-        <button id="theme-toggle-btn" class="btn-icon magnetic-target" aria-label="Toggle Light/Dark Theme">
-          <i data-lucide="moon" class="theme-moon-icon"></i>
-          <i data-lucide="sun" class="theme-sun-icon" style="display:none;"></i>
-        </button>
-
         <!-- Mobile Menu Toggle -->
         <button id="mobile-toggle" class="btn-icon mobile-only" aria-label="Open mobile menu">
           <i data-lucide="menu"></i>
@@ -65,7 +56,11 @@
   <div class="mobile-menu-scrim" id="mobile-scrim"></div>
 
   <main class="main-content">
-    
+    <div class="studio-backdrop" id="studio-backdrop" data-scene="desk" aria-hidden="true">
+      <div class="studio-atmosphere"></div>
+    </div>
+    <button class="studio-view-switch" id="studio-view-switch" type="button" aria-label="Change background photo angle" title="Change background photo angle">↻</button>
+
     <!-- SLIDE 01: HERO SECTION -->
     <section class="canva-slide hero-slide cinematic-section" id="hero">
       <div class="hero-stage">
@@ -90,77 +85,19 @@
         </div>
 
         <!-- Interactive 3D Architectural WebGL Core (Zero dots, pure geometric tech wireframe & glass) -->
-        <div class="hero-3d-canvas-wrap" id="hero-3d-wrap">
-          <canvas id="hero-3d-canvas" class="hero-3d-canvas"></canvas>
-        </div>
+
 
         <!-- 3D Floating Glass Orbitals around Cutout -->
-        <div class="hero-orbitals-container" id="hero-orbitals">
-          <div class="hero-orbital-card orbital-tl 3d-orbital-object" data-depth="1.6">
-            <div class="orbital-card-inner">
-              <div class="orbital-icon-box"><i data-lucide="briefcase"></i></div>
-              <div class="orbital-info">
-                <span class="orbital-badge-tag">SELISE DIGITAL</span>
-                <h4 class="orbital-title">Software Developer</h4>
-                <p class="orbital-desc">Finance &amp; Legal Platform</p>
-              </div>
-            </div>
-          </div>
 
-          <div class="hero-orbital-card orbital-tr 3d-orbital-object" data-depth="2.2">
-            <div class="orbital-card-inner">
-              <div class="orbital-icon-box"><i data-lucide="award"></i></div>
-              <div class="orbital-info">
-                <span class="orbital-badge-tag gold-tag">ICCR SCHOLAR</span>
-                <h4 class="orbital-title">NIT Sikkim '26</h4>
-                <p class="orbital-desc">Govt. of India Fellowship</p>
-              </div>
-            </div>
-          </div>
 
-          <div class="hero-orbital-card orbital-bl 3d-orbital-object" data-depth="1.4">
-            <div class="orbital-card-inner">
-              <div class="orbital-icon-box"><i data-lucide="code-2"></i></div>
-              <div class="orbital-info">
-                <span class="orbital-badge-tag">ENGINEERING CORE</span>
-                <h4 class="orbital-title">Full-Stack &amp; Low-Code</h4>
-                <p class="orbital-desc">React • Node • Corteza</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-orbital-card orbital-br 3d-orbital-object" data-depth="2.0">
-            <div class="orbital-card-inner">
-              <div class="orbital-info">
-                <span class="orbital-badge-tag">AI SYSTEMS</span>
-                <h4 class="orbital-title">RAG &amp; Computer Vision</h4>
-                <p class="orbital-desc">VANET NDN Thesis</p>
-              </div>
-              <div class="orbital-icon-box"><i data-lucide="cpu"></i></div>
-            </div>
-          </div>
-        </div>
-        
         <!-- Center Floating Parallax Massive Uncropped Cutout Figure -->
         <div class="hero-full-cutout-stage">
-          <img src="avatar-suit.png" alt="Dibyajit Das Gupta Cutout" class="hero-full-cutout-img scroll-parallax-large">
-        </div>
-
-        <!-- 3D Holographic Core Mode Switcher -->
-        <div class="hero-3d-controls-hud">
-          <div class="hero-3d-mode-switcher">
-            <button class="hero-3d-btn active" data-core="gyro"><i data-lucide="orbit"></i> <span class="btn-text-full">Gyro Core</span><span class="btn-text-short">Gyro</span></button>
-            <button class="hero-3d-btn" data-core="tesseract"><i data-lucide="box"></i> <span class="btn-text-full">Hyper-Tesseract</span><span class="btn-text-short">Tesseract</span></button>
-            <button class="hero-3d-btn" data-core="neural"><i data-lucide="cpu"></i> <span class="btn-text-full">Synaptic Node</span><span class="btn-text-short">Neural</span></button>
-          </div>
+          <img src="assets/avatar-chibi-cutout.webp" alt="Dibyajit pixel chibi avatar" class="hero-full-cutout-img scroll-parallax-large">
         </div>
 
         <div class="hero-bottom-grid">
           <p class="hero-desc-left reveal-left">
             Associate Software Developer at <strong>SELISE Digital Platform</strong> (Finance &amp; Legal Team). B.Tech Computer Science Engineer from <strong>NIT Sikkim</strong> &amp; fully funded <strong>ICCR Scholar</strong> specializing in Full-Stack Engineering, AI Systems, Low-Code Enterprise Platforms, and Scalable Databases.
-          </p>
-          <p class="hero-desc-right reveal-right">
-            <span id="typed-roles"></span>
           </p>
         </div>
       </div>
@@ -179,7 +116,7 @@
             <p class="text-muted-canva">
               Experienced across enterprise low-code development, full-stack React &amp; Node.js applications, relational database normalization, and computer vision models.
             </p>
-            
+
             <div class="welcome-tag-row">
               <div class="welcome-author-box">
                 <span class="red-asterisk">*</span>
@@ -194,31 +131,7 @@
           <div class="col-right rel-pos cinematic-reveal">
 
             <!-- Clean Interactive Tech Matrix Card with 3D Depth & Category Tabs -->
-            <div class="tech-matrix-card glass-card 3d-tilt" id="welcome-matrix-card">
-              <div class="matrix-header">
-                <span class="matrix-title">ENGINEERING MATRIX</span>
-                <div class="matrix-3d-tabs">
-                  <button class="matrix-tab-btn active" data-pillar="all">All</button>
-                  <button class="matrix-tab-btn" data-pillar="enterprise">Enterprise</button>
-                  <button class="matrix-tab-btn" data-pillar="ai">AI/ML</button>
-                  <button class="matrix-tab-btn" data-pillar="security">Security</button>
-                </div>
-              </div>
-              <div class="matrix-body" id="matrix-pills-container">
-                <div class="matrix-pill red-pill 3d-pop" data-cat="enterprise"><i data-lucide="layers"></i> Low-Code Corteza</div>
-                <div class="matrix-pill 3d-pop" data-cat="enterprise"><i data-lucide="code-2"></i> MERN Stack</div>
-                <div class="matrix-pill 3d-pop" data-cat="ai"><i data-lucide="cpu"></i> Machine Learning &amp; AI</div>
-                <div class="matrix-pill 3d-pop" data-cat="enterprise"><i data-lucide="database"></i> SQL &amp; MongoDB</div>
-                <div class="matrix-pill 3d-pop" data-cat="security"><i data-lucide="shield"></i> Cybersecurity</div>
-                <div class="matrix-pill 3d-pop" data-cat="enterprise"><i data-lucide="bar-chart-3"></i> Power BI &amp; Analytics</div>
-                <div class="matrix-pill 3d-pop" data-cat="ai"><i data-lucide="sparkles"></i> LLMs &amp; RAG</div>
-                <div class="matrix-pill 3d-pop" data-cat="security"><i data-lucide="wifi"></i> VANET &amp; NDN</div>
-              </div>
-              <div class="matrix-footer-hologram">
-                <span class="hologram-label"><i data-lucide="terminal"></i> SYSTEM METRICS: OPTIMIZED</span>
-                <span class="hologram-live-badge"><span class="live-status-dot mini"></span> 3D INTERACTIVE MATRIX</span>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>
@@ -255,11 +168,9 @@
           </div>
 
           <div class="col-right rel-pos center-content cinematic-reveal">
-
-            <!-- Dibyajit's Real Photo (avatar-casual.png) -->
-            <div class="about-portrait-wrap">
-              <img src="avatar-casual.png" alt="Dibyajit Das Gupta Casual Portrait" class="about-portrait-img scroll-parallax">
-            </div>
+            <figure class="about-coder-note">
+              <img src="assets/toilet-coder.jpg" alt="A suited anime character coding from a bathroom">
+            </figure>
           </div>
         </div>
       </div>
@@ -296,7 +207,7 @@
 
           <div class="col-right cinematic-reveal">
             <div class="education-canva-list">
-              
+
               <div class="edu-canva-item">
                 <div class="edu-arrow">➤</div>
                 <div class="edu-info">
@@ -390,31 +301,7 @@
           <div class="col-right rel-pos cinematic-reveal">
 
             <!-- Interactive 3D System Competencies Polyhedral Matrix -->
-            <div class="skills-3d-matrix-wrap glass-card 3d-tilt" id="skills-3d-wrap">
-              <div class="matrix-card-header">
-                <div class="matrix-header-title">
-                  <i data-lucide="cpu"></i>
-                  <span>3D COMPETENCIES MATRIX</span>
-                </div>
-                <span class="telemetry-badge"><span class="telemetry-dot"></span> KINETIC SPHERE</span>
-              </div>
-              
-              <div class="skills-canvas-viewport">
-                <canvas id="skills-3d-canvas" class="skills-3d-canvas"></canvas>
-              </div>
 
-              <div class="domain-tags-wrap" id="skills-interactive-tags">
-                <span class="domain-tag-pill active" data-node="python"><i data-lucide="code"></i> Python &amp; ML</span>
-                <span class="domain-tag-pill" data-node="react"><i data-lucide="layers"></i> React &amp; Node.js</span>
-                <span class="domain-tag-pill" data-node="corteza"><i data-lucide="box"></i> Corteza Low-Code</span>
-                <span class="domain-tag-pill" data-node="dbms"><i data-lucide="database"></i> SQL &amp; MongoDB</span>
-                <span class="domain-tag-pill" data-node="genai"><i data-lucide="sparkles"></i> GenAI &amp; RAG</span>
-                <span class="domain-tag-pill" data-node="vision"><i data-lucide="scan"></i> Computer Vision</span>
-                <span class="domain-tag-pill" data-node="vanet"><i data-lucide="wifi"></i> VANETs &amp; NDN</span>
-                <span class="domain-tag-pill" data-node="security"><i data-lucide="shield"></i> Cybersecurity</span>
-                <span class="domain-tag-pill" data-node="analytics"><i data-lucide="bar-chart-3"></i> Power BI &amp; Analytics</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -426,7 +313,7 @@
         <h1 class="slide-giant-red-title compact cinematic-reveal">EXPERIENCE</h1>
 
         <div class="exp-full-grid">
-          
+
           <div class="exp-role-card glass-card cinematic-reveal">
             <div class="role-header">
               <span class="red-asterisk">*</span>
@@ -498,74 +385,10 @@
         <h1 class="slide-giant-red-title compact cinematic-reveal">RESEARCH &amp; BUILDS</h1>
 
         <!-- Interactive 3D System Architecture CAD Workstation -->
-        <div class="interactive-3d-showcase glass-card cinematic-reveal" id="research-3d-showcase">
-          <div class="showcase-header">
-            <div class="showcase-title-group">
-              <span class="showcase-badge"><i data-lucide="box"></i> INTERACTIVE 3D CAD SYSTEM WORKSTATION</span>
-              <h3 class="showcase-title">Real-Time Cryptographic &amp; AI Node Inspector</h3>
-            </div>
-            
-            <div class="showcase-controls">
-              <!-- 5 Project Models -->
-              <div class="model-select-group">
-                <button class="model-select-btn active" data-model="vanet"><i data-lucide="shield-check"></i> NDN VANET</button>
-                <button class="model-select-btn" data-model="neural"><i data-lucide="brain"></i> MedFlow AI</button>
-                <button class="model-select-btn" data-model="mesh"><i data-lucide="network"></i> SELISE Mesh</button>
-                <button class="model-select-btn" data-model="vision"><i data-lucide="scan"></i> ADDEP Vision</button>
-                <button class="model-select-btn" data-model="energy"><i data-lucide="zap"></i> Smart Grid</button>
-              </div>
-            </div>
-          </div>
 
-          <!-- CAD Engineering Toolbar -->
-          <div class="cad-toolbar">
-            <div class="cad-tool-group">
-              <span class="cad-group-label">SHADING:</span>
-              <button class="cad-tool-btn active" data-mode="pbr"><i data-lucide="sparkles"></i> PBR Solid</button>
-              <button class="cad-tool-btn" data-mode="wireframe"><i data-lucide="grid"></i> CAD Wireframe</button>
-              <button class="cad-tool-btn" data-mode="xray"><i data-lucide="eye"></i> X-Ray Holo</button>
-            </div>
-
-            <div class="cad-tool-group">
-              <span class="cad-group-label">CAMERA:</span>
-              <button class="cad-camera-btn active" data-cam="persp">Perspective</button>
-              <button class="cad-camera-btn" data-cam="top">Top View</button>
-              <button class="cad-camera-btn" data-cam="iso">Isometric</button>
-            </div>
-
-            <div class="cad-tool-group">
-              <button class="cad-action-btn" id="cad-explode-btn"><i data-lucide="maximize-2"></i> <span id="explode-text">Explode CAD</span></button>
-              <button class="cad-action-btn active" id="cad-autospin-btn"><i data-lucide="rotate-cw"></i> <span>Auto-Spin</span></button>
-            </div>
-          </div>
-          
-          <div class="showcase-viewport-wrap">
-            <canvas id="showcase-3d-canvas" class="showcase-3d-canvas"></canvas>
-            
-            <div class="showcase-telemetry">
-              <div class="telemetry-pill"><span class="telemetry-dot"></span> 3D ENGINE: <strong id="telemetry-status">60 FPS WEBGL</strong></div>
-              <div class="telemetry-pill">ACTIVE: <strong id="telemetry-node">VANET NDN CRYPTO</strong></div>
-              <div class="telemetry-pill">SHADING: <strong id="telemetry-shading">PBR METALLIC</strong></div>
-              <div class="telemetry-pill">GESTURE: <strong>ORBIT / ZOOM / DECONSTRUCT</strong></div>
-            </div>
-            
-            <div class="showcase-info-overlay" id="showcase-model-info">
-              <div class="info-overlay-header">
-                <span class="info-spec-badge" id="model-spec-badge">THESIS ARCHITECTURE • BILINEAR PAIRING</span>
-                <h4 id="model-info-heading">Certificateless Short Signature Scheme (VANETs • NDN)</h4>
-              </div>
-              <p id="model-info-desc">3D cryptographic key-exchange node simulating lightweight bilinear pairings and signature verification in high-mobility vehicular networks with zero certificate overhead.</p>
-              <div class="model-metrics-row" id="model-metrics-row">
-                <div class="metric-item"><span class="metric-k">OVERHEAD:</span> <span class="metric-v">-64% PKI Delay</span></div>
-                <div class="metric-item"><span class="metric-k">TOPOLOGY:</span> <span class="metric-v">NDN Named-Data</span></div>
-                <div class="metric-item"><span class="metric-k">SECURITY:</span> <span class="metric-v">Provably Secure</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div class="projects-editorial-grid">
-          
+
           <div class="project-card-editorial glass-card full-width cinematic-reveal">
             <div class="card-header-badge">
               <span class="card-tag">B.Tech Thesis Research Project • NIT Sikkim • Supervisor: Dr. Sangram Ray</span>
@@ -642,20 +465,7 @@
         <h1 class="slide-giant-red-title compact cinematic-reveal">ACHIEVEMENTS</h1>
 
         <!-- Interactive 3D Honors Trophy Stage -->
-        <div class="achievements-3d-stage glass-card cinematic-reveal" id="achievements-3d-wrap">
-          <div class="trophy-3d-header">
-            <span class="trophy-3d-tag"><i data-lucide="award"></i> 3D HONORS &amp; TROPHY SHOWCASE</span>
-            <span class="trophy-hint-pill"><i data-lucide="rotate-cw"></i> DRAG TROPHY TO ROTATE</span>
-          </div>
-          <div class="trophy-viewport">
-            <canvas id="achievements-3d-canvas" class="achievements-3d-canvas"></canvas>
-            <div class="trophy-meta-dock">
-              <span class="trophy-badge" id="trophy-badge">CHAMPIONSHIP HONORS</span>
-              <h4 id="trophy-title">Inter-NIT Hackathon Winner 2026</h4>
-              <p id="trophy-subtitle">Annual Technical Fest Abhiyantran'2026 • NIT Sikkim Championship Trophy</p>
-            </div>
-          </div>
-        </div>
+
 
         <div class="two-col-grid">
           <div class="col-left cinematic-reveal">
@@ -759,12 +569,13 @@
     <section class="canva-slide cinematic-section" id="contact">
       <div class="canva-slide-content rel-pos">
 
-        
+
         <h1 class="slide-giant-red-title giant-contact-title cinematic-reveal">LET’S WORK<br>TOGETHER</h1>
 
         <div class="contact-two-col">
+          <div class="contact-red-portrait"><img src="assets/avatar-red-sketch.jpg" alt="Red illustrated portrait of Dibyajit"></div>
           <div class="contact-pills-column cinematic-reveal">
-            
+
             <a href="tel:+8801815346963" class="contact-red-pill magnetic-target">
               <span class="pill-icon"><i data-lucide="phone"></i></span>
               <span class="pill-text">+880 1815346963 / +91 9635069155</span>
@@ -820,6 +631,22 @@
   </footer>
 
   <!-- Main Interactivity Script -->
-  <script src="script.js?v=12"></script>
+  <script src="portfolio.js" defer></script>
+  <script>
+    document.documentElement.dataset.theme = 'dark';
+    document.documentElement.classList.remove('light');
+    document.documentElement.classList.add('dark');
+  </script>
+
+  <script>
+    (() => {
+      const backdrop = document.getElementById('studio-backdrop');
+      const switcher = document.getElementById('studio-view-switch');
+      switcher.addEventListener('click', () => {
+        backdrop.dataset.scene = backdrop.dataset.scene === 'desk' ? 'room' : 'desk';
+        switcher.classList.toggle('is-room-view', backdrop.dataset.scene === 'room');
+      });
+    })();
+  </script>
 </body>
 </html>
