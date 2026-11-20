@@ -476,3 +476,112 @@ html,body { color-scheme:dark; }
   .chibi-interactive,.chibi-interactive.is-angry { animation:none!important; }
   .chibi-pupil { transition:none; }
 }
+
+
+/* Reviewed prototype refinements promoted to the production theme. */
+/* Refined hero and component styling. */
+:root {
+  --review-mint: #83e6c1;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+body::after { opacity: .035; }
+.navbar { border-bottom-color: rgba(202,169,245,.16); backdrop-filter: blur(14px); }
+.nav-link { transition: color .18s ease, opacity .18s ease; }
+.nav-link:hover, .nav-link:focus-visible { color: var(--review-mint); }
+.logo:focus-visible, .nav-link:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid var(--review-mint); outline-offset: 4px; }
+
+/* Clearer first-screen hierarchy while keeping the desk as the continuous canvas. */
+.hero-slide { min-height: min(920px, calc(100svh - 58px)); display: flex; align-items: center; }
+.hero-stage { width: min(1380px,100%); min-height: min(760px, calc(100svh - 130px)); margin: 0 auto; display: flex; flex-direction: column; justify-content: center; }
+.hero-status-hud { align-self: center; width: fit-content; max-width: 100%; padding: .82rem 1.25rem; box-shadow: 0 8px 26px #0005; }
+.live-status-dot { box-shadow: 0 0 0 4px rgba(52,211,153,.12),0 0 14px rgba(52,211,153,.45); }
+.hero-full-cutout-stage { min-height: clamp(300px,46vh,510px); display: grid; place-items: center; margin: .25rem auto 0; }
+.chibi-interactive { cursor: pointer; }
+.hero-full-cutout-img { filter: drop-shadow(0 22px 38px rgba(0,0,0,.46)); transition: transform .35s ease, filter .35s ease; }
+.chibi-interactive:hover .hero-full-cutout-img { transform: translateY(-5px); filter: drop-shadow(0 28px 44px rgba(0,0,0,.55)); }
+.hero-bottom-grid { width: min(940px,100%); margin: .6rem auto 0; }
+.hero-desc-left { max-width: 100%; padding: 1rem 1.25rem; border: 1px solid rgba(202,169,245,.17); border-left: 2px solid var(--review-mint); border-radius: 4px 10px 10px 4px; background: rgba(10,8,16,.76); backdrop-filter: blur(10px); color: #e4ddec; font-size: clamp(.96rem,1.35vw,1.12rem); line-height: 1.75; box-shadow: 0 16px 40px #0003; }
+.hero-desc-left strong { color: #fff; }
+
+/* More deliberate rhythm and calmer surfaces through the existing sections. */
+.canva-slide { scroll-margin-top: 4.7rem; }
+.canva-slide-content { width: min(1180px,100%); }
+.slide-giant-red-title { color: #d0b4f4; text-shadow: 0 8px 26px rgba(0,0,0,.28); }
+.slide-giant-red-title::before { color: var(--review-mint); }
+.glass-card,.tech-matrix-card,.academic-badge-card,.exp-role-card,.project-card-editorial,.contact-form-column,.achievements-3d-stage,.interactive-3d-showcase,.skills-3d-matrix-wrap { box-shadow: 0 14px 40px rgba(0,0,0,.24); }
+.highlight-pill,.matrix-pill,.contact-red-pill { transition: transform .2s ease,border-color .2s ease,background .2s ease; }
+.highlight-pill:hover,.matrix-pill:hover,.contact-red-pill:hover { transform: translateY(-2px); border-color: rgba(131,230,193,.5); }
+.edu-canva-item,.timeline-item { transition: border-color .2s ease, transform .2s ease; }
+.edu-canva-item:hover,.timeline-item:hover { border-color: rgba(131,230,193,.45); transform: translateX(3px); }
+#toilet-coder-sound { cursor: pointer; }
+#toilet-coder-sound img { display:block; border-radius: 10px; box-shadow: 0 22px 46px rgba(0,0,0,.38); transition: transform .3s ease, box-shadow .3s ease; }
+#toilet-coder-sound:hover img { transform: rotate(-1deg) translateY(-4px); box-shadow: 0 28px 55px rgba(0,0,0,.48); }
+.contact-form-column input,.contact-form-column textarea { border-color: rgba(202,169,245,.2); }
+.contact-form-column input:focus,.contact-form-column textarea:focus { border-color: var(--review-mint); box-shadow: 0 0 0 3px rgba(131,230,193,.1); }
+
+@media (max-width:900px) {
+  .hero-slide { min-height:auto; }
+  .hero-stage { min-height:0; padding:1.5rem 0 0; }
+  .hero-full-cutout-stage { min-height:clamp(280px,44svh,420px); }
+  .hero-desc-left { font-size:1rem; }
+}
+@media (max-width:640px) {
+  .hero-stage { gap:.45rem; }
+  .hero-status-hud { padding:.65rem .8rem; font-size:.7rem; }
+  .hero-full-cutout-stage { min-height:245px; }
+  .hero-bottom-grid { margin-top:.2rem; }
+  .hero-desc-left { padding:.85rem .9rem; font-size:.91rem; line-height:1.65; }
+  .canva-slide { scroll-margin-top:4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto; }
+  *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+}
+
+/* Side-by-side hero layout for desktop. */
+@media (min-width: 901px) {
+  .hero-slide { min-height: min(900px,calc(100svh - 58px)); padding-top: 6rem; padding-bottom: 3rem; }
+  .hero-stage {
+    min-height: min(760px,calc(100svh - 150px));
+    display: grid;
+    grid-template-columns: minmax(340px,.92fr) minmax(420px,1.08fr);
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "status status" "avatar intro";
+    align-items: center;
+    column-gap: clamp(2rem,5vw,5rem);
+    row-gap: .5rem;
+  }
+  .hero-status-hud { grid-area: status; margin: 0 auto 1.1rem; }
+  .hero-full-cutout-stage { grid-area: avatar; width: 100%; min-height: 0; height: min(60vh,600px); margin: 0; }
+  .chibi-interactive { width: min(100%,450px); height: 100%; }
+  .hero-full-cutout-img { filter: drop-shadow(0 28px 35px rgba(0,0,0,.5)); }
+  .hero-bottom-grid { grid-area: intro; width: 100%; max-width: 650px; margin: 0; align-self: center; }
+  .hero-desc-left {
+    max-width: 58ch;
+    padding: clamp(1.5rem,2.8vw,2.5rem);
+    border-left-width: 3px;
+    border-color: rgba(202,169,245,.24);
+    border-left-color: var(--review-mint);
+    background: linear-gradient(145deg,rgba(13,11,20,.92),rgba(17,13,25,.83));
+    font-size: clamp(1.05rem,1.5vw,1.28rem);
+    line-height: 1.9;
+  }
+}
+@media (max-width:900px) {
+  .hero-stage { display:flex; }
+  .hero-full-cutout-stage { width:100%; }
+  .hero-bottom-grid { width:min(780px,100%); }
+}
+@media (max-width:640px) {
+  .hero-slide { padding-top:5.3rem; }
+  .hero-status-hud { margin-bottom:.2rem; }
+}
+
+/* Keep the smaller dark pupils crisp while they follow the pointer. */
+.chibi-pupil { width:3.8%; transition:transform .04s linear; will-change:transform; }
+.contact-form-honeypot { position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important; }
+.contact-form-status { min-height:1.3em;margin-top:.65rem;color:#9de8c9;font-size:.85rem;line-height:1.5; }
+.contact-form-column button:disabled { opacity:.72;cursor:wait; }
+
+.contact-form-provider-note { margin:.3rem 0 0;color:#938ba3;font-size:.72rem;line-height:1.4; }

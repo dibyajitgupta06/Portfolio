@@ -122,17 +122,44 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { passive: true });
 
   const form = document.getElementById('portfolio-contact-form');
-  form?.addEventListener('submit', event => {
+  form?.addEventListener('submit', async event => {
     event.preventDefault();
     const button = form.querySelector('.btn-red-submit');
-    if (!button) return;
-    button.textContent = '✓ Message Sent!';
-    button.style.backgroundColor = '#16a34a';
-    form.reset();
-    window.setTimeout(() => {
-      button.textContent = 'Send Message';
-      button.style.backgroundColor = '';
-    }, 3500);
+    const status = document.getElementById('contact-form-status');
+    if (!button || button.disabled) return;
+
+    const originalButton = button.innerHTML;
+    const payload = new URLSearchParams(new FormData(form));
+    payload.set('_subject', `Portfolio message: ${payload.get('subject') || 'New contact'}`);
+    payload.set('_replyto', payload.get('email') || '');
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    if (status) status.textContent = '';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: payload.toString()
+      });
+      const result = await response.json();
+      if (!response.ok || (result.success !== 'true' && result.success !== true)) {
+        throw new Error(result.message || 'The message could not be sent.');
+      }
+      form.reset();
+      button.textContent = '✓ Message sent';
+      button.style.backgroundColor = '#16a34a';
+      if (status) status.textContent = 'Thanks — your message was submitted.';
+    } catch (error) {
+      button.textContent = 'Could not send';
+      if (status) status.textContent = 'Please try again or email dibyajit2002das@gmail.com directly.';
+    } finally {
+      window.setTimeout(() => {
+        button.innerHTML = originalButton;
+        button.disabled = false;
+        button.style.backgroundColor = '';
+      }, 3500);
+    }
   });
 
   const backdrop = document.getElementById('studio-backdrop');
@@ -166,10 +193,12 @@ document.addEventListener('DOMContentLoaded', () => {
       gazeFrame = requestAnimationFrame(() => {
         gazeFrame = 0;
         const rect = chibi.getBoundingClientRect();
-        const x = ((event.clientX - (rect.left + rect.width / 2)) / (window.innerWidth / 2)) * 4.5;
-        const y = ((event.clientY - (rect.top + rect.height * .43)) / (window.innerHeight / 2)) * 1.3;
-        chibi.style.setProperty('--gaze-x', `${Math.max(-4.5, Math.min(4.5, x)).toFixed(1)}px`);
-        chibi.style.setProperty('--gaze-y', `${Math.max(-1.3, Math.min(1.3, y)).toFixed(1)}px`);
+        const maxX = Math.min(60, rect.width * .15);
+        const maxY = Math.min(34, rect.height * .09);
+        const x = ((event.clientX - window.innerWidth / 2) / (window.innerWidth / 2)) * maxX;
+        const y = ((event.clientY - (rect.top + rect.height * .43)) / (window.innerHeight / 2)) * maxY;
+        chibi.style.setProperty('--gaze-x', `${Math.max(-maxX, Math.min(maxX, x)).toFixed(1)}px`);
+        chibi.style.setProperty('--gaze-y', `${Math.max(-maxY, Math.min(maxY, y)).toFixed(1)}px`);
       });
     };
     window.addEventListener('pointermove', moveEyes, { passive:true });
