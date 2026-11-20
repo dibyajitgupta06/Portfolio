@@ -67,41 +67,12 @@ document.addEventListener('DOMContentLoaded', () => {
     rasp.start(now);
     rasp.stop(now + duration);
   };
+  const flushAudio = new Audio('assets/toilet-flush.mp3');
+  flushAudio.preload = 'auto';
   const playFlushSound = () => {
-    const context = getSoundContext();
-    if (!context) return;
-    const now = context.currentTime;
-    const duration = 4.25;
-    const water = context.createBufferSource();
-    const filter = context.createBiquadFilter();
-    const waterGain = context.createGain();
-    water.buffer = getNoiseBuffer(context);
-    water.loop = true;
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(1500, now);
-    filter.frequency.exponentialRampToValueAtTime(260, now + duration);
-    waterGain.gain.setValueAtTime(.0001, now);
-    waterGain.gain.exponentialRampToValueAtTime(.2, now + .08);
-    waterGain.gain.setValueAtTime(.16, now + .65);
-    waterGain.gain.exponentialRampToValueAtTime(.0001, now + duration);
-    water.connect(filter).connect(waterGain).connect(context.destination);
-    water.start(now);
-    water.stop(now + duration + .05);
-
-    [.2, .72, 1.28, 1.92, 2.55, 3.18, 3.75].forEach((delay, index) => {
-      const bubble = context.createOscillator();
-      const bubbleGain = context.createGain();
-      const start = now + delay;
-      bubble.type = 'sine';
-      bubble.frequency.setValueAtTime(188 - index * 13, start);
-      bubble.frequency.exponentialRampToValueAtTime(60 - index * 4, start + .22);
-      bubbleGain.gain.setValueAtTime(.0001, start);
-      bubbleGain.gain.exponentialRampToValueAtTime(.1, start + .02);
-      bubbleGain.gain.exponentialRampToValueAtTime(.0001, start + .27);
-      bubble.connect(bubbleGain).connect(context.destination);
-      bubble.start(start);
-      bubble.stop(start + .28);
-    });
+    flushAudio.pause();
+    flushAudio.currentTime = 0;
+    flushAudio.play().catch(() => {});
   };
 
   const toggle = document.getElementById('mobile-toggle');
