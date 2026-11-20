@@ -74,6 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (chibi && avatar) {
     let gazeFrame = 0;
     let angryTimer;
+    let angryGeneration = 0;
+    const angrySprite = new Image();
+    angrySprite.src = avatar.dataset.angrySrc;
     const moveEyes = event => {
       if (chibi.classList.contains('is-angry') || gazeFrame) return;
       gazeFrame = requestAnimationFrame(() => {
@@ -93,16 +96,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     chibi.addEventListener('click', () => {
       window.clearTimeout(angryTimer);
+      const generation = ++angryGeneration;
       chibi.classList.add('is-angry');
       chibi.setAttribute('aria-pressed', 'true');
       chibi.setAttribute('aria-label', "Dibyajit's chibi is angry");
-      avatar.src = avatar.dataset.angrySrc;
-      angryTimer = window.setTimeout(() => {
-        chibi.classList.remove('is-angry');
-        chibi.setAttribute('aria-pressed', 'false');
-        chibi.setAttribute('aria-label', "Make Dibyajit's chibi angry");
-        avatar.src = avatar.dataset.normalSrc;
-      }, 1100);
+      const startResetTimer = () => {
+        if (generation !== angryGeneration) return;
+        angryTimer = window.setTimeout(() => {
+          if (generation !== angryGeneration) return;
+          chibi.classList.remove('is-angry');
+          chibi.setAttribute('aria-pressed', 'false');
+          chibi.setAttribute('aria-label', "Make Dibyajit's chibi angry");
+          avatar.src = avatar.dataset.normalSrc;
+        }, 1100);
+      };
+      if (angrySprite.complete && angrySprite.naturalWidth > 0) {
+        avatar.src = angrySprite.src;
+        startResetTimer();
+      } else {
+        avatar.addEventListener('load', startResetTimer, { once:true });
+        avatar.addEventListener('error', startResetTimer, { once:true });
+        avatar.src = angrySprite.src;
+      }
     });
   }
 });
