@@ -19,67 +19,88 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return noiseBuffer;
   };
-  const playPlopSound = () => {
+  const unlockAudio = () => getSoundContext();
+  ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach(eventName => {
+    document.addEventListener(eventName, unlockAudio, { once:true, passive:true });
+  });
+  const playFartSound = () => {
     const context = getSoundContext();
     if (!context) return;
     const now = context.currentTime;
-    const tone = context.createOscillator();
-    const toneGain = context.createGain();
-    tone.type = 'sine';
-    tone.frequency.setValueAtTime(155, now);
-    tone.frequency.exponentialRampToValueAtTime(48, now + .2);
-    toneGain.gain.setValueAtTime(.0001, now);
-    toneGain.gain.exponentialRampToValueAtTime(.24, now + .012);
-    toneGain.gain.exponentialRampToValueAtTime(.0001, now + .24);
-    tone.connect(toneGain).connect(context.destination);
-    tone.start(now);
-    tone.stop(now + .25);
-
-    const splat = context.createBufferSource();
+    const duration = 1.65;
+    const fart = context.createOscillator();
+    const wobble = context.createOscillator();
+    const wobbleDepth = context.createGain();
     const filter = context.createBiquadFilter();
-    const splatGain = context.createGain();
-    splat.buffer = getNoiseBuffer(context);
+    const fartGain = context.createGain();
+    fart.type = 'sawtooth';
+    fart.frequency.setValueAtTime(128, now);
+    fart.frequency.exponentialRampToValueAtTime(54, now + 1.45);
+    wobble.type = 'sine';
+    wobble.frequency.setValueAtTime(7.5, now);
+    wobbleDepth.gain.setValueAtTime(20, now);
+    wobble.connect(wobbleDepth).connect(fart.frequency);
     filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(520, now);
-    splatGain.gain.setValueAtTime(.0001, now);
-    splatGain.gain.exponentialRampToValueAtTime(.11, now + .008);
-    splatGain.gain.exponentialRampToValueAtTime(.0001, now + .16);
-    splat.connect(filter).connect(splatGain).connect(context.destination);
-    splat.start(now);
-    splat.stop(now + .17);
+    filter.frequency.setValueAtTime(410, now);
+    filter.frequency.exponentialRampToValueAtTime(220, now + duration);
+    fartGain.gain.setValueAtTime(.0001, now);
+    fartGain.gain.exponentialRampToValueAtTime(.25, now + .08);
+    fartGain.gain.setValueAtTime(.19, now + 1.05);
+    fartGain.gain.exponentialRampToValueAtTime(.0001, now + duration);
+    fart.connect(filter).connect(fartGain).connect(context.destination);
+    fart.start(now);
+    fart.stop(now + duration);
+    wobble.start(now);
+    wobble.stop(now + duration);
+
+    const rasp = context.createBufferSource();
+    const raspFilter = context.createBiquadFilter();
+    const raspGain = context.createGain();
+    rasp.buffer = getNoiseBuffer(context);
+    raspFilter.type = 'bandpass';
+    raspFilter.frequency.setValueAtTime(560, now);
+    raspFilter.frequency.exponentialRampToValueAtTime(260, now + duration);
+    raspGain.gain.setValueAtTime(.0001, now);
+    raspGain.gain.exponentialRampToValueAtTime(.12, now + .04);
+    raspGain.gain.exponentialRampToValueAtTime(.0001, now + duration);
+    rasp.connect(raspFilter).connect(raspGain).connect(context.destination);
+    rasp.start(now);
+    rasp.stop(now + duration);
   };
   const playFlushSound = () => {
     const context = getSoundContext();
     if (!context) return;
     const now = context.currentTime;
+    const duration = 4.25;
     const water = context.createBufferSource();
     const filter = context.createBiquadFilter();
     const waterGain = context.createGain();
     water.buffer = getNoiseBuffer(context);
+    water.loop = true;
     filter.type = 'lowpass';
     filter.frequency.setValueAtTime(1500, now);
-    filter.frequency.exponentialRampToValueAtTime(330, now + 1.7);
+    filter.frequency.exponentialRampToValueAtTime(260, now + duration);
     waterGain.gain.setValueAtTime(.0001, now);
     waterGain.gain.exponentialRampToValueAtTime(.2, now + .08);
-    waterGain.gain.setValueAtTime(.17, now + .42);
-    waterGain.gain.exponentialRampToValueAtTime(.0001, now + 1.75);
+    waterGain.gain.setValueAtTime(.16, now + .65);
+    waterGain.gain.exponentialRampToValueAtTime(.0001, now + duration);
     water.connect(filter).connect(waterGain).connect(context.destination);
     water.start(now);
-    water.stop(now + 1.8);
+    water.stop(now + duration + .05);
 
-    [.18, .55, .92, 1.22].forEach((delay, index) => {
+    [.2, .72, 1.28, 1.92, 2.55, 3.18, 3.75].forEach((delay, index) => {
       const bubble = context.createOscillator();
       const bubbleGain = context.createGain();
       const start = now + delay;
       bubble.type = 'sine';
-      bubble.frequency.setValueAtTime(190 - index * 18, start);
-      bubble.frequency.exponentialRampToValueAtTime(62 - index * 5, start + .2);
+      bubble.frequency.setValueAtTime(188 - index * 13, start);
+      bubble.frequency.exponentialRampToValueAtTime(60 - index * 4, start + .22);
       bubbleGain.gain.setValueAtTime(.0001, start);
-      bubbleGain.gain.exponentialRampToValueAtTime(.12, start + .018);
-      bubbleGain.gain.exponentialRampToValueAtTime(.0001, start + .24);
+      bubbleGain.gain.exponentialRampToValueAtTime(.1, start + .02);
+      bubbleGain.gain.exponentialRampToValueAtTime(.0001, start + .27);
       bubble.connect(bubbleGain).connect(context.destination);
       bubble.start(start);
-      bubble.stop(start + .25);
+      bubble.stop(start + .28);
     });
   };
 
@@ -120,13 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const navbar = document.getElementById('navbar');
   let ticking = false;
-  let lastScrollPlopAt = -Infinity;
   window.addEventListener('scroll', () => {
-    const now = performance.now();
-    if (now - lastScrollPlopAt >= 2400) {
-      lastScrollPlopAt = now;
-      playPlopSound();
-    }
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
@@ -156,7 +171,16 @@ document.addEventListener('DOMContentLoaded', () => {
     switcher.classList.toggle('is-room-view', backdrop.dataset.scene === 'room');
   });
 
-  document.getElementById('toilet-coder-sound')?.addEventListener('click', playFlushSound);
+  const toiletCoder = document.getElementById('toilet-coder-sound');
+  let lastFartAt = -Infinity;
+  toiletCoder?.addEventListener('pointerenter', event => {
+    if (event.pointerType === 'touch' || soundContext?.state !== 'running') return;
+    const now = performance.now();
+    if (now - lastFartAt < 1400) return;
+    lastFartAt = now;
+    playFartSound();
+  });
+  toiletCoder?.addEventListener('click', playFlushSound);
 
   const chibi = document.getElementById('chibi-interactive');
   const avatar = document.getElementById('chibi-avatar');
