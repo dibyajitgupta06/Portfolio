@@ -406,14 +406,23 @@ html,body { color-scheme:dark; }
 
 /* One small, playful illustration in About; all desk photos remain full-page backdrops. */
 .about-coder-note {
+  display:block;
   width:min(100%, 270px);
   margin:0 auto;
+  padding:0;
   overflow:hidden;
   border:1px solid rgba(192,132,252,.24);
   border-radius:12px;
   background:rgba(16,13,23,.62);
   box-shadow:0 18px 50px rgba(0,0,0,.25);
+  color:inherit;
+  font:inherit;
+  text-align:inherit;
+  cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
 }
+.about-coder-note:hover { transform:translateY(-2px); border-color:rgba(192,132,252,.55); box-shadow:0 20px 42px rgba(0,0,0,.34); }
+.about-coder-note:focus-visible { outline:2px solid #c084fc; outline-offset:4px; }
 .about-coder-note img { display:block; width:100%; height:auto; }
 
 /* Tiny pixel pupils follow the pointer; clicking swaps to the angry sprite. */

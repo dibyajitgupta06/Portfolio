@@ -2,6 +2,87 @@
 document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) window.lucide.createIcons();
 
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  let soundContext;
+  let noiseBuffer;
+  const getSoundContext = () => {
+    if (!AudioContextClass) return null;
+    if (!soundContext) soundContext = new AudioContextClass();
+    if (soundContext.state === 'suspended') soundContext.resume().catch(() => {});
+    return soundContext;
+  };
+  const getNoiseBuffer = context => {
+    if (!noiseBuffer) {
+      noiseBuffer = context.createBuffer(1, Math.floor(context.sampleRate * 2), context.sampleRate);
+      const samples = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < samples.length; i++) samples[i] = Math.random() * 2 - 1;
+    }
+    return noiseBuffer;
+  };
+  const playPlopSound = () => {
+    const context = getSoundContext();
+    if (!context) return;
+    const now = context.currentTime;
+    const tone = context.createOscillator();
+    const toneGain = context.createGain();
+    tone.type = 'sine';
+    tone.frequency.setValueAtTime(155, now);
+    tone.frequency.exponentialRampToValueAtTime(48, now + .2);
+    toneGain.gain.setValueAtTime(.0001, now);
+    toneGain.gain.exponentialRampToValueAtTime(.24, now + .012);
+    toneGain.gain.exponentialRampToValueAtTime(.0001, now + .24);
+    tone.connect(toneGain).connect(context.destination);
+    tone.start(now);
+    tone.stop(now + .25);
+
+    const splat = context.createBufferSource();
+    const filter = context.createBiquadFilter();
+    const splatGain = context.createGain();
+    splat.buffer = getNoiseBuffer(context);
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(520, now);
+    splatGain.gain.setValueAtTime(.0001, now);
+    splatGain.gain.exponentialRampToValueAtTime(.11, now + .008);
+    splatGain.gain.exponentialRampToValueAtTime(.0001, now + .16);
+    splat.connect(filter).connect(splatGain).connect(context.destination);
+    splat.start(now);
+    splat.stop(now + .17);
+  };
+  const playFlushSound = () => {
+    const context = getSoundContext();
+    if (!context) return;
+    const now = context.currentTime;
+    const water = context.createBufferSource();
+    const filter = context.createBiquadFilter();
+    const waterGain = context.createGain();
+    water.buffer = getNoiseBuffer(context);
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1500, now);
+    filter.frequency.exponentialRampToValueAtTime(330, now + 1.7);
+    waterGain.gain.setValueAtTime(.0001, now);
+    waterGain.gain.exponentialRampToValueAtTime(.2, now + .08);
+    waterGain.gain.setValueAtTime(.17, now + .42);
+    waterGain.gain.exponentialRampToValueAtTime(.0001, now + 1.75);
+    water.connect(filter).connect(waterGain).connect(context.destination);
+    water.start(now);
+    water.stop(now + 1.8);
+
+    [.18, .55, .92, 1.22].forEach((delay, index) => {
+      const bubble = context.createOscillator();
+      const bubbleGain = context.createGain();
+      const start = now + delay;
+      bubble.type = 'sine';
+      bubble.frequency.setValueAtTime(190 - index * 18, start);
+      bubble.frequency.exponentialRampToValueAtTime(62 - index * 5, start + .2);
+      bubbleGain.gain.setValueAtTime(.0001, start);
+      bubbleGain.gain.exponentialRampToValueAtTime(.12, start + .018);
+      bubbleGain.gain.exponentialRampToValueAtTime(.0001, start + .24);
+      bubble.connect(bubbleGain).connect(context.destination);
+      bubble.start(start);
+      bubble.stop(start + .25);
+    });
+  };
+
   const toggle = document.getElementById('mobile-toggle');
   const menu = document.getElementById('nav-menu');
   const scrim = document.getElementById('mobile-scrim');
@@ -39,7 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const navbar = document.getElementById('navbar');
   let ticking = false;
+  let lastScrollPlopAt = -Infinity;
   window.addEventListener('scroll', () => {
+    const now = performance.now();
+    if (now - lastScrollPlopAt >= 2400) {
+      lastScrollPlopAt = now;
+      playPlopSound();
+    }
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
@@ -68,6 +155,8 @@ document.addEventListener('DOMContentLoaded', () => {
     backdrop.dataset.scene = backdrop.dataset.scene === 'desk' ? 'room' : 'desk';
     switcher.classList.toggle('is-room-view', backdrop.dataset.scene === 'room');
   });
+
+  document.getElementById('toilet-coder-sound')?.addEventListener('click', playFlushSound);
 
   const chibi = document.getElementById('chibi-interactive');
   const avatar = document.getElementById('chibi-avatar');
