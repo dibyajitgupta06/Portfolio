@@ -40,11 +40,7 @@ body::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:
 .text-muted-canva,.role-desc,.skill-cat-desc { color:#b7afc7; }
 .glass-card,.tech-matrix-card,.academic-badge-card,.exp-role-card,.project-card-editorial,.contact-form-column,.achievements-3d-stage,.interactive-3d-showcase,.skills-3d-matrix-wrap { background:rgba(19,17,31,.95); border:1px solid rgba(192,132,252,.22); box-shadow:var(--shadow-card); border-radius:12px; }
 .hero-stage { min-height:68vh; position:relative; }
-.prototype-hero-name { position:absolute; z-index:3; top:14%; left:0; width:100%; margin:0; text-align:center; color:#f1eaff; font:700 clamp(1.1rem,3.5vw,2.4rem)/1.2 var(--font-mono); letter-spacing:-.07em; text-shadow:0 0 24px rgba(192,132,252,.32); }
-.hero-bg-name-marquee { opacity:.06; }
 .hero-status-hud { border:1px solid rgba(52,211,153,.45); background:#10131a; border-radius:8px; }
-.hero-full-cutout-stage { pointer-events:none; }
-.hero-full-cutout-img { content:url("assets/avatar-chibi-cutout.webp"); width:min(27vw,320px); height:min(27vw,320px); object-fit:cover; border-radius:20px; border:1px solid rgba(192,132,252,.6); box-shadow:0 0 50px rgba(192,132,252,.2); }
 .hero-3d-canvas-wrap,.hero-orbitals-container,.hero-3d-controls-hud { display:none!important; }
 .hero-bottom-grid { margin-top:2rem; }
 .hero-desc-left,.hero-desc-right { color:#c4bdd2; }
@@ -89,8 +85,8 @@ body::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:
 .photo-log figure:nth-of-type(n+3) img { height:clamp(170px,22vw,250px); }
 .photo-log figcaption { padding:.75rem .35rem .25rem; color:#c4bdd2; font:500 .76rem var(--font-mono); }
 .contact-two-col { grid-template-columns:minmax(180px,.72fr) 1fr 1fr; gap:1.25rem; align-items:center; }
-.contact-red-portrait { border:1px solid rgba(192,132,252,.45); border-radius:12px; overflow:hidden; box-shadow:var(--shadow-card); }
-.contact-red-portrait img { display:block; width:100%; aspect-ratio:1; object-fit:cover; }
+.contact-red-portrait { width:min(100%,260px); justify-self:center; align-self:center; overflow:visible; }
+.contact-red-portrait img { display:block; width:100%; height:auto; aspect-ratio:auto; object-fit:contain; filter:drop-shadow(0 16px 28px rgba(192,132,252,.13)); }
 .contact-pills-column { gap:.75rem; }
 .contact-red-pill { border-radius:8px; padding:.85rem 1rem; font-size:.87rem; overflow-wrap:anywhere; }
 .contact-form-column { padding:1.5rem; }
@@ -109,7 +105,6 @@ body::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:
   .nav-menu { display:none; }
   .canva-slide { padding:5.7rem 5vw 3rem; }
   .hero-full-cutout-img { width:190px; height:190px; }
-  .prototype-hero-name { top:15%; font-size:1.15rem; }
   .hero-bottom-grid { grid-template-columns:1fr; }
   .photo-log { grid-template-columns:repeat(2,minmax(0,1fr)); width:90%; padding-top:5.7rem; }
   .photo-log-heading { grid-column:1 / -1; }
@@ -117,7 +112,7 @@ body::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:
   .photo-log figure:nth-of-type(n+3) { grid-column:span 1; }
   .photo-log img,.photo-log figure:nth-of-type(n+3) img { height:170px; }
   .contact-two-col { grid-template-columns:1fr; }
-  .contact-red-portrait { max-width:310px; margin:0 auto 1rem; }
+  .contact-red-portrait { width:min(75vw,310px); margin:0 auto 1rem; }
   .toilet-prototype { grid-template-columns:1fr; width:90%; }
   .toilet-prototype img { max-height:310px; object-position:center 37%; }
   .prototype-ribbon { bottom:.55rem; right:.55rem; }
@@ -421,30 +416,6 @@ html,body { color-scheme:dark; }
 }
 .about-coder-note img { display:block; width:100%; height:auto; }
 
-/* A clear, animated nameplate sits in front of the backdrop lettering. */
-.hero-name-title {
-  position:relative;
-  z-index:6;
-  margin:.95rem 0 -.2rem;
-  padding:.28em .44em;
-  max-width:100%;
-  color:#f4efff;
-  font:400 clamp(1.08rem,2.35vw,1.8rem)/1.5 "Press Start 2P",monospace;
-  letter-spacing:.025em;
-  white-space:nowrap;
-  text-align:center;
-  text-shadow:3px 3px 0 #5b2e83, 6px 6px 0 rgba(0,0,0,.48), 0 0 24px rgba(192,132,252,.34);
-  animation:hero-title-enter .72s steps(8,end) both,hero-title-glow 3.2s ease-in-out .72s infinite alternate;
-}
-@keyframes hero-title-enter {
-  from { opacity:0; transform:translateY(9px); clip-path:inset(0 100% 0 0); }
-  to { opacity:1; transform:translateY(0); clip-path:inset(0 0 0 0); }
-}
-@keyframes hero-title-glow {
-  from { text-shadow:3px 3px 0 #5b2e83,6px 6px 0 rgba(0,0,0,.48),0 0 12px rgba(192,132,252,.2); }
-  to { text-shadow:3px 3px 0 #5b2e83,6px 6px 0 rgba(0,0,0,.48),0 0 28px rgba(192,132,252,.48); }
-}
-
 /* Tiny pixel pupils follow the pointer; clicking swaps to the angry sprite. */
 .hero-full-cutout-stage { pointer-events:auto; }
 .chibi-interactive {
@@ -471,7 +442,7 @@ html,body { color-scheme:dark; }
 }
 .chibi-pupil {
   position:absolute;
-  top:45.1%;
+  top:44%;
   width:2.15%;
   aspect-ratio:1;
   background:#17141a;
@@ -480,8 +451,8 @@ html,body { color-scheme:dark; }
   transition:transform .12s ease-out;
   pointer-events:none;
 }
-.chibi-pupil-left { left:46.2%; }
-.chibi-pupil-right { left:67.7%; }
+.chibi-pupil-left { left:48.5%; }
+.chibi-pupil-right { left:66.6%; }
 .chibi-interactive.is-angry { animation:chibi-angry-tap .28s steps(4,end) 2,chibi-float 6.8s cubic-bezier(.42,0,.58,1) infinite; }
 .chibi-interactive.is-angry .chibi-pupil { opacity:0; }
 @keyframes chibi-angry-tap {
@@ -490,10 +461,9 @@ html,body { color-scheme:dark; }
   75% { translate:3px 0; }
 }
 @media (max-width:640px) {
-  .hero-name-title { font-size:clamp(.95rem,4.3vw,1.25rem); margin:.55rem 0 -.15rem; }
   .chibi-interactive { width:min(62vw,270px); }
 }
 @media (prefers-reduced-motion:reduce) {
-  .hero-name-title,.chibi-interactive,.chibi-interactive.is-angry { animation:none!important; }
+  .chibi-interactive,.chibi-interactive.is-angry { animation:none!important; }
   .chibi-pupil { transition:none; }
 }
