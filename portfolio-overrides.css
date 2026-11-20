@@ -443,16 +443,16 @@ html,body { color-scheme:dark; }
 .chibi-pupil {
   position:absolute;
   top:44%;
-  width:2.15%;
+  width:3.4%;
   aspect-ratio:1;
-  background:#17141a;
-  box-shadow:0 0 0 1px rgba(23,20,26,.45);
+  background:#050408;
+  box-shadow:0 0 0 1px rgba(5,4,8,.9);
   transform:translate(var(--gaze-x,0px),var(--gaze-y,0px));
   transition:transform .12s ease-out;
   pointer-events:none;
 }
-.chibi-pupil-left { left:48.5%; }
-.chibi-pupil-right { left:66.6%; }
+.chibi-pupil-left { left:48.6%; }
+.chibi-pupil-right { left:66%; }
 .chibi-interactive.is-angry { animation:chibi-angry-tap .28s steps(4,end) 2,chibi-float 6.8s cubic-bezier(.42,0,.58,1) infinite; }
 .chibi-interactive.is-angry .chibi-pupil { opacity:0; }
 @keyframes chibi-angry-tap {

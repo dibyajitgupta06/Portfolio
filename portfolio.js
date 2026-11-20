@@ -83,9 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
         gazeFrame = 0;
         const rect = chibi.getBoundingClientRect();
         const x = ((event.clientX - (rect.left + rect.width / 2)) / (window.innerWidth / 2)) * 4.5;
-        const y = ((event.clientY - (rect.top + rect.height * .43)) / (window.innerHeight / 2)) * 3.5;
+        const y = ((event.clientY - (rect.top + rect.height * .43)) / (window.innerHeight / 2)) * 1.3;
         chibi.style.setProperty('--gaze-x', `${Math.max(-4.5, Math.min(4.5, x)).toFixed(1)}px`);
-        chibi.style.setProperty('--gaze-y', `${Math.max(-3.5, Math.min(3.5, y)).toFixed(1)}px`);
+        chibi.style.setProperty('--gaze-y', `${Math.max(-1.3, Math.min(1.3, y)).toFixed(1)}px`);
       });
     };
     window.addEventListener('pointermove', moveEyes, { passive:true });
