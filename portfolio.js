@@ -193,8 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
       gazeFrame = requestAnimationFrame(() => {
         gazeFrame = 0;
         const rect = chibi.getBoundingClientRect();
-        const maxX = Math.min(60, rect.width * .15);
-        const maxY = Math.min(34, rect.height * .09);
+        const maxX = Math.min(18, rect.width * .05);
+        const maxY = Math.min(9, rect.height * .025);
         const x = ((event.clientX - window.innerWidth / 2) / (window.innerWidth / 2)) * maxX;
         const y = ((event.clientY - (rect.top + rect.height * .43)) / (window.innerHeight / 2)) * maxY;
         chibi.style.setProperty('--gaze-x', `${Math.max(-maxX, Math.min(maxX, x)).toFixed(1)}px`);
