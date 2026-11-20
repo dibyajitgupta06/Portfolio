@@ -68,4 +68,41 @@ document.addEventListener('DOMContentLoaded', () => {
     backdrop.dataset.scene = backdrop.dataset.scene === 'desk' ? 'room' : 'desk';
     switcher.classList.toggle('is-room-view', backdrop.dataset.scene === 'room');
   });
+
+  const chibi = document.getElementById('chibi-interactive');
+  const avatar = document.getElementById('chibi-avatar');
+  if (chibi && avatar) {
+    let gazeFrame = 0;
+    let angryTimer;
+    const moveEyes = event => {
+      if (chibi.classList.contains('is-angry') || gazeFrame) return;
+      gazeFrame = requestAnimationFrame(() => {
+        gazeFrame = 0;
+        const rect = chibi.getBoundingClientRect();
+        const x = ((event.clientX - (rect.left + rect.width / 2)) / (window.innerWidth / 2)) * 4.5;
+        const y = ((event.clientY - (rect.top + rect.height * .43)) / (window.innerHeight / 2)) * 3.5;
+        chibi.style.setProperty('--gaze-x', `${Math.max(-4.5, Math.min(4.5, x)).toFixed(1)}px`);
+        chibi.style.setProperty('--gaze-y', `${Math.max(-3.5, Math.min(3.5, y)).toFixed(1)}px`);
+      });
+    };
+    window.addEventListener('pointermove', moveEyes, { passive:true });
+    window.addEventListener('pointerleave', () => {
+      chibi.style.setProperty('--gaze-x', '0px');
+      chibi.style.setProperty('--gaze-y', '0px');
+    });
+
+    chibi.addEventListener('click', () => {
+      window.clearTimeout(angryTimer);
+      chibi.classList.add('is-angry');
+      chibi.setAttribute('aria-pressed', 'true');
+      chibi.setAttribute('aria-label', "Dibyajit's chibi is angry");
+      avatar.src = avatar.dataset.angrySrc;
+      angryTimer = window.setTimeout(() => {
+        chibi.classList.remove('is-angry');
+        chibi.setAttribute('aria-pressed', 'false');
+        chibi.setAttribute('aria-label', "Make Dibyajit's chibi angry");
+        avatar.src = avatar.dataset.normalSrc;
+      }, 1100);
+    });
+  }
 });

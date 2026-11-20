@@ -420,3 +420,80 @@ html,body { color-scheme:dark; }
   box-shadow:0 18px 50px rgba(0,0,0,.25);
 }
 .about-coder-note img { display:block; width:100%; height:auto; }
+
+/* A clear, animated nameplate sits in front of the backdrop lettering. */
+.hero-name-title {
+  position:relative;
+  z-index:6;
+  margin:.95rem 0 -.2rem;
+  padding:.28em .44em;
+  max-width:100%;
+  color:#f4efff;
+  font:400 clamp(1.08rem,2.35vw,1.8rem)/1.5 "Press Start 2P",monospace;
+  letter-spacing:.025em;
+  white-space:nowrap;
+  text-align:center;
+  text-shadow:3px 3px 0 #5b2e83, 6px 6px 0 rgba(0,0,0,.48), 0 0 24px rgba(192,132,252,.34);
+  animation:hero-title-enter .72s steps(8,end) both,hero-title-glow 3.2s ease-in-out .72s infinite alternate;
+}
+@keyframes hero-title-enter {
+  from { opacity:0; transform:translateY(9px); clip-path:inset(0 100% 0 0); }
+  to { opacity:1; transform:translateY(0); clip-path:inset(0 0 0 0); }
+}
+@keyframes hero-title-glow {
+  from { text-shadow:3px 3px 0 #5b2e83,6px 6px 0 rgba(0,0,0,.48),0 0 12px rgba(192,132,252,.2); }
+  to { text-shadow:3px 3px 0 #5b2e83,6px 6px 0 rgba(0,0,0,.48),0 0 28px rgba(192,132,252,.48); }
+}
+
+/* Tiny pixel pupils follow the pointer; clicking swaps to the angry sprite. */
+.hero-full-cutout-stage { pointer-events:auto; }
+.chibi-interactive {
+  position:relative;
+  display:block;
+  width:min(54vw,360px);
+  height:100%;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  animation:chibi-float 6.8s cubic-bezier(.42,0,.58,1) infinite;
+  transform-origin:50% 94%;
+  -webkit-tap-highlight-color:transparent;
+}
+.chibi-interactive:focus-visible { outline:2px solid #c084fc; outline-offset:4px; border-radius:12px; }
+.hero-full-cutout-img {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  animation:none;
+  transform:none;
+}
+.chibi-pupil {
+  position:absolute;
+  top:45.1%;
+  width:2.15%;
+  aspect-ratio:1;
+  background:#17141a;
+  box-shadow:0 0 0 1px rgba(23,20,26,.45);
+  transform:translate(var(--gaze-x,0px),var(--gaze-y,0px));
+  transition:transform .12s ease-out;
+  pointer-events:none;
+}
+.chibi-pupil-left { left:46.2%; }
+.chibi-pupil-right { left:67.7%; }
+.chibi-interactive.is-angry { animation:chibi-angry-tap .28s steps(4,end) 2,chibi-float 6.8s cubic-bezier(.42,0,.58,1) infinite; }
+.chibi-interactive.is-angry .chibi-pupil { opacity:0; }
+@keyframes chibi-angry-tap {
+  0%,100% { translate:0 0; }
+  25% { translate:-3px 0; }
+  75% { translate:3px 0; }
+}
+@media (max-width:640px) {
+  .hero-name-title { font-size:clamp(.95rem,4.3vw,1.25rem); margin:.55rem 0 -.15rem; }
+  .chibi-interactive { width:min(62vw,270px); }
+}
+@media (prefers-reduced-motion:reduce) {
+  .hero-name-title,.chibi-interactive,.chibi-interactive.is-angry { animation:none!important; }
+  .chibi-pupil { transition:none; }
+}
