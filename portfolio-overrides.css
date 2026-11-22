@@ -585,3 +585,11 @@ body::after { opacity: .035; }
 .contact-form-column button:disabled { opacity:.72;cursor:wait; }
 
 .contact-form-provider-note { margin:.3rem 0 0;color:#938ba3;font-size:.72rem;line-height:1.4; }
+
+/* Keep the long section heading intact on narrower screens. */
+#achievements .slide-giant-red-title {
+  width:100%;
+  white-space:nowrap;
+  font-size:clamp(2rem,8.4vw,7rem);
+  letter-spacing:-.065em;
+}
