@@ -354,8 +354,8 @@ html,body { color-scheme:dark; }
 .company-name,.role-company,.card-title-text,.skill-cat-title { letter-spacing:-.02em; }
 
 /* Keep the portfolio lightweight: content first, with no matrix or 3D showcases. */
-#welcome .two-col-grid { display:block; }
-#skills .two-col-grid { grid-template-columns:minmax(0,1fr); }
+#welcome .two-col-grid { display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);align-items:center; }
+#skills .two-col-grid { grid-template-columns:minmax(0,1fr) minmax(230px,.55fr);align-items:center; }
 .hero-stage,.canva-slide-content { perspective:none; transform-style:flat; }
 .glass-card,.project-card-editorial,.exp-role-card { transform:none!important; }
 @media (prefers-reduced-motion:reduce) {
@@ -590,6 +590,46 @@ body::after { opacity: .035; }
 #achievements .slide-giant-red-title {
   width:100%;
   white-space:nowrap;
-  font-size:clamp(2rem,8.4vw,7rem);
+  font-size:clamp(2rem,6vw,6rem);
   letter-spacing:-.065em;
+}
+
+/* Distribute the new transparent pixel scenes across the portfolio sections. */
+.portfolio-pixel-scene {
+  display:grid;
+  place-items:center;
+  width:100%;
+  margin:1rem auto;
+  pointer-events:none;
+}
+.portfolio-pixel-scene img {
+  display:block;
+  width:min(100%,340px);
+  max-height:340px;
+  height:auto;
+  object-fit:contain;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  filter:drop-shadow(0 16px 24px rgba(0,0,0,.28));
+}
+.scene-welcome { margin:0 auto; }
+.scene-welcome img { width:min(100%,350px);max-height:360px; }
+.scene-education { margin:.85rem auto 0; }
+.scene-education img { width:min(100%,250px);max-height:260px; }
+.scene-skills { margin:0 auto; }
+.scene-skills img { width:min(100%,390px);max-height:380px; }
+.scene-experience { justify-content:end;margin:.1rem 0 0 auto; }
+.scene-experience img { width:min(100%,220px);max-height:165px; }
+.scene-research { justify-content:end;margin:.2rem 0 0 auto; }
+.scene-research img { width:min(100%,290px);max-height:180px; }
+.scene-achievements { grid-column:2;justify-content:end;margin:-.5rem 0 -1rem; }
+.scene-about-cat { margin:.5rem auto 0; }
+.scene-about-cat img { width:min(100%,230px);max-height:220px; }
+.scene-achievements img { width:min(100%,270px);max-height:245px;border-radius:12px!important; }
+@media (max-width:900px) {
+  #welcome .two-col-grid,#skills .two-col-grid { grid-template-columns:minmax(0,1fr); }
+  .scene-welcome img { width:min(74vw,310px); }
+  .scene-skills img { width:min(76vw,320px); }
 }
